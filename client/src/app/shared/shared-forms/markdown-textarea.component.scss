@@ -11,7 +11,7 @@ $input-border-radius: 3px;
   flex-direction: column;
 
   textarea {
-    background-color: pvar(--secondary-350);
+    background-color: pvar(--bg-secondary-350);
 
     font-family: monospace;
     font-size: 13px;
@@ -120,7 +120,7 @@ $input-border-radius: 3px;
       overflow-y: auto;
       word-wrap: break-word;
 
-      scrollbar-color: pvar(--main-fg-400) pvar(--bg);
+      scrollbar-color: pvar(--fg-300) pvar(--bg);
     }
 
     textarea,

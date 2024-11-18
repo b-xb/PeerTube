@@ -2,19 +2,7 @@
 @use '_mixins' as *;
 
 a {
-  display: inline-block;
-
-  @include disable-default-a-behaviour;
-
-  &,
-  &:hover {
-    color: pvar(--fg);
-  }
-
-  span {
-    font-size: 80%;
-    color: pvar(--secondary-750);
-  }
+  color: pvar(--fg);
 }
 
 my-delete-button {

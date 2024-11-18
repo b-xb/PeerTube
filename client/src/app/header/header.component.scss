@@ -2,6 +2,10 @@
 @use '_variables' as *;
 @use '_mixins' as *;
 
+.root {
+  background-color: pvar(--bg);
+}
+
 .peertube-title {
   font-size: 24px;
   font-weight: $font-bold;
@@ -70,7 +74,7 @@
   }
 
   .username {
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
   }
 
   > .dropdown-toggle {

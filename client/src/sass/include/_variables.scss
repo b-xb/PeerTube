@@ -26,7 +26,7 @@ $white: #fff;
 
 $button-font-size: 1rem;
 
-$header-height: 84px;
+$header-height: 94px;
 
 $menu-background: #221A1A;
 $menu-color: #E9DFDF;
@@ -62,8 +62,6 @@ $player-portrait-bottom-space: 50px;
 
 $sub-menu-margin-bottom: 30px;
 $sub-menu-margin-bottom-small-view: 10px;
-
-$activated-action-button-color: hsl(210, 11%, 15%);
 
 $focus-box-shadow-form: 0 0 0 .2rem;
 $form-input-font-size: 16px;
@@ -109,22 +107,27 @@ $variables: (
   --support-btn-fg: var(--support-btn-fg),
   --support-btn-heart-bg: var(--support-btn-heart-bg),
 
-  --main-fg: var(--main-fg),
-  --main-fg-800: var(--main-fg-800),
-  --main-fg-750: var(--main-fg-750),
-  --main-fg-700: var(--main-fg-700),
-  --main-fg-650: var(--main-fg-650),
-  --main-fg-600: var(--main-fg-600),
-  --main-fg-550: var(--main-fg-550),
-  --main-fg-500: var(--main-fg-500),
-  --main-fg-450: var(--main-fg-450),
-  --main-fg-400: var(--main-fg-400),
-  --main-fg-350: var(--main-fg-350),
-  --main-fg-300: var(--main-fg-300),
-  --main-fg-250: var(--main-fg-250),
-  --main-fg-200: var(--main-fg-200),
-  --main-fg-150: var(--main-fg-150),
-  --main-fg-100: var(--main-fg-100),
+  --secondary-icon-color: var(--secondary-icon-color),
+
+  --fg-500: var(--fg-500),
+  --fg-450: var(--fg-450),
+  --fg-400: var(--fg-400),
+  --fg-350: var(--fg-350),
+  --fg-300: var(--fg-300),
+  --fg-250: var(--fg-250),
+  --fg-200: var(--fg-200),
+  --fg-150: var(--fg-150),
+  --fg-100: var(--fg-100),
+  --fg-50: var(--fg-50),
+
+  --bg-secondary-600: var(--bg-secondary-600),
+  --bg-secondary-500: var(--bg-secondary-500),
+  --bg-secondary-450: var(--bg-secondary-450),
+  --bg-secondary-400: var(--bg-secondary-400),
+  --bg-secondary-350: var(--bg-secondary-350),
+  --bg-secondary-300: var(--bg-secondary-300),
+  --bg-secondary-250: var(--bg-secondary-250),
+  --bg-secondary-200: var(--bg-secondary-200),
 
   --on-primary: var(--on-primary),
 
@@ -146,28 +149,23 @@ $variables: (
   --primary-100: var(--primary-100),
   --primary-50: var(--primary-50),
 
-  --secondary: var(--secondary),
-  --secondary-800: var(--secondary-800),
-  --secondary-750: var(--secondary-750),
-  --secondary-700: var(--secondary-700),
-  --secondary-650: var(--secondary-650),
-  --secondary-600: var(--secondary-600),
-  --secondary-550: var(--secondary-550),
-  --secondary-500: var(--secondary-500),
-  --secondary-450: var(--secondary-450),
-  --secondary-400: var(--secondary-400),
-  --secondary-350: var(--secondary-350),
-  --secondary-300: var(--secondary-300),
-  --secondary-250: var(--secondary-250),
-  --secondary-200: var(--secondary-200),
-  --secondary-150: var(--secondary-150),
-  --secondary-100: var(--secondary-100)
+  // Optional variables
+  --menu-fg: var(--menu-fg),
+  --menu-bg: var(--menu-bg)
 );
 
 // SASS type check our CSS variables
 @function pvar($variable) {
   @if map.has-key($variables, $variable) {
     @return map.get($variables, $variable);
+  } @else {
+    @error 'ERROR: Variable #{$variable} does not exist';
+  }
+}
+
+@function pvar-fallback($variable, $fallback) {
+  @if map.has-key($variables, $variable) and map.has-key($variables, $fallback) {
+    @return var($variable, map.get($variables, $fallback));
   } @else {
     @error 'ERROR: Variable #{$variable} does not exist';
   }

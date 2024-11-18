@@ -3,11 +3,11 @@
 
 .root {
   width: 100%;
-  border-bottom: 1px solid pvar(--main-fg-300);
+  border-bottom: 1px solid pvar(--fg-200);
 }
 
 .x-menu-entry {
-  color: pvar(--secondary-750);
+  color: pvar(--fg-100);
   display: inline-block;
   font-weight: $font-bold;
   white-space: nowrap;

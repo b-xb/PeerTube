@@ -5,13 +5,13 @@
 $more-button-width: 40px;
 
 .video-miniature {
-  --fs-small: 0.75rem;
-  --fs-medium: 0.875rem;
-  --fs-big: 1rem;
+  --co-fs-small: 0.75rem;
+  --co-fs-medium: 0.875rem;
+  --co-fs-big: 1rem;
 }
 
 .video-name {
-  font-size: var(--fs-big);
+  font-size: var(--co-fs-big);
 
   @include miniature-name;
 }
@@ -25,28 +25,28 @@ $more-button-width: 40px;
 .owner {
   display: flex;
   position: relative;
-  font-size: var(--fs-medium);
+  font-size: var(--co-fs-medium);
 }
 
 .date-and-views,
 .video-info-privacy,
 .badges {
-  font-size: var(--fs-small);
+  font-size: var(--co-fs-small);
 }
 
 .date-and-views {
-  color: pvar(--main-fg-300);
+  color: pvar(--fg-200);
 }
 
 .owner-label {
   display: block;
-  color: pvar(--main-fg-400);
+  color: pvar(--fg-300);
 
   @include disable-default-a-behaviour;
   @include ellipsis;
 
   &:hover {
-    color: pvar(--main-fg-600);
+    color: pvar(--fg);
   }
 }
 
@@ -166,20 +166,20 @@ $more-button-width: 40px;
 }
 
 .video-miniature.display-as-row {
-  --fs-small: 0.875rem;
-  --fs-medium: 1rem;
-  --fs-big: 1.25rem;
+  --co-fs-small: 0.875rem;
+  --co-fs-medium: 1rem;
+  --co-fs-big: 1.25rem;
 
-  --rowThumbnailWidth: #{$video-thumbnail-width};
-  --rowThumbnailHeight: #{$video-thumbnail-height};
+  --co-row-thumbnail-width: #{$video-thumbnail-width};
+  --co-row-thumbnail-height: #{$video-thumbnail-height};
 
   display: flex;
   flex-direction: row;
 
   my-video-thumbnail {
-    min-width: var(--rowThumbnailWidth);
-    max-width: var(--rowThumbnailWidth);
-    height: var(--rowThumbnailHeight);
+    min-width: var(--co-row-thumbnail-width);
+    max-width: var(--co-row-thumbnail-width);
+    height: var(--co-row-thumbnail-height);
 
     @include margin-right(1rem);
   }
@@ -223,14 +223,14 @@ $more-button-width: 40px;
 
 @include on-small-main-col {
   .video-miniature.display-as-row {
-    --rowThumbnailWidth: #{$video-thumbnail-medium-width};
-    --rowThumbnailHeight: #{$video-thumbnail-medium-height};
+    --co-row-thumbnail-width: #{$video-thumbnail-medium-width};
+    --co-row-thumbnail-height: #{$video-thumbnail-medium-height};
   }
 }
 
 @include on-mobile-main-col {
   .video-miniature.display-as-row {
-    --rowThumbnailWidth: #{$video-thumbnail-small-width};
-    --rowThumbnailHeight: #{$video-thumbnail-small-height};
+    --co-row-thumbnail-width: #{$video-thumbnail-small-width};
+    --co-row-thumbnail-height: #{$video-thumbnail-small-height};
   }
 }

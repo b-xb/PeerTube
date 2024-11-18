@@ -36,10 +36,6 @@
       border-radius: 2px;
     }
 
-    span {
-      color: pvar(--secondary-750);
-    }
-
     .table-video-image-label {
       position: absolute;
       border-radius: 3px;
@@ -62,7 +58,7 @@
     line-height: 1rem;
 
     div + div {
-      color: var(--main-fg-400);
+      color: pvar(--fg-300);
       font-size: 11px;
     }
   }

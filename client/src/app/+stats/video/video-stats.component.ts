@@ -46,7 +46,7 @@ type ChartBuilderResult = {
 type Card = { label: string, value: string | number, moreInfo?: string, help?: string }
 
 ChartJSDefaults.backgroundColor = getComputedStyle(document.body).getPropertyValue('--bg')
-ChartJSDefaults.borderColor = getComputedStyle(document.body).getPropertyValue('--secondary-350')
+ChartJSDefaults.borderColor = getComputedStyle(document.body).getPropertyValue('--bg-secondary-350')
 ChartJSDefaults.color = getComputedStyle(document.body).getPropertyValue('--fg')
 
 @Component({

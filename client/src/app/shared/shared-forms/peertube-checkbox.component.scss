@@ -28,20 +28,8 @@
   .wrapper:empty {
     display: none;
   }
+}
 
-  .recommended {
-    align-self: baseline;
-    display: inline-block;
-    padding: 4px 6px;
-    cursor: default;
-    border-radius: 3px;
-    font-size: 12px;
-    line-height: 12px;
-    font-weight: 500;
-    color: pvar(--secondary-750);
-    background-color: rgba(217, 225, 232, .1);
-    border: 1px solid rgba(217, 225, 232, .5);
-
-    @include margin-left(.5rem);
-  }
+.pt-badge {
+  height: fit-content;
 }

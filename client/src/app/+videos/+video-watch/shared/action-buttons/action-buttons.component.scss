@@ -22,7 +22,7 @@
     padding: 4px 10px;
     white-space: nowrap;
     background-color: transparent !important;
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
     text-transform: uppercase;
 
     @include peertube-button;
@@ -92,7 +92,7 @@
     background-color: #909090;
 
     &.liked {
-      background-color: pvar(--main-fg-500);
+      background-color: pvar(--fg-400);
     }
   }
 }

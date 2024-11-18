@@ -64,9 +64,9 @@
   padding: 0;
   border: 0 !important;
   text-decoration: underline;
-  color: pvar(--main-fg-500);
+  color: pvar(--fg-400);
 
   &:hover {
-    color: pvar(--main-fg-200);
+    color: pvar(--fg-100);
   }
 }

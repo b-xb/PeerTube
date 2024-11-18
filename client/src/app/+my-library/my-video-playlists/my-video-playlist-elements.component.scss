@@ -70,7 +70,7 @@ my-video-playlist-miniature {
   }
 
   .playlist-info {
-    width: calc(100% + (2 * var(--x-margin-content)));
+    width: calc(100% + (2 * pvar(--x-margin-content)));
     padding-top: 20px;
     margin-bottom: 10px;
   }

@@ -181,8 +181,8 @@ export class ThemeService {
 
     const toProcess = [
       { prefix: 'primary', invertIfDark: false },
-      { prefix: 'secondary', invertIfDark: true },
-      { prefix: 'main-fg', invertIfDark: true }
+      { prefix: 'bg-secondary', invertIfDark: true },
+      { prefix: 'fg', invertIfDark: true }
     ]
 
     for (const { prefix, invertIfDark } of toProcess) {

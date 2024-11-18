@@ -41,21 +41,21 @@ $nav-link-height: 40px;
   padding-top: 20px;
 }
 
-::ng-deep .video-add-nav {
+:host ::ng-deep .video-add-nav {
   @include peertube-nav-tabs($border-width, $border-type, $border-color, $nav-link-height);
 
   a.nav-link {
     &.active {
-      background-color: pvar(--secondary-400) !important;
+      background-color: pvar(--bg-secondary-400) !important;
     }
   }
 }
 
-::ng-deep .upload-video-container {
+:host ::ng-deep .upload-video-container {
   border: $border-width $border-type $border-color;
   border-top: transparent;
 
-  background-color: pvar(--secondary-400);
+  background-color: pvar(--bg-secondary-400);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   width: 100%;

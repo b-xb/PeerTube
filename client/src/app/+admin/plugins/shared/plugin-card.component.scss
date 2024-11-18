@@ -3,7 +3,7 @@
 
 .plugin {
   margin: 15px 0;
-  background-color: pvar(--secondary-400);
+  background-color: pvar(--bg-secondary-400);
 }
 
 .first-row {
@@ -25,10 +25,10 @@
     @include margin-left(10px);
 
     my-global-icon {
-      color: pvar(--main-fg-500);
+      color: pvar(--fg-400);
 
       &[iconName=npm] {
-        @include fill-svg-color(pvar(--main-fg-500));
+        @include fill-svg-color(pvar(--fg-400));
       }
     }
   }

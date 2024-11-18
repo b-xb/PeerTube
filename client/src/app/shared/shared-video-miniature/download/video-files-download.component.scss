@@ -30,7 +30,7 @@
   > span:first-child {
     min-width: 142px;
     display: inline-block;
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
     font-weight: $font-bold;
 
     @include padding-right(5px);

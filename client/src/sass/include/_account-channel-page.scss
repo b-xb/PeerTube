@@ -63,7 +63,7 @@
 
   .actor-handle,
   .actor-counters {
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
 
     @include font-size($actor-handle-font-size);
   }

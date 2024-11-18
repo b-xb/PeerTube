@@ -6,11 +6,11 @@
     width: 17px;
     position: relative;
     top: -1px;
-    color: pvar(--main-fg-500);
+    color: pvar(--fg-400);
   }
 }
 
-::ng-deep {
+:host ::ng-deep {
   .help-popover {
     min-width: 200px;
     max-width: 300px;

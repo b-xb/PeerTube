@@ -4,11 +4,11 @@
 @use '_miniature' as *;
 
 .root {
-  --myGlobalTopPadding: 60px;
-  --myChannelImgMargin: 30px;
-  --myFontSize: 16px;
-  --myChannelHandleFontSize: 16px;
-  --myOwnerHandleFontSize: 14px;
+  --co-global-top-padding: 60px;
+  --co-channel-img-margin: 30px;
+  --co-font-size: 16px;
+  --co-channel-handle-font-size: 16px;
+  --co-owner-handle-font-size: 14px;
 }
 
 .section-label {
@@ -35,8 +35,8 @@
   grid-template-rows: auto auto;
 
   background-color: pvar(--channel-bg);
-  padding-top: var(--myGlobalTopPadding);
-  font-size: var(--myFontSize);
+  padding-top: var(--co-global-top-padding);
+  font-size: var(--co-font-size);
 
   // Use the same margin as the videos grid
   @include grid-videos-miniature-margins(false, 15px);
@@ -44,7 +44,7 @@
 }
 
 .channel-avatar-row {
-  @include avatar-row-responsive(var(--myChannelImgMargin), var(--myChannelHandleFontSize));
+  @include avatar-row-responsive(var(--co-channel-img-margin), var(--co-channel-handle-font-size));
 }
 
 .support-button {
@@ -54,7 +54,7 @@
 .channel-description {
   grid-column: 1;
   word-break: break-word;
-  padding-bottom: var(--myGlobalTopPadding);
+  padding-bottom: var(--co-global-top-padding);
 }
 
 .show-more {
@@ -100,7 +100,7 @@
   background-color: pvar(--bg);
   padding: 30px;
   width: 300px;
-  font-size: var(--myFontSize);
+  font-size: var(--co-font-size);
 
   .avatar-row {
     display: flex;
@@ -120,8 +120,8 @@
     }
 
     .actor-handle {
-      font-size: var(--myOwnerHandleFontSize);
-      color: pvar(--main-fg-400);
+      font-size: var(--co-owner-handle-font-size);
+      color: pvar(--fg-300);
     }
   }
 
@@ -156,8 +156,8 @@ my-copy-button {
 
 @media screen and (max-width: 1100px) {
   .root {
-    --myGlobalTopPadding: 45px;
-    --myChannelImgMargin: 15px;
+    --co-global-top-padding: 45px;
+    --co-channel-img-margin: 15px;
   }
 
   .channel-info {
@@ -194,7 +194,7 @@ my-copy-button {
     display: block;
     width: 100%;
     border-bottom: 2px solid $separator-border-color;
-    padding: var(--myGlobalTopPadding) 45px;
+    padding: var(--co-global-top-padding) 45px;
     margin-bottom: 60px;
   }
 
@@ -234,10 +234,10 @@ my-copy-button {
 
 @media screen and (max-width: $mobile-view) {
   .root {
-    --myGlobalTopPadding: 15px;
-    --myFontSize: 14px;
-    --myChannelHandleFontSize: 13px;
-    --myOwnerHandleFontSize: 13px;
+    --co-global-top-padding: 15px;
+    --co-font-size: 14px;
+    --co-channel-handle-font-size: 13px;
+    --co-owner-handle-font-size: 13px;
   }
 
   .links {

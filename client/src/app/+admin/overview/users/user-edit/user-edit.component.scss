@@ -54,7 +54,7 @@ my-select-custom-value {
     > a,
     > div {
       padding: 20px;
-      background: pvar(--secondary-400);
+      background: pvar(--bg-secondary-400);
       border-radius: 4px;
       box-sizing: border-box;
       height: 100%;
@@ -72,7 +72,7 @@ my-select-custom-value {
 
   .dashboard-label {
     font-size: 90%;
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
     text-align: center;
   }
 }

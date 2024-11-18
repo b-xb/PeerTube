@@ -4,8 +4,8 @@
 @use '_miniature' as *;
 
 .root {
-  --myFontSize: 1rem;
-  --myGreyFontSize: 1rem;
+  --co-font-size: 1rem;
+  --co-secondary-font-size: 1rem;
 }
 
 .section-label {
@@ -44,7 +44,7 @@ my-copy-button {
 }
 
 .account-avatar-row {
-  @include avatar-row-responsive(2rem, var(--myGreyFontSize));
+  @include avatar-row-responsive(2rem, var(--co-secondary-font-size));
 }
 
 .actor-display-name {
@@ -101,8 +101,8 @@ my-copy-button {
 
 @media screen and (max-width: $mobile-view) {
   .root {
-    --myFontSize: 14px;
-    --myGreyFontSize: 13px;
+    --co-font-size: 14px;
+    --co-secondary-font-size: 13px;
   }
 
   .links {

@@ -68,7 +68,7 @@ my-timestamp-input {
 
   .message-submit {
     display: inline-block;
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
 
     @include margin-right(25px);
   }

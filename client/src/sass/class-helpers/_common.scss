@@ -99,11 +99,11 @@
 // ---------------------------------------------------------------------------
 
 .chip {
-  --avatarSize: 1.2rem;
+  --chip-avatar-size: 1.2rem;
 
   display: inline-flex;
   color: pvar(--fg);
-  height: var(--avatarSize);
+  height: var(--chip-avatar-size);
   max-width: 320px;
   overflow: hidden;
   text-decoration: none;
@@ -114,14 +114,14 @@
 
   my-actor-avatar {
     border-radius: 5rem;
-    width: var(--avatarSize);
-    height: var(--avatarSize);
+    width: var(--chip-avatar-size);
+    height: var(--chip-avatar-size);
 
     @include margin-right(0.5rem);
   }
 
   &.two-lines {
-    --avatarSize: 2rem;
+    --chip-avatar-size: 2rem;
 
     font-size: 14px;
     line-height: 1rem;

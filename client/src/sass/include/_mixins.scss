@@ -28,7 +28,7 @@
 }
 
 @mixin muted {
-  color: pvar(--main-fg-400) !important;
+  color: pvar(--fg-300) !important;
 }
 
 @mixin fade-text ($fade-after, $background-color) {
@@ -103,7 +103,7 @@
   }
 
   &[readonly] {
-    color: pvar(--main-fg-400);
+    color: pvar(--fg-300);
   }
 
   &:focus,
@@ -167,15 +167,15 @@
   & {
     color: pvar(--fg);
     background-color: transparent;
-    border: 1px solid pvar(--secondary-500);
+    border: 1px solid pvar(--bg-secondary-500);
   }
 
   &:active,
   &:focus,
   &:focus-visible {
     color: pvar(--fg);
-    background-color: pvar(--secondary-450);
-    border-color: pvar(--secondary-500);
+    background-color: pvar(--bg-secondary-450);
+    border-color: pvar(--bg-secondary-500);
   }
 
   // Override bootstrap
@@ -183,13 +183,13 @@
   &.btn:focus-visible,
   &.btn.show {
     color: pvar(--fg) !important;
-    background-color: pvar(--secondary-450) !important;
-    border-color: pvar(--secondary-500) !important;
+    background-color: pvar(--bg-secondary-450) !important;
+    border-color: pvar(--bg-secondary-500) !important;
   }
 
   &:hover {
     color: pvar(--fg);
-    background-color: pvar(--secondary-450);
+    background-color: pvar(--bg-secondary-450);
   }
 
   &[disabled] {
@@ -198,18 +198,18 @@
   }
 
   my-global-icon {
-    color: pvar(--secondary-750);
+    color: pvar(--secondary-icon-color);
   }
 }
 
 @mixin tertiary-button {
-  color: pvar(--main-fg-300);
+  color: pvar(--fg-200);
   background-color: transparent;
   border: 1px solid transparent;
 
   &:hover {
-    color: pvar(--main-fg-300);
-    background-color: pvar(--secondary-400);
+    color: pvar(--fg-200);
+    background-color: pvar(--bg-secondary-400);
   }
 
   &[disabled] {
@@ -217,20 +217,20 @@
   }
 
   &:active {
-    background-color: pvar(--secondary-450);
+    background-color: pvar(--bg-secondary-450);
   }
 
   &.show {
-    border-color: pvar(--main-fg-300);
+    border-color: pvar(--fg-200);
   }
 
   // Override bootstrap
   &.btn:active {
-    background-color: pvar(--secondary-200) !important;
+    background-color: pvar(--bg-secondary-200) !important;
   }
 
   &.btn.show {
-    border-color: pvar(--main-fg-300) !important;
+    border-color: pvar(--fg-200) !important;
   }
 }
 
@@ -406,7 +406,7 @@
     position: absolute;
     pointer-events: none;
     border: 5px solid rgba(0, 0, 0, 0);
-    border-top-color: pvar(--secondary);
+    border-top-color: pvar(--bg-secondary-500);
     margin-top: -2px;
     z-index: 100;
   }
@@ -563,7 +563,7 @@
 }
 
 @mixin actor-counters ($separator-margin: 10px) {
-  color: pvar(--main-fg-400);
+  color: pvar(--fg-300);
   display: flex;
   align-items: center;
 
@@ -617,7 +617,7 @@
   }
 }
 
-@mixin divider($color: pvar(--secondary-400), $background: pvar(--bg)) {
+@mixin divider($color: pvar(--bg-secondary-400), $background: pvar(--bg)) {
   width: 95%;
   border-top: .05rem solid $color;
   height: .05rem;
@@ -724,7 +724,7 @@
   border-top: #{math.div($height, 2)} solid transparent;
   border-bottom: #{math.div($height, 2)} solid transparent;
 
-  border-left: $width solid pvar(--secondary-300);
+  border-left: $width solid pvar(--bg-secondary-300);
 }
 
 @mixin on-small-main-col () {

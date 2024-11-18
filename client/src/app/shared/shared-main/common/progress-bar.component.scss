@@ -2,7 +2,7 @@
 @use '_mixins' as *;
 
 .progress-container {
-  background-color: pvar(--secondary-350);
+  background-color: pvar(--bg-secondary-350);
   display: flex;
   overflow: hidden;
   height: 2rem;
@@ -13,7 +13,7 @@
 
   span {
     position: absolute;
-    color: pvar(--main-fg-500);
+    color: pvar(--fg-400);
     line-height: 2rem;
     margin: 0 12px;
   }

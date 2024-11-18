@@ -7,7 +7,7 @@ $height: 40px;
   right: 0;
   height: $height;
   color: pvar(--on-primary);
-  background-color: var(--primary-50);
+  background-color: pvar(--primary-50);
   text-align: center;
   z-index: 1;
   display: flex;

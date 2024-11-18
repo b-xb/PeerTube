@@ -3,7 +3,7 @@
 @use '_mixins' as *;
 
 .menu-container {
-  --menuXPadding: 1.5rem;
+  --co-menu-x-padding: 1.5rem;
 
   z-index: z(menu);
   width: calc(#{$menu-width} - 2rem);
@@ -13,7 +13,7 @@
   @include margin-left(2rem);
 
   &.collapsed {
-    --menuXPadding: 0.25rem;
+    --co-menu-x-padding: 0.25rem;
 
     width: auto;
 
@@ -30,11 +30,11 @@
 }
 
 .toggle-menu {
-  color: pvar(--secondary-750);
+  color: pvar-fallback(--menu-fg, --fg-200);
   width: 24px;
   height: 24px;
   border-radius: 100%;
-  background-color: pvar(--secondary-450);
+  background-color: pvar-fallback(--menu-bg, --bg-secondary-500);
 
   @include button-with-icon(20px, 0, 0, 1px);
 
@@ -89,7 +89,7 @@
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   border-radius: 14px;
-  background-color: pvar(--secondary-400);
+  background-color: pvar-fallback(--menu-bg, --bg-secondary-400);
 }
 
 .menu-link,
@@ -97,8 +97,8 @@
 .block-title,
 .about .description,
 .about my-button {
-  @include padding-left(var(--menuXPadding));
-  @include padding-right(var(--menuXPadding));
+  @include padding-left(var(--co-menu-x-padding));
+  @include padding-right(var(--co-menu-x-padding));
 }
 
 .menu-block,
@@ -107,8 +107,7 @@
     content: '';
     display: block;
     height: 2px;
-    background: pvar(--secondary-450);
-    margin: 1rem var(--menuXPadding);
+    margin: 1rem var(--co-menu-x-padding);
   }
 }
 
@@ -136,6 +135,7 @@
 
 .block-title {
   font-weight: $font-bold;
+  color: pvar-fallback(--menu-fg, --fg-350);
   font-size: 14px;
   margin-bottom: 0.5rem;
 }
@@ -144,7 +144,7 @@
   display: flex;
   align-items: center;
 
-  color: pvar(--main-fg-450);
+  color: pvar-fallback(--menu-fg, --fg-400);
   white-space: normal;
   word-break: break-word;
   transition: background-color .1s ease-in-out;
@@ -156,11 +156,11 @@
 
   &:hover,
   &:focus-visible {
-    background-color: pvar(--secondary-500);
+    background-color: pvar-fallback(--menu-fg, --bg-secondary-500);
   }
 
   &.active {
-    background-color: pvar(--secondary-600);
+    background-color: pvar-fallback(--menu-fg, --bg-secondary-600);
   }
 
   my-global-icon {
@@ -169,7 +169,7 @@
     line-height: 22px;
     position: relative;
     top: -1px;
-    color: pvar(--secondary-750);
+    color: pvar-fallback(--menu-fg, --secondary-icon-color);
 
     + *:not(.visually-hidden) {
       @include margin-left(12px);
@@ -184,6 +184,6 @@
 .about {
   .description {
     font-size: 14px;
-    color: pvar(--main-fg-300);
+    color: pvar-fallback(--menu-fg, --fg-200)
   }
 }

@@ -53,7 +53,7 @@ body {
 }
 
 .btn-outline-secondary {
-  --bs-btn-color: #{pvar(--main-fg-400)};
+  --bs-btn-color: #{pvar(--fg-300)};
 }
 
 .btn {
@@ -75,7 +75,7 @@ body {
 // ---------------------------------------------------------------------------
 
 .dropdown-menu {
-  --bs-dropdown-link-hover-bg: #{pvar(--secondary-350)};
+  --bs-dropdown-link-hover-bg: #{pvar(--bg-secondary-350)};
   --bs-dropdown-link-color: #{pvar(--fg)};
   --bs-dropdown-border-color: #{pvar(--input-border-color)};
 

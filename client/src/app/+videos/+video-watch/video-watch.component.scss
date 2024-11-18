@@ -40,7 +40,7 @@ $video-max-height: calc(100vh - #{$header-height} - #{$theater-bottom-space});
     }
 
     ::ng-deep .video-js {
-      --player-height: #{$video-max-height};
+      --co-player-height: #{$video-max-height};
     }
 
     .player-widget-component ::ng-deep .widget-root {
@@ -62,16 +62,16 @@ $video-max-height: calc(100vh - #{$header-height} - #{$theater-bottom-space});
   }
 
   ::ng-deep .video-js {
-    --player-height: #{$video-default-height};
-    --player-portrait-mode: 0;
+    --co-player-height: #{$video-default-height};
+    --co-player-portrait-mode: 0;
     // Default player ratio, redefined by the player to automatically adapt player size
-    --player-ratio: #{math.div(16, 9)};
+    --co-player-ratio: #{math.div(16, 9)};
 
     width: 100%;
-    height: var(--player-height);
+    height: var(--co-player-height);
 
     // Can be recalculated by the player depending on video ratio
-    max-width: calc(var(--player-height) * var(--player-ratio));
+    max-width: calc(var(--co-player-height) * var(--co-player-ratio));
 
     // VideoJS create an inner video player
     video {
@@ -253,8 +253,8 @@ my-video-comments {
 
     .remote-server-down,
     ::ng-deep .video-js {
-      --player-portrait-mode: 1;
-      --player-height: calc(100vw / var(--player-ratio)) !important;
+      --co-player-portrait-mode: 1;
+      --co-player-height: calc(100vw / var(--co-player-ratio)) !important;
 
       max-height: calc(100vh - #{$header-height} - #{$player-portrait-bottom-space});
     }

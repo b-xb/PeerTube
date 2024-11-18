@@ -108,7 +108,7 @@
 @mixin static-thumbnail-overlay {
   display: inline-block;
   background-color: rgba(17, 17, 17, 0.8);
-  color: pvar(--secondary-400);
+  color: #E9DFDF;
 }
 
 // Use margin by default, or padding if $margin is false
@@ -134,14 +134,14 @@
   @media screen and (min-width: $mobile-view) {
     .videos,
     .playlists {
-      --miniatureMinWidth: #{$video-thumbnail-width - 25px};
-      --miniatureMaxWidth: #{$video-thumbnail-width};
+      --co-miniature-min-width: #{$video-thumbnail-width - 25px};
+      --co-miniature-max-width: #{$video-thumbnail-width};
 
       display: grid;
       column-gap: 30px;
       grid-template-columns: repeat(
         auto-fill,
-        minmax(var(--miniatureMinWidth), 1fr)
+        minmax(var(--co-miniature-min-width), 1fr)
       );
 
       @if ($rows-limit != 0) {
@@ -158,8 +158,8 @@
         my-video-miniature,
         my-video-playlist-miniature {
           display: block;
-          min-width: var(--miniatureMinWidth);
-          max-width: var(--miniatureMaxWidth);
+          min-width: var(--co-miniature-min-width);
+          max-width: var(--co-miniature-max-width);
         }
       }
 

@@ -53,10 +53,10 @@
 
 .live-overlay {
   font-weight: $font-bold;
-  color: pvar(--secondary-300);
+  color: #F4F4F5;
 
   &.live-streaming {
-    color: pvar(--secondary-300);
+    color: #F4F4F5;
 
     &::before {
       content: '';
@@ -96,6 +96,6 @@
     width: 22px;
     height: 22px;
 
-    color: pvar(--secondary-300);
+    color: #F4F4F5;
   }
 }

@@ -18,24 +18,20 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration { display: none; }
 
 body {
-  /*** theme ***/
-  // now beware sass requires interpolation
-  // for css custom properties #{$var}
-
-  --menuBackgroundColor: #{$menu-background};
-  --menuForegroundColor: #{$menu-color};
-
-  // Create a theme system using CSS variables
-
-  // Fallback from old theme
-  --primary: var(--primary);
-  --secondary: var(--greyBackgroundColor);
-  --main-fg: var(--fg);
-  --main-fg-500: var(--greyForegroundColor, 0); // 0 means undefined
-
+  // ---------------------------------------------------------------------------
   // New theme with fallback
-  --fg: var(--mainForegroundColor, #{pvar(--main-fg-600)});
-  --bg: var(--mainBackgroundColor, #{pvar(--secondary-300)});
+  // ---------------------------------------------------------------------------
+
+  --menu-bg: var(--menuBackgroundColor);
+  --menu-fg: var(--menuForegroundColor);
+
+  --fg: var(--mainForegroundColor, #000);
+  --fg-300: var(--greyForegroundColor, 0); // 0 means undefined
+
+  --bg: var(--mainBackgroundColor, #fff);
+  --bg-secondary: var(--greyBackgroundColor, #E5E5E5);
+
+  --primary: var(--mainColor, hsl(24, 90%, 45%));
   --on-primary: #{pvar(--fg)};
 
   --red: #{$red};
@@ -44,16 +40,16 @@ body {
   --green: #{$green};
 
   --input-fg: var(--inputForegroundColor, #{pvar(--fg)});
-  --input-bg: var(--inputBackgroundColor, #{pvar(--secondary-400)});
-  --input-placeholder: var(--inputPlaceholderColor, #{pvar(--secondary-750)});
-  --input-border-color: var(--inputBorderColor, #{pvar(--secondary-500)});
+  --input-bg: var(--inputBackgroundColor, #{pvar(--bg-secondary-400)});
+  --input-placeholder: var(--inputPlaceholderColor, #{pvar(--fg-50)});
+  --input-border-color: var(--inputBorderColor, #{pvar(--bg-secondary-500)});
 
   --textarea-fg: var(--textareaForegroundColor, #{pvar(--input-fg)});
   --textarea-bg: var(--textareaBackgroundColor, #{pvar(--input-bg)});
 
   --channel-bg: var(--channelBackgroundColor, #{pvar(--primary-50)});
 
-  --support-btn-fg: var(--supportButtonColor, #{pvar(--main-fg-400)});
+  --support-btn-fg: var(--supportButtonColor, #{pvar(--fg-300)});
   --support-btn-bg: var(--supportButtonBackgroundColor, transparent);
   --support-btn-heart-bg: var(--supportButtonHeartColor, #{$support-button-heart});
 
@@ -61,23 +57,36 @@ body {
   --x-videos-margin-content: 2rem;
   --main-col-width: calc(100vw - #{$menu-width});
 
+  --secondary-icon-color: #{pvar(--fg-50)};
+  --secondary-fg: #{pvar(--fg-50)};
+
   // Light theme
   &[data-pt-theme=peertube-core-light],
   &[data-pt-theme=default] {
     --is-dark: 0;
+
     --primary: #F2690D;
-    --main-fg: hsl(0 14% 12%);
-    --secondary: hsl(0 10% 76%);
+
+    --fg: hsl(0 14% 2%);
+
+    --bg: hsl(0 10% 96%);
+    --bg-secondary: hsl(0 10% 76%);
+
+    --secondary-icon-color: #8F7676;
+    --input-placeholder: #8F7676;
   }
 
   // Brown
   &[data-pt-theme=peertube-core-dark] {
     --is-dark: 1;
+
     --primary: #FD9C50;
-    --main-fg: hsl(0 10% 86%);
-    --secondary: hsl(0 14% 22%);
-    --bg: #{pvar(--secondary-350)};
-    --on-primary: #{pvar(--secondary-600)};
+    --on-primary: #111;
+
+    --fg: hsl(0 10% 96%);
+
+    --bg: hsl(0 14% 7%);
+    --bg-secondary: hsl(0 14% 22%);
   }
 
   & {
@@ -147,8 +156,8 @@ label {
 }
 
 code {
-  background-color: pvar(--secondary-350);
-  color: pvar(--main-fg-500);
+  background-color: pvar(--bg-secondary-350);
+  color: pvar(--fg-400);
   border-radius: 3px;
   padding: .2em .4em;
   margin: auto .4em;
@@ -174,7 +183,7 @@ code {
   }
 
   .sub-menu {
-    background-color: pvar(--secondary-400);
+    background-color: pvar(--bg-secondary-400);
     width: 100%;
     display: flex;
     align-items: center;
@@ -232,8 +241,9 @@ my-global-icon[iconName=external-link] {
   margin: 0 0.3em;
   width: 0.9em;
   height: 0.9em;
+  line-height: 0.9em;
   display: inline-block;
-  color: pvar(--secondary-750);
+  color: pvar(--secondary-icon-color);
   position: relative;
   top: -0.1em;
 }

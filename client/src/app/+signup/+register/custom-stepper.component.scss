@@ -47,7 +47,7 @@ header {
     justify-content: center;
     align-items: center;
     // Better than border color for aliasing
-    box-shadow: 0 0 0 1px var(--primary);
+    box-shadow: 0 0 0 1px pvar(--primary);
     overflow: hidden;
 
     my-global-icon {
