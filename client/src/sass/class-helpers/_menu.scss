@@ -16,7 +16,7 @@
   @include margin-right(55px);
 
   &.active {
-    border-bottom-color: pvar(--primary-500);
+    border-bottom-color: pvar(--border-primary);
   }
 
   &:hover,
@@ -92,8 +92,13 @@
   .breadcrumb-item {
     display: flex;
 
+    &,
     a {
-      color: pvar(--primary);
+      color: pvar(--fg-400);
+    }
+
+    a:hover {
+      color: pvar(--fg-300);
     }
 
     + .breadcrumb-item {
@@ -101,15 +106,10 @@
 
       &::before {
         display: inline-block;
-        color: #6c757d;
         content: '/';
 
         @include padding-right(0.5rem);
       }
-    }
-
-    &.active {
-      color: #6c757d;
     }
   }
 }

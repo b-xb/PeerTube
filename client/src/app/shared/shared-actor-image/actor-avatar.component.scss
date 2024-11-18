@@ -18,8 +18,8 @@
   }
 }
 
-a:hover {
-  text-decoration: none;
+a {
+  @include disable-default-a-behaviour;
 }
 
 .initial {

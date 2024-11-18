@@ -1,5 +1,6 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_form-mixins' as *;
 
 p-inputmask {
   ::ng-deep input {
@@ -26,10 +27,6 @@ p-inputmask {
   &:not(.border-disabled) {
     ::ng-deep input {
       @include peertube-input-text(100%);
-
-      & {
-        padding: 3px 10px;
-      }
     }
   }
 }

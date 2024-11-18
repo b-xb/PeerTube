@@ -1,8 +1,9 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
 
 .progress-container {
-  background-color: pvar(--bg-secondary-350);
+  background-color: pvar(--bg-secondary-500);
   display: flex;
   overflow: hidden;
   height: 2rem;

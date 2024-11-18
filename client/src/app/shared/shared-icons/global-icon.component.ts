@@ -20,7 +20,7 @@ const icons = {
   'history': require('../../../assets/images/feather/history.svg'),
   'subscriptions': require('../../../assets/images/feather/subscriptions.svg'),
   'videos': require('../../../assets/images/feather/videos.svg'),
-  'add': require('../../../assets/images/feather/plus-circle.svg'),
+  'add': require('../../../assets/images/feather/plus.svg'),
   'alert': require('../../../assets/images/feather/alert.svg'),
   'overview': require('../../../assets/images/feather/overview.svg'),
   'moderation': require('../../../assets/images/feather/moderation.svg'),

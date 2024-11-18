@@ -10,28 +10,19 @@ import {
   ServerService,
   UserService
 } from '@app/core'
-import { ActorAvatarComponent } from '@app/shared/shared-actor-image/actor-avatar.component'
-import { InputSwitchComponent } from '@app/shared/shared-forms/input-switch.component'
 import { GlobalIconComponent, GlobalIconName } from '@app/shared/shared-icons/global-icon.component'
 import { ButtonComponent } from '@app/shared/shared-main/buttons/button.component'
-import { LoginLinkComponent } from '@app/shared/shared-main/users/login-link.component'
-import { SignupLabelComponent } from '@app/shared/shared-main/users/signup-label.component'
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
 import { ServerConfig, UserRight } from '@peertube/peertube-models'
 import debug from 'debug'
 import { of, Subscription } from 'rxjs'
 import { first, map, switchMap } from 'rxjs/operators'
-import { LanguageChooserComponent } from './language-chooser.component'
-import { NotificationDropdownComponent } from '../header/notification-dropdown.component'
-import { QuickSettingsModalComponent } from './quick-settings-modal.component'
 
 type MenuLink = {
   icon: GlobalIconName
   iconClass?: string
 
   label: string
-  // Used by the left menu for example
-  shortLabel: string
 
   path: string
 
@@ -53,13 +44,6 @@ const debugLogger = debug('peertube:menu:MenuComponent')
   standalone: true,
   imports: [
     CommonModule,
-    NotificationDropdownComponent,
-    ActorAvatarComponent,
-    InputSwitchComponent,
-    SignupLabelComponent,
-    LoginLinkComponent,
-    LanguageChooserComponent,
-    QuickSettingsModalComponent,
     GlobalIconComponent,
     RouterLink,
     RouterLinkActive,
@@ -88,6 +72,10 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   get shortDescription () {
     return this.serverConfig.instance.shortDescription
+  }
+
+  get instanceName () {
+    return this.serverConfig.instance.name
   }
 
   get collapsed () {
@@ -141,20 +129,17 @@ export class MenuComponent implements OnInit, OnDestroy {
         {
           path: '/my-library/video-playlists',
           icon: 'playlists' as GlobalIconName,
-          shortLabel: $localize`Playlists`,
-          label: $localize`My Playlists`
+          label: $localize`Playlists`
         },
         {
           path: '/videos/subscriptions',
           icon: 'subscriptions' as GlobalIconName,
-          shortLabel: $localize`Subscriptions`,
-          label: $localize`My Subscriptions`
+          label: $localize`Subscriptions`
         },
         {
           path: '/my-library/history/videos',
           icon: 'history' as GlobalIconName,
-          shortLabel: $localize`History`,
-          label: $localize`My History`
+          label: $localize`History`
         }
       ])
     }
@@ -175,21 +160,18 @@ export class MenuComponent implements OnInit, OnDestroy {
           path: '/my-library/video-channels',
           icon: 'channel' as GlobalIconName,
           iconClass: 'channel-icon',
-          shortLabel: $localize`Channels`,
-          label: $localize`My channels`
+          label: $localize`Channels`
         },
 
         {
           path: '/my-library/videos',
           icon: 'videos' as GlobalIconName,
-          shortLabel: $localize`Videos`,
-          label: $localize`My videos`
+          label: $localize`Videos`
         },
 
         {
           path: '/videos/upload',
           icon: 'upload' as GlobalIconName,
-          shortLabel: $localize`Publish`,
           label: $localize`Publish`,
           isPrimaryButton: true
         }
@@ -211,7 +193,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         links.push({
           path: '/admin/videos/list',
           icon: 'overview' as GlobalIconName,
-          shortLabel: $localize`Overview`,
           label: $localize`Overview`
         })
       }
@@ -220,7 +201,6 @@ export class MenuComponent implements OnInit, OnDestroy {
         links.push({
           path: '/admin/moderation/abuses/list',
           icon: 'moderation' as GlobalIconName,
-          shortLabel: $localize`Moderation`,
           label: $localize`Moderation`
         })
       }
@@ -229,8 +209,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         links.push({
           path: '/admin/config/edit-custom',
           icon: 'config' as GlobalIconName,
-          shortLabel: $localize`Advanced parameters`,
-          label: $localize`Advanced parameters`
+          label: $localize`Settings`
         })
       }
     }

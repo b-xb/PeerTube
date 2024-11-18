@@ -1,15 +1,17 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use 'form-mixins' as *;
 
 .root {
   display: flex;
 
   label {
     display: flex;
+    align-items: center;
     font-size: $form-input-font-size;
 
     input {
-      @include peertube-checkbox(1px);
+      @include peertube-checkbox;
     }
   }
 

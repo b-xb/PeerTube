@@ -1,113 +1,122 @@
-<ng-template #updateSettings let-fragment>
-  <div class="update-your-settings muted" i18n>
-    Update
-
-    <a routerLink="/my-account/settings" [fragment]="fragment" (click)="onAccountSettingsClick($event)">your settings</a
-  ></div>
-</ng-template>
-
-
 <div class="root" [formGroup]="form">
 
   <div class="first-row">
-    <div class="filters-summary">
-      <div class="d-inline-block active-filters">{{ getActiveFilters() }}</div>
+    <div>
+      <my-button theme="secondary" icon="add" i18n class="me-2">Recently added</my-button>
 
-      <button
-        class="filters-toggle peertube-button-like-link" (click)="areFiltersCollapsed = !areFiltersCollapsed"
-        [attr.aria-expanded]="!areFiltersCollapsed" aria-controls="collapseBasic"
-        [ngClass]="{ active: !areFiltersCollapsed }"
-      >
-        @if (areFiltersCollapsed) {
-          <ng-container i18n>More filters</ng-container>
-        } @else {
-          <ng-container i18n>Hide filters</ng-container>
-        }
+      <my-button theme="secondary" icon="trending" i18n class="me-2">Trending</my-button>
 
-        <my-global-icon iconName="chevrons-up"></my-global-icon>
-      </button>
+      <div class="filters-summary d-inline-block ms-4">
+        <div class="d-inline-block active-filters">{{ getActiveFilters() }}</div>
+
+        <button
+          class="filters-toggle peertube-button-like-link" (click)="areFiltersCollapsed = !areFiltersCollapsed"
+          [attr.aria-expanded]="!areFiltersCollapsed" aria-controls="collapseBasic"
+          [ngClass]="{ active: !areFiltersCollapsed }"
+        >
+          @if (areFiltersCollapsed) {
+            <ng-container i18n>More filters</ng-container>
+          } @else {
+            <ng-container i18n>Hide filters</ng-container>
+          }
+
+          <my-global-icon iconName="chevrons-up"></my-global-icon>
+        </button>
+      </div>
     </div>
 
-    <label class="visually-hidden" for="sort-videos">Sort videos</label>
+    <div class="d-flex flex-wrap align-items-center" *ngIf="!hideScope">
+      <label for="scope" i18n class="select-label">Display videos of</label>
 
-    <my-select-options inputId="sort-videos" class="sort" formControlName="sort" [items]="sortItems">
-      <ng-template ptTemplate="item" let-item>
-        <ng-container>Sort by <strong>"{{ item.label }}"</strong></ng-container>
-      </ng-template>
-    </my-select-options>
+      <my-select-options inputId="scope" class="scope-select" formControlName="scope" [items]="availableScopes"></my-select-options>
+    </div>
   </div>
 
   <div [ngbCollapse]="areFiltersCollapsed" [animation]="true">
     <div class="filters">
-      <div class="form-group">
-        <label class="with-description" for="languageOneOf" i18n>Languages:</label>
-        <ng-template *ngTemplateOutlet="updateSettings; context: { $implicit: 'video-languages-subtitles' }"></ng-template>
+      <div class="section">
+        <div class="section-title" i18n>Display order</div>
 
-        <my-select-languages inputId="languageOneOf" [maxLanguages]="20" formControlName="languageOneOf"></my-select-languages>
-      </div>
+        <div class="form-group">
+          <label for="sort-videos" i18n class="select-label">Sort by:</label>
 
-      <div class="form-group" role="radiogroup">
-        <label class="with-description" for="nsfw" i18n>Sensitive content:</label>
-        <ng-template *ngTemplateOutlet="updateSettings; context: { $implicit: 'video-sensitive-content-policy' }"></ng-template>
-
-        <div class="peertube-radio-container">
-          <input formControlName="nsfw" type="radio" name="nsfw" id="nsfwBoth" value="both" />
-          <label for="nsfwBoth">{{ filters.getNSFWDisplayLabel() }}</label>
-        </div>
-
-        <div class="peertube-radio-container">
-          <input formControlName="nsfw" type="radio" name="nsfw" id="nsfwFalse" value="false" />
-          <label for="nsfwFalse" i18n>Hide</label>
+          <my-select-options inputId="sort-videos" class="d-inline-block me-2" formControlName="sort" [items]="sortItems"></my-select-options>
         </div>
       </div>
 
-      <div class="form-group" *ngIf="!hideScope" role="radiogroup">
-        <label for="scope" i18n>Scope:</label>
+      <div class="section">
+        <div class="section-title">
+          <ng-container i18n>Content preferences</ng-container>
 
-        <div class="peertube-radio-container">
-          <input formControlName="scope" type="radio" name="scope" id="scopeLocal" value="local" />
-          <label for="scopeLocal" i18n>Local videos (this instance)</label>
+          <div class="with-description">
+            <ng-container i18n>You always use the same preferences?</ng-container>
+
+            <ng-container i18n>
+              Update your <a routerLink="/my-account/settings" fragment="video-languages-subtitles" (click)="onAccountSettingsClick($event)">default settings</a>
+            </ng-container>
+          </div>
         </div>
 
-        <div class="peertube-radio-container">
-          <input formControlName="scope" type="radio" name="scope" id="scopeFederated" value="federated" />
-          <label for="scopeFederated" i18n>Federated videos (this instance + followed instances)</label>
+        <div class="form-group">
+          <label for="languageOneOf" i18n>Languages</label>
+
+          <my-select-languages inputId="languageOneOf" [maxLanguages]="20" formControlName="languageOneOf"></my-select-languages>
+        </div>
+
+        <div class="form-group" role="radiogroup">
+          <label for="nsfw" i18n>Sensitive content</label>
+
+          <div class="peertube-radio-container">
+            <input formControlName="nsfw" type="radio" name="nsfw" id="nsfwBoth" value="both" />
+            <label for="nsfwBoth">{{ filters.getNSFWDisplayLabel() }}</label>
+          </div>
+
+          <div class="peertube-radio-container">
+            <input formControlName="nsfw" type="radio" name="nsfw" id="nsfwFalse" value="false" />
+            <label for="nsfwFalse" i18n>Hide</label>
+          </div>
         </div>
       </div>
 
-      <div class="form-group" role="radiogroup">
-        <label for="type" i18n>Type:</label>
+      <div class="section">
+        <div class="section-title" i18n>Content type</div>
 
-        <div class="peertube-radio-container">
-          <input formControlName="live" type="radio" name="live" id="liveBoth" value="both" />
-          <label for="liveBoth" i18n>VOD & Live videos</label>
+        <div class="form-group">
+          <label for="categoryOneOf" i18n>Categories</label>
+
+          <my-select-categories inputId="categoryOneOf" formControlName="categoryOneOf"></my-select-categories>
         </div>
 
-        <div class="peertube-radio-container">
-          <input formControlName="live" type="radio" name="live" id="liveTrue" value="true" />
-          <label for="liveTrue" i18n>Live videos</label>
-        </div>
+        <div class="form-group" role="radiogroup">
+          <label for="type" i18n>Type</label>
 
-        <div class="peertube-radio-container">
-          <input formControlName="live" type="radio" name="live" id="liveFalse" value="false" />
-          <label for="liveFalse" i18n>VOD videos</label>
+          <div class="peertube-radio-container">
+            <input formControlName="live" type="radio" name="live" id="liveBoth" value="both" />
+            <label for="liveBoth" i18n>VOD & Live videos</label>
+          </div>
+
+          <div class="peertube-radio-container">
+            <input formControlName="live" type="radio" name="live" id="liveTrue" value="true" />
+            <label for="liveTrue" i18n>Live videos</label>
+          </div>
+
+          <div class="peertube-radio-container">
+            <input formControlName="live" type="radio" name="live" id="liveFalse" value="false" />
+            <label for="liveFalse" i18n>VOD videos</label>
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="categoryOneOf" i18n>Categories:</label>
+      <div class="section" *ngIf="canSeeAllVideos()">
+        <div class="section-title" i18n>Moderation</div>
 
-        <my-select-categories inputId="categoryOneOf" formControlName="categoryOneOf"></my-select-categories>
-      </div>
-
-      <div class="form-group" *ngIf="canSeeAllVideos()">
-        <label for="allVideos" i18n>Moderation:</label>
-
-        <my-peertube-checkbox
-          formControlName="allVideos"
-          inputName="allVideos"
-          i18n-labelText labelText="Display all videos (private, unlisted, password protected or not yet published)"
-        ></my-peertube-checkbox>
+        <div class="form-group">
+          <my-peertube-checkbox
+            formControlName="allVideos"
+            inputName="allVideos"
+            i18n-labelText labelText="Display all videos (private, unlisted, password protected or not yet published)"
+          ></my-peertube-checkbox>
+        </div>
       </div>
     </div>
   </div>

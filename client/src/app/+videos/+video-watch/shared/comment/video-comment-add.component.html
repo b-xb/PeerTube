@@ -46,13 +46,15 @@
   </div>
 
   <div class="comment-buttons">
-    <button *ngIf="isAddButtonDisplayed()" class="peertube-button tertiary-button cancel-button" (click)="cancelCommentReply()" type="button" i18n>
-      Cancel
-    </button>
+    @if (isAddButtonDisplayed()) {
+      <button class="peertube-button tertiary-button cancel-button me-2" (click)="cancelCommentReply()" type="button" i18n>
+        Cancel
+      </button>
 
-    <button *ngIf="isAddButtonDisplayed()" class="peertube-button primary-button" [disabled]="!form.valid || addingComment">
-      {{ addingCommentButtonValue }}
-    </button>
+      <button class="peertube-button primary-button" [disabled]="!form.valid || addingComment">
+        {{ addingCommentButtonValue }}
+      </button>
+    }
   </div>
 </form>
 

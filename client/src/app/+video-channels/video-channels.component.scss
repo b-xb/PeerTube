@@ -2,6 +2,7 @@
 @use '_mixins' as *;
 @use '_account-channel-page' as *;
 @use '_miniature' as *;
+@use '_button-mixins' as *;
 
 .root {
   --co-global-top-padding: 60px;
@@ -9,14 +10,6 @@
   --co-font-size: 16px;
   --co-channel-handle-font-size: 16px;
   --co-owner-handle-font-size: 14px;
-}
-
-.section-label {
-  @include section-label-responsive;
-}
-
-.links {
-  @include grid-videos-miniature-margins;
 }
 
 .actor-info {
@@ -34,21 +27,14 @@
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto;
 
-  background-color: pvar(--channel-bg);
   padding-top: var(--co-global-top-padding);
   font-size: var(--co-font-size);
 
-  // Use the same margin as the videos grid
-  @include grid-videos-miniature-margins(false, 15px);
   @include margin-bottom(3rem);
 }
 
 .channel-avatar-row {
   @include avatar-row-responsive(var(--co-channel-img-margin), var(--co-channel-handle-font-size));
-}
-
-.support-button {
-  @include button-with-icon(21px, 0, -1px);
 }
 
 .channel-description {
@@ -97,7 +83,9 @@
 }
 
 .owner-block {
-  background-color: pvar(--bg);
+  $owner-block-bg: pvar(--bg-secondary-350);
+
+  background-color: $owner-block-bg;
   padding: 30px;
   width: 300px;
   font-size: var(--co-font-size);
@@ -129,7 +117,7 @@
     max-height: 140px;
     word-break: break-word;
 
-    @include fade-text(120px, pvar(--bg));
+    @include fade-text(120px, $owner-block-bg);
   }
 }
 
@@ -169,7 +157,7 @@ my-copy-button {
   .channel-description:not(.expanded) {
     max-height: 70px;
 
-    @include fade-text(30px, pvar(--channel-bg));
+    @include fade-text(30px, pvar(--bg-secondary-350));
   }
 
   .show-more {

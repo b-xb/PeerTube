@@ -1,5 +1,6 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_form-mixins' as *;
 
 .sub-title my-global-icon {
   position: relative;
@@ -51,6 +52,7 @@ my-edit-button {
 
 .video-channel-followers {
   color: pvar(--fg);
+  text-decoration: none;
 }
 
 .video-channel-buttons {

@@ -12,7 +12,7 @@
   <my-loader size="sm" [ngClass]="{ displayed: loading }" [loading]="loading"></my-loader>
   <my-global-icon *ngIf="icon && !loading" [iconName]="icon"></my-global-icon>
 
-  <span class="button-label ellipsis" #labelContent>
+  <span class="button-label ellipsis" #labelContent (cdkObserveContent)="ngOnChanges()">
     @if (label) {
       {{ label }}
     } @else {

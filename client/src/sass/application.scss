@@ -26,7 +26,6 @@ body {
   --menu-fg: var(--menuForegroundColor);
 
   --fg: var(--mainForegroundColor, #000);
-  --fg-300: var(--greyForegroundColor, 0); // 0 means undefined
 
   --bg: var(--mainBackgroundColor, #fff);
   --bg-secondary: var(--greyBackgroundColor, #E5E5E5);
@@ -42,12 +41,14 @@ body {
   --input-fg: var(--inputForegroundColor, #{pvar(--fg)});
   --input-bg: var(--inputBackgroundColor, #{pvar(--bg-secondary-400)});
   --input-placeholder: var(--inputPlaceholderColor, #{pvar(--fg-50)});
-  --input-border-color: var(--inputBorderColor, #{pvar(--bg-secondary-500)});
+  --input-border-color: var(--inputBorderColor, #{pvar(--input-bg)});
+  --input-bg-in-secondary: #{pvar(--bg-secondary-450)};
+
+  --input-y-padding: 5px;
+  --input-x-padding: 20px;
 
   --textarea-fg: var(--textareaForegroundColor, #{pvar(--input-fg)});
   --textarea-bg: var(--textareaBackgroundColor, #{pvar(--input-bg)});
-
-  --channel-bg: var(--channelBackgroundColor, #{pvar(--primary-50)});
 
   --support-btn-fg: var(--supportButtonColor, #{pvar(--fg-300)});
   --support-btn-bg: var(--supportButtonBackgroundColor, transparent);
@@ -60,12 +61,19 @@ body {
   --secondary-icon-color: #{pvar(--fg-50)};
   --secondary-fg: #{pvar(--fg-50)};
 
+  --border-primary: #{pvar(--primary)};
+
+  --alert-primary-fg: #{pvar(--on-primary)};
+  --alert-primary-bg: #{pvar(--primary-200)};
+  --alert-primary-border-color: #{pvar(--primary-300)};
+
   // Light theme
   &[data-pt-theme=peertube-core-light],
   &[data-pt-theme=default] {
     --is-dark: 0;
 
-    --primary: #F2690D;
+    --primary: #FF8F37;
+    --border-primary: #F2690D;
 
     --fg: hsl(0 14% 2%);
 
@@ -74,6 +82,10 @@ body {
 
     --secondary-icon-color: #8F7676;
     --input-placeholder: #8F7676;
+
+    --alert-primary-fg: #{pvar(--on-primary)};
+    --alert-primary-bg: #{pvar(--primary-200)};
+    --alert-primary-border-color: #{pvar(--primary-300)};
   }
 
   // Brown
@@ -82,11 +94,19 @@ body {
 
     --primary: #FD9C50;
     --on-primary: #111;
+    --border-primary: #F2690D;
+
+    --input-bg: #{pvar(--bg-secondary-450)};
+    --input-bg-in-secondary: #{pvar(--bg-secondary-500)};
 
     --fg: hsl(0 10% 96%);
 
     --bg: hsl(0 14% 7%);
     --bg-secondary: hsl(0 14% 22%);
+
+    --alert-primary-fg: #{pvar(--on-primary)};
+    --alert-primary-bg: #{pvar(--primary-200)};
+    --alert-primary-border-color: #{pvar(--primary-300)};
   }
 
   & {
@@ -123,10 +143,6 @@ noscript,
   margin: 1rem auto;
 }
 
-a {
-  text-decoration: none;
-}
-
 strong {
   font-weight: $font-semibold;
 }
@@ -156,7 +172,7 @@ label {
 }
 
 code {
-  background-color: pvar(--bg-secondary-350);
+  background-color: pvar(--bg-secondary-500);
   color: pvar(--fg-400);
   border-radius: 3px;
   padding: .2em .4em;

@@ -4,13 +4,44 @@
 $filters-background: pvar(--bg-secondary-400);
 
 .root {
+  --input-bg: #{pvar(--input-bg-in-secondary)};
+  --input-border-color: #{pvar(--input-bg-in-secondary)};
+
   margin-bottom: 45px;
 }
 
 .first-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.select-label {
+  font-weight: normal;
+  margin-bottom: 0;
+  color: pvar(--fg-200);
+
+  @include margin-right(0.5rem);
+}
+
+.section {
+  @include margin-right(3rem);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: $font-bold;
+  color: pvar(--fg-300);
+  margin-bottom: 0.5rem;
+
+  .with-description {
+    font-size: 14px;
+    font-weight: normal;
+
+    a {
+      color: inherit;
+    }
+  }
 }
 
 .filters {
@@ -24,20 +55,14 @@ $filters-background: pvar(--bg-secondary-400);
     font-weight: $font-regular;
   }
 
-  .form-group > label:first-child {
-    display: block;
-
-    &.with-description {
-      margin-bottom: 0;
-    }
-
-    &:not(.with-description) {
-      margin-bottom: 10px;
-    }
-  }
-
   .form-group {
-    @include margin-right(30px);
+    margin-bottom: 1.5rem;
+
+    > label:not(.select-label) {
+      display: block;
+      color: pvar(--fg-300);
+      font-size: 18px;
+    }
   }
 }
 
@@ -46,7 +71,7 @@ $filters-background: pvar(--bg-secondary-400);
 }
 
 .filters-toggle {
-  padding: 6px 0.25rem calc(6px + 0.5rem) 0.5rem;
+  padding: pvar(--input-y-padding) 0.25rem calc(#{pvar(--input-y-padding)} + 0.75rem) 0.5rem;
 
   @include margin-left(0.25rem);
 
@@ -70,7 +95,7 @@ $filters-background: pvar(--bg-secondary-400);
   }
 }
 
-.sort {
+.scope-select {
   min-width: 250px;
   max-width: 300px;
   height: min-content;

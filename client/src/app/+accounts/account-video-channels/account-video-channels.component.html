@@ -17,7 +17,7 @@
         ></my-actor-avatar>
 
         <h2 class="fs-5 lh-1 fw-bold m-0">
-          <a [routerLink]="getVideoChannelLink(videoChannel)" i18n-title title="See this video channel">
+          <a class="text-decoration-none" [routerLink]="getVideoChannelLink(videoChannel)" i18n-title title="See this video channel">
             {{ videoChannel.displayName }}
           </a>
         </h2>
@@ -47,7 +47,7 @@
           ></my-video-miniature>
 
           <div *ngIf="getTotalVideosOf(videoChannel)" class="miniature-show-channel">
-            <a i18n [routerLink]="getVideoChannelLink(videoChannel)">SHOW THIS CHANNEL ></a>
+            <a class="link-orange" i18n [routerLink]="getVideoChannelLink(videoChannel)">SHOW THIS CHANNEL ></a>
           </div>
         </div>
       </div>

@@ -41,13 +41,14 @@ $input-focus-color: pvar(--input-fg);
 $input-focus-bg: pvar(--input-bg);
 $input-btn-focus-width: 0;
 $input-btn-focus-color: inherit;
-$input-focus-border-color: #ced4da;
+$input-focus-border-color: pvar(--input-border-color);
 $input-focus-box-shadow: 0 0 0 0.25rem pvar(--primary-100);
 
 $input-group-addon-color: pvar(--fg);
-$input-group-addon-bg: pvar(--bg-secondary-350);
+$input-group-addon-bg: pvar(--bg-secondary-500);
+$input-group-addon-border-color: pvar(--input-border-color);
 
-$nav-pills-link-active-bg: pvar(--bg-secondary-350);
+$nav-pills-link-active-bg: pvar(--bg-secondary-500);
 $nav-pills-link-active-color: pvar(--fg);
 $nav-link-transition: none;
 

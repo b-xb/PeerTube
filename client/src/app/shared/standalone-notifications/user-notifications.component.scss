@@ -17,13 +17,13 @@
   word-break: break-word;
 
   &.unread {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: pvar(--bg-secondary-400);
   }
 
   my-global-icon {
     width: 24px;
+    color: pvar(--fg);
 
-    @include apply-svg-color(#{pvar(--fg)});
     @include margin-right(11px);
     @include margin-left(3px);
   }

@@ -1,6 +1,7 @@
 @use 'sass:math';
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
 
 .menu-container {
   --co-menu-x-padding: 1.5rem;
@@ -156,11 +157,11 @@
 
   &:hover,
   &:focus-visible {
-    background-color: pvar-fallback(--menu-fg, --bg-secondary-500);
+    background-color: pvar-fallback(--menu-fg, --bg-secondary-450);
   }
 
   &.active {
-    background-color: pvar-fallback(--menu-fg, --bg-secondary-600);
+    background-color: pvar-fallback(--menu-fg, --bg-secondary-500);
   }
 
   my-global-icon {
@@ -186,4 +187,8 @@
     font-size: 14px;
     color: pvar-fallback(--menu-fg, --fg-200)
   }
+}
+
+my-button[theme=secondary] ::ng-deep my-global-icon {
+  color: pvar(--secondary-icon-color) !important;
 }

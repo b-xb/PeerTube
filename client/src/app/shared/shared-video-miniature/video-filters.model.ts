@@ -156,8 +156,8 @@ export class VideoFilters {
       canRemove: false,
       label: $localize`Scope`,
       value: this.scope === 'federated'
-        ? $localize`Federated`
-        : $localize`Local`
+        ? $localize`All platforms`
+        : $localize`This platform`
     })
 
     if (this.languageOneOf && this.languageOneOf.length !== 0) {

@@ -24,7 +24,7 @@
         class="d-inline-block"
         inputName="uploadNewThumbnail" inputLabel="Select from your device" [extensions]="videoImageExtensions"
         [maxFileSize]="maxVideoImageSize" placement="right" (fileChanged)="onFileChanged($event)"
-        [buttonTooltip]="getReactiveFileButtonTooltip()">
+        [buttonTooltip]="getReactiveFileButtonTooltip()" theme="primary">
       </my-reactive-file>
 
       @if (canSelectFromVideo()) {

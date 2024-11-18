@@ -31,6 +31,8 @@
     display: inline-block;
     width: 34px;
     height: 34px;
+    min-width: 34px;
+    max-width: 34px;
 
     background-repeat: no-repeat;
 
@@ -85,18 +87,6 @@
     &::after {
       // Disable bootstrap toggle
       border: 0;
-    }
-  }
-
-  .dropdown-toggle-indicator {
-    position: relative;
-    display: none;
-    width: 17px;
-
-    span {
-      position: absolute;
-      top: -8px;
-      color: #808080;
     }
   }
 }

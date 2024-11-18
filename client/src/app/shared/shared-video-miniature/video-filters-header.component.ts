@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterLink } from '@angular/router'
@@ -14,6 +14,7 @@ import { SelectCategoriesComponent } from '../shared-forms/select/select-categor
 import { SelectLanguagesComponent } from '../shared-forms/select/select-languages.component'
 import { SelectOptionsComponent } from '../shared-forms/select/select-options.component'
 import { GlobalIconComponent } from '../shared-icons/global-icon.component'
+import { ButtonComponent } from '../shared-main/buttons/button.component'
 import { PeerTubeTemplateDirective } from '../shared-main/common/peertube-template.directive'
 import { PeertubeModalService } from '../shared-main/peertube-modal/peertube-modal.service'
 import { VideoFilterActive, VideoFilters } from './video-filters.model'
@@ -32,14 +33,14 @@ const debugLogger = debug('peertube:videos:VideoFiltersHeaderComponent')
     NgClass,
     NgIf,
     GlobalIconComponent,
-    NgFor,
     NgbCollapse,
     NgTemplateOutlet,
     SelectLanguagesComponent,
     SelectCategoriesComponent,
     PeertubeCheckboxComponent,
     SelectOptionsComponent,
-    PeerTubeTemplateDirective
+    PeerTubeTemplateDirective,
+    ButtonComponent
   ]
 })
 export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
@@ -54,6 +55,7 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
   form: FormGroup
 
   sortItems: SelectOptionsItem[] = []
+  availableScopes: SelectOptionsItem[] = []
 
   private videoCategories: VideoConstant<number>[] = []
   private videoLanguages: VideoConstant<string>[] = []
@@ -99,6 +101,11 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
       .subscribe(languages => this.videoLanguages = languages)
 
     this.buildSortItems()
+
+    this.availableScopes = [
+      { id: 'local', label: $localize`This platform only` },
+      { id: 'federated', label: $localize`All platforms` }
+    ]
   }
 
   ngOnDestroy () {
@@ -114,24 +121,24 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
 
   private buildSortItems () {
     this.sortItems = [
-      { id: '-publishedAt', label: 'Recently Added' },
-      { id: '-originallyPublishedAt', label: 'Original Publication Date' },
-      { id: 'name', label: 'Name' }
+      { id: '-publishedAt', label: $localize`Recently Added` },
+      { id: '-originallyPublishedAt', label: $localize`Original Publication Date` },
+      { id: 'name', label: $localize`Name` }
     ]
 
     if (this.isTrendingSortEnabled('most-viewed')) {
-      this.sortItems.push({ id: '-trending', label: 'Recent Views' })
+      this.sortItems.push({ id: '-trending', label: $localize`Recent Views` })
     }
 
     if (this.isTrendingSortEnabled('hot')) {
-      this.sortItems.push({ id: '-hot', label: 'Hot' })
+      this.sortItems.push({ id: '-hot', label: $localize`Hot` })
     }
 
     if (this.isTrendingSortEnabled('most-liked')) {
-      this.sortItems.push({ id: '-likes', label: 'Likes' })
+      this.sortItems.push({ id: '-likes', label: $localize`Likes` })
     }
 
-    this.sortItems.push({ id: '-views', label: 'Global Views' })
+    this.sortItems.push({ id: '-views', label: $localize`Global Views` })
   }
 
   private isTrendingSortEnabled (sort: 'most-viewed' | 'hot' | 'most-liked') {

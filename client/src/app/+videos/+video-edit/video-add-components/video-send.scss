@@ -1,5 +1,6 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_form-mixins' as *;
 
 $width-size: 275px;
 
@@ -49,7 +50,6 @@ $width-size: 275px;
   }
 
   .button-file {
-    @include peertube-button-file(max-content);
-    @include primary-button;
+    width: max-content;
   }
 }

@@ -1,6 +1,6 @@
 import { CommonModule, ViewportScroller } from '@angular/common'
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
-import { Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import {
   AuthService,
   AuthStatus,
@@ -22,8 +22,8 @@ import { PeertubeModalService } from '@app/shared/shared-main/peertube-modal/pee
 import { LoginLinkComponent } from '@app/shared/shared-main/users/login-link.component'
 import { SignupLabelComponent } from '@app/shared/shared-main/users/signup-label.component'
 import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'
-import { ServerConfig, VideoConstant } from '@peertube/peertube-models'
-import { Subscription, first, forkJoin } from 'rxjs'
+import { ServerConfig } from '@peertube/peertube-models'
+import { Subscription } from 'rxjs'
 import { GlobalIconComponent } from '../shared/shared-icons/global-icon.component'
 import { ButtonComponent } from '../shared/shared-main/buttons/button.component'
 import { SearchTypeaheadComponent } from './search-typeahead.component'
@@ -44,7 +44,6 @@ import { SearchTypeaheadComponent } from './search-typeahead.component'
     QuickSettingsModalComponent,
     GlobalIconComponent,
     RouterLink,
-    RouterLinkActive,
     NgbDropdownModule,
     SearchTypeaheadComponent,
     RouterLink,
@@ -63,18 +62,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   hotkeysHelpVisible = false
 
-  videoLanguages: string[] = []
-  nsfwPolicy: string
-
   currentInterfaceLanguage: string
 
   loaded = false
 
-  private languages: VideoConstant<string>[] = []
-
   private serverConfig: ServerConfig
 
-  private languagesSub: Subscription
   private quickSettingsModalSub: Subscription
   private hotkeysSub: Subscription
   private authSub: Subscription
@@ -127,15 +120,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.hotkeysSub = this.hotkeysService.cheatSheetToggle
       .subscribe(isOpen => this.hotkeysHelpVisible = isOpen)
 
-    this.languagesSub = forkJoin([
-      this.serverService.getVideoLanguages(),
-      this.authService.userInformationLoaded.pipe(first())
-    ]).subscribe(([ languages ]) => {
-      this.languages = languages
-
-      this.buildUserLanguages()
-    })
-
     this.serverService.getConfig()
       .subscribe(config => this.serverConfig = config)
 
@@ -147,7 +131,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy () {
     if (this.quickSettingsModalSub) this.quickSettingsModalSub.unsubscribe()
-    if (this.languagesSub) this.languagesSub.unsubscribe()
     if (this.hotkeysSub) this.hotkeysSub.unsubscribe()
     if (this.authSub) this.authSub.unsubscribe()
   }
@@ -185,14 +168,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openQuickSettings () {
     this.quickSettingsModal.show()
-  }
-
-  toggleUseP2P () {
-    if (!this.user) return
-    this.user.p2pEnabled = !this.user.p2pEnabled
-
-    this.userService.updateMyProfile({ p2pEnabled: this.user.p2pEnabled })
-      .subscribe(() => this.authService.refreshUserInformation())
   }
 
   // FIXME: needed?
@@ -246,54 +221,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.hotkeysService.cheatSheetToggle.next(!this.hotkeysHelpVisible)
   }
 
-  private buildUserLanguages () {
-    if (!this.user) {
-      this.videoLanguages = []
-      return
-    }
-
-    if (!this.user.videoLanguages) {
-      this.videoLanguages = [ $localize`any language` ]
-      return
-    }
-
-    this.videoLanguages = this.user.videoLanguages
-      .map(locale => this.langForLocale(locale))
-      .map(value => value === undefined ? '?' : value)
-  }
-
-  private langForLocale (localeId: string) {
-    if (localeId === '_unknown') return $localize`Unknown`
-
-    return this.languages.find(lang => lang.id === localeId).label
-  }
-
-  private computeNSFWPolicy () {
-    if (!this.user) {
-      this.nsfwPolicy = null
-      return
-    }
-
-    switch (this.user.nsfwPolicy) {
-      case 'do_not_list':
-        this.nsfwPolicy = $localize`hide`
-        break
-
-      case 'blur':
-        this.nsfwPolicy = $localize`blur`
-        break
-
-      case 'display':
-        this.nsfwPolicy = $localize`display`
-        break
-    }
-  }
-
   private updateUserState () {
     this.user = this.loggedIn
       ? this.authService.getUser()
       : undefined
-
-    this.computeNSFWPolicy()
   }
 }

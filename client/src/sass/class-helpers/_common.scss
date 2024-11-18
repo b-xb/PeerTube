@@ -2,11 +2,16 @@
 @use '_icons' as *;
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
 
 // ---------------------------------------------------------------------------
 
 .pt-badge {
   @include peertube-badge;
+
+  &:is(a) {
+    @include disable-default-a-behaviour;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -91,8 +96,17 @@
 
 .alert {
   &.pt-alert-primary {
-    background-color: pvar(--primary-50);
-    border: 2px solid pvar(--primary-100);
+    color: pvar(--alert-primary-fg);
+    background-color: pvar(--alert-primary-bg);
+    border: 2px solid pvar(--alert-primary-border-color);
+
+    .alert-link {
+      color: pvar(--alert-primary-fg) !important;
+    }
+
+    .secondary-button {
+      @include secondary-button($fg: pvar(--alert-primary-fg));
+    }
   }
 }
 

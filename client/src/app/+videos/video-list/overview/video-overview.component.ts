@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common'
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { DisableForReuseHook, Notifier, User, UserService } from '@app/core'
+import { ActorAvatarComponent, ActorAvatarInput } from '@app/shared/shared-actor-image/actor-avatar.component'
 import { ButtonComponent } from '@app/shared/shared-main/buttons/button.component'
 import { Video } from '@app/shared/shared-main/video/video.model'
 import { Subject, Subscription, switchMap } from 'rxjs'
@@ -19,7 +20,8 @@ import { OverviewService } from './overview.service'
     RouterLink,
     VideoMiniatureComponent,
     ButtonComponent,
-    CommonModule
+    CommonModule,
+    ActorAvatarComponent
   ]
 })
 export class VideoOverviewComponent implements OnInit, OnDestroy, DisableForReuseHook {
@@ -37,6 +39,8 @@ export class VideoOverviewComponent implements OnInit, OnDestroy, DisableForReus
     type: string
     buttonLabel: string
     videos: Video[]
+
+    channel?: ActorAvatarInput
 
     queryParams: Record<string, any>
     routerLink: string[]
@@ -147,6 +151,7 @@ export class VideoOverviewComponent implements OnInit, OnDestroy, DisableForReus
                 routerLink: [ '/c', value.videos[0].byVideoChannel ],
                 queryParams: {},
                 videos: value.videos,
+                channel: value.channel,
                 type: $localize`channel`
               })
             }

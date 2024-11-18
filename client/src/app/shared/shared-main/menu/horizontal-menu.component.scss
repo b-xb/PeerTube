@@ -24,10 +24,10 @@
       content: '';
       display: block;
       height: 4px;
-      background-color: pvar(--primary-500);
+      background-color: pvar(--border-primary);
       border-radius: 2px;
       position: absolute;
-      bottom: -2px;
+      bottom: -3px;
       width: 100%;
     }
   }

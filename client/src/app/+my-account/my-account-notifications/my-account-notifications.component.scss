@@ -1,17 +1,11 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
+@use '_form-mixins' as *;
 
 .header {
   display: flex;
   margin-bottom: 1.25rem;
-
-  a {
-    @include button-with-icon(18px, 3px, -1px);
-  }
-
-  button {
-    @include button-with-icon(20px, 3px, -1px);
-  }
 
   .peertube-select-container {
     @include peertube-select-container(auto);

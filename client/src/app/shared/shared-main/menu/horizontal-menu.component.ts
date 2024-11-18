@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component, Input } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { GlobalIconComponent } from '../../shared-icons/global-icon.component'
 import { ListOverflowComponent, ListOverflowItem } from './list-overflow.component'
 
 @Component({
@@ -12,7 +11,6 @@ import { ListOverflowComponent, ListOverflowItem } from './list-overflow.compone
   imports: [
     CommonModule,
     RouterModule,
-    GlobalIconComponent,
     ListOverflowComponent
   ]
 })

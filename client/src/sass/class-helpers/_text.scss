@@ -16,13 +16,6 @@
   color: pvar(--fg)
 }
 
-@mixin underline-orange {
-  text-decoration: underline !important;
-  text-decoration-color: pvar(--primary) !important;
-  text-underline-offset: 0.25em !important;
-  text-decoration-thickness: 0.15em !important;
-}
-
 .link-orange {
   color: pvar(--fg);
   font-weight: $font-semibold;
@@ -43,7 +36,7 @@
     content: '';
     display: block;
     height: 4px;
-    background-color: pvar(--primary-500);
+    background-color: pvar(--border-primary);
     border-radius: 2px;
     position: absolute;
     width: 20px;
@@ -52,6 +45,10 @@
 
 .underline-orange {
   @include underline-orange;
+}
+
+.section-label {
+  @include section-label;
 }
 
 // ---------------------------------------------------------------------------

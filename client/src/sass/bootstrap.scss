@@ -1,5 +1,6 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
 @import './_bootstrap-variables';
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
@@ -75,9 +76,10 @@ body {
 // ---------------------------------------------------------------------------
 
 .dropdown-menu {
-  --bs-dropdown-link-hover-bg: #{pvar(--bg-secondary-350)};
+  --bs-dropdown-link-hover-bg: #{pvar(--bg-secondary-400)};
   --bs-dropdown-link-color: #{pvar(--fg)};
   --bs-dropdown-border-color: #{pvar(--input-border-color)};
+  --bs-dropdown-header-color: #{pvar(--fg-350)};
 
   text-align: start;
 
@@ -89,7 +91,7 @@ body {
     padding: 3px 15px;
 
     &.active {
-      color: pvar(--bg) !important;
+      color: pvar(--on-primary) !important;
       background-color: pvar(--primary);
       font-weight: $font-semibold;
     }
@@ -119,6 +121,12 @@ body {
 .alert {
   p:last-child {
     margin-bottom: 0;
+  }
+}
+
+.alert-link {
+  &:hover {
+    opacity: 0.8;
   }
 }
 
@@ -259,7 +267,7 @@ body {
   &.active {
     color: pvar(--fg);
     background-color: pvar(--bg) !important;
-    border-bottom-color: pvar(--primary);
+    border-bottom-color: pvar(--border-primary);
   }
 
   &.active,

@@ -33,10 +33,6 @@
 
             <div class="username ellipsis fs-8">&#64;{{ user.username }}</div>
           </div>
-
-          <div class="dropdown-toggle-indicator">
-            <span class="chevron-down"></span>
-          </div>
         </button>
 
         <div ngbDropdownMenu>
@@ -49,6 +45,15 @@
 
           <div class="dropdown-divider"></div>
 
+          <a
+            *ngIf="user.account" ngbDropdownItem ngbDropdownToggle class="dropdown-item" routerLink="/my-account"
+            #manageAccount (click)="onActiveLinkScrollToAnchor(manageAccount)"
+          >
+            <my-global-icon iconName="cog" aria-hidden="true"></my-global-icon> <ng-container i18n>Manage my account</ng-container>
+          </a>
+
+          <div class="dropdown-divider"></div>
+
           <button
             myPluginSelector pluginSelectorId="menu-user-dropdown-language-item"
             ngbDropdownItem class="dropdown-item" (click)="openLanguageChooser()"
@@ -57,32 +62,6 @@
             <span i18n>Interface:</span>
             <span class="ms-auto ps-2 muted">{{ currentInterfaceLanguage }}</span>
           </button>
-
-          <a ngbDropdownItem class="dropdown-item" routerLink="/my-account/settings" fragment="video-languages-subtitles"
-            #settingsLanguagesSubtitles (click)="onActiveLinkScrollToAnchor(settingsLanguagesSubtitles)">
-            <my-global-icon iconName="video-lang" aria-hidden="true"></my-global-icon>
-            <span i18n>Videos:</span>
-            <span class="ms-auto ps-2 muted">{{ videoLanguages.join(', ') }}</span>
-          </a>
-
-          <a ngbDropdownItem class="dropdown-item settings-sensitive" routerLink="/my-account/settings"
-            fragment="video-sensitive-content-policy" #settingsSensitiveContentPolicy
-            (click)="onActiveLinkScrollToAnchor(settingsSensitiveContentPolicy)"
-          >
-            <my-global-icon class="hover-display-toggle" [hidden]="user.nsfwPolicy === 'display'" iconName="eye-open" aria-hidden="true"></my-global-icon>
-            <my-global-icon class="hover-display-toggle" [hidden]="user.nsfwPolicy !== 'display'" iconName="eye-close" aria-hidden="true"></my-global-icon>
-            <span i18n>Sensitive:</span>
-            <span class="ms-auto ps-2 muted">{{ nsfwPolicy }}</span>
-          </a>
-
-          <button class="dropdown-item" (mousedown)="$event.stopPropagation(); toggleUseP2P()" [ariaPressed]="user.p2pEnabled" ngbDropdownItem>
-            <my-global-icon iconName="p2p" aria-hidden="true"></my-global-icon>
-            <ng-container i18n>Help share videos</ng-container>
-
-            <my-input-switch inputName="p2p-enabled" class="ms-auto ps-2" [preventUpdate]="true" [checked]="user.p2pEnabled"></my-input-switch>
-          </button>
-
-          <div class="dropdown-divider"></div>
 
           <button *ngIf="!isInMobileView" ngbDropdownItem class="dropdown-item" (click)="openHotkeysCheatSheet()">
             <my-global-icon iconName="keyboard" aria-hidden="true"></my-global-icon>

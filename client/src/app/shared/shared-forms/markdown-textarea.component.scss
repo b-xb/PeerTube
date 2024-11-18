@@ -1,6 +1,7 @@
 @use 'sass:math';
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_form-mixins' as *;
 
 $nav-preview-tab-height: 30px;
 $base-padding: 15px;
@@ -11,15 +12,18 @@ $input-border-radius: 3px;
   flex-direction: column;
 
   textarea {
-    background-color: pvar(--bg-secondary-350);
-
-    font-family: monospace;
-    font-size: 13px;
-    border-bottom: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-
     @include peertube-textarea(100%, 150px);
+
+    & {
+      color: pvar(--textarea-fg);
+      background-color: pvar(--textarea-bg);
+
+      font-family: monospace;
+      font-size: 14px;
+      border-bottom: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   .nav-preview {

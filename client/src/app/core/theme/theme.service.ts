@@ -36,11 +36,11 @@ export class ThemeService {
   ) {}
 
   initialize () {
-    // Try to load from local storage first, so we don't have to wait network requests
-    this.loadAndSetFromLocalStorage()
-
     this.serverConfig = this.server.getHTMLConfig()
     this.internalThemes = this.serverConfig.theme.builtIn.map(t => t.name)
+
+    // Try to load from local storage first, so we don't have to wait network requests
+    this.loadAndSetFromLocalStorage()
 
     const themes = this.serverConfig.theme.registered
 
@@ -137,9 +137,10 @@ export class ThemeService {
   }
 
   private updateCurrentTheme () {
-    if (this.oldThemeName) this.removeThemePlugins(this.oldThemeName)
-
     const currentTheme = this.getCurrentTheme()
+    if (this.oldThemeName === currentTheme) return
+
+    if (this.oldThemeName) this.removeThemePlugins(this.oldThemeName)
 
     logger.info(`Enabling ${currentTheme} theme.`)
 
@@ -179,36 +180,23 @@ export class ThemeService {
 
     this.oldInjectedProperties = []
 
-    const toProcess = [
-      { prefix: 'primary', invertIfDark: false },
+    const toProcess: { prefix: string, invertIfDark: boolean, fallbacks?: Record<string, string> }[] = [
+      { prefix: 'primary', invertIfDark: true },
       { prefix: 'bg-secondary', invertIfDark: true },
-      { prefix: 'fg', invertIfDark: true }
+      { prefix: 'fg', invertIfDark: true, fallbacks: { '--fg-300': '--greyForegroundColor' } }
     ]
 
-    for (const { prefix, invertIfDark } of toProcess) {
+    const darkTheme = this.isDarkTheme(computedStyle)
+
+    for (const { prefix, invertIfDark, fallbacks = {} } of toProcess) {
       const mainColor = computedStyle.getPropertyValue('--' + prefix)
 
-      let darkInverter = 1
-
-      if (invertIfDark) {
-        const deprecatedFG = computedStyle.getPropertyValue('--mainForegroundColor')
-        const deprecatedBG = computedStyle.getPropertyValue('--mainBackgroundColor')
-
-        if (computedStyle.getPropertyValue('--is-dark') === '1') {
-          darkInverter = -1
-        } else if (deprecatedFG && deprecatedBG) {
-          try {
-            if (getLuminance(parse(deprecatedBG)) < getLuminance(parse(deprecatedFG))) {
-              darkInverter = -1
-            }
-          } catch (err) {
-            console.error('Cannot parse deprecated CSS variables', err)
-          }
-        }
-      }
+      const darkInverter = invertIfDark && darkTheme
+        ? -1
+        : 1
 
       if (!mainColor) {
-        console.error(`Cannot create palette of unexisting "--${prefix}" CSS body variable`)
+        console.error(`Cannot create palette of nonexistent "--${prefix}" CSS body variable`)
         continue
       }
 
@@ -224,13 +212,40 @@ export class ThemeService {
           const newLuminance = Math.max(Math.min(100, Math.round(mainColorHSL.l + (i * 5 * -1 * darkInverter))), 0)
           const newColor = `hsl(${Math.round(mainColorHSL.h)} ${Math.round(mainColorHSL.s)}% ${newLuminance}% / ${mainColorHSL.a})`
 
-          rootStyle.setProperty(key, newColor)
+          const value = fallbacks[key]
+            ? `var(${fallbacks[key]}, ${newColor})`
+            : newColor
+
+          rootStyle.setProperty(key, value)
           this.oldInjectedProperties.push(key)
 
-          debugLogger(`Injected theme palette ${key} -> ${newColor}`)
+          debugLogger(`Injected theme palette ${key} -> ${value}`)
         }
       }
     }
+
+    document.body.dataset.bsTheme = darkTheme
+      ? 'dark'
+      : ''
+  }
+
+  private isDarkTheme (computedStyle: CSSStyleDeclaration) {
+    const deprecatedFG = computedStyle.getPropertyValue('--mainForegroundColor')
+    const deprecatedBG = computedStyle.getPropertyValue('--mainBackgroundColor')
+
+    if (computedStyle.getPropertyValue('--is-dark') === '1') {
+      return true
+    } else if (deprecatedFG && deprecatedBG) {
+      try {
+        if (getLuminance(parse(deprecatedBG)) < getLuminance(parse(deprecatedFG))) {
+          return true
+        }
+      } catch (err) {
+        console.error('Cannot parse deprecated CSS variables', err)
+      }
+    }
+
+    return false
   }
 
   private listenUserTheme () {
@@ -254,19 +269,14 @@ export class ThemeService {
     const lastActiveThemeString = this.localStorageService.getItem(UserLocalStorageKeys.LAST_ACTIVE_THEME)
     if (!lastActiveThemeString) return
 
-    // Internal theme
-    if (lastActiveThemeString === 'string') {
-      this.themeFromLocalStorage = { name: lastActiveThemeString, version: undefined }
-
-      this.updateCurrentTheme()
-      return
-    }
-
     try {
       const lastActiveTheme = JSON.parse(lastActiveThemeString)
       this.themeFromLocalStorage = lastActiveTheme
 
-      this.injectThemes([ lastActiveTheme ], true)
+      if (!this.internalThemes.includes(this.themeFromLocalStorage.name)) {
+        this.injectThemes([ lastActiveTheme ], true)
+      }
+
       this.updateCurrentTheme()
     } catch (err) {
       logger.error('Cannot parse last active theme.', err)

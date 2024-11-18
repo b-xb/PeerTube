@@ -1,10 +1,14 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, ViewChild, booleanAttribute } from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild, booleanAttribute } from '@angular/core'
 import { RouterLink } from '@angular/router'
 import { GlobalIconName } from '@app/shared/shared-icons/global-icon.component'
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap'
 import { GlobalIconComponent } from '../../shared-icons/global-icon.component'
 import { LoaderComponent } from '../common/loader.component'
+import debug from 'debug'
+import { ObserversModule } from '@angular/cdk/observers'
+
+const debugLogger = debug('peertube:button')
 
 @Component({
   selector: 'my-button',
@@ -12,7 +16,7 @@ import { LoaderComponent } from '../common/loader.component'
   templateUrl: './button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ NgIf, NgClass, NgbTooltip, NgTemplateOutlet, RouterLink, LoaderComponent, GlobalIconComponent ]
+  imports: [ NgIf, NgClass, NgbTooltip, NgTemplateOutlet, RouterLink, LoaderComponent, GlobalIconComponent, ObserversModule ]
 })
 
 export class ButtonComponent implements OnChanges, AfterViewInit {
@@ -30,6 +34,8 @@ export class ButtonComponent implements OnChanges, AfterViewInit {
   @ViewChild('labelContent') labelContent: ElementRef
 
   classes: { [id: string]: boolean } = {}
+
+  constructor (private cd: ChangeDetectorRef) {}
 
   ngOnChanges () {
     this.buildClasses()
@@ -51,5 +57,9 @@ export class ButtonComponent implements OnChanges, AfterViewInit {
       'icon-only': !this.label && !(this.labelContent?.nativeElement as HTMLElement)?.innerText,
       'responsive-label': this.responsiveLabel
     }
+
+    debugLogger('Built button classes', { classes: this.classes, labelContent: this.labelContent })
+
+    this.cd.markForCheck()
   }
 }

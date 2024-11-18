@@ -24,7 +24,9 @@
 
         <div class="section-header d-flex justify-content-between">
           <h1 class="section-title">
-            <a class="text-fg border-highlight" routerLink="/search" [queryParams]="object.queryParams">{{ object.label }}</a>
+            <my-actor-avatar *ngIf="object.channel" size="40px" actorType="channel" [actor]="object.channel"></my-actor-avatar>
+
+            <a class="text-fg border-highlight text-decoration-none" routerLink="/search" [queryParams]="object.queryParams">{{ object.label }}</a>
 
             <span class="text-secondary fs-7 mx-2">·</span>
             <span i18n class="text-secondary fs-7">{{ object.type }}</span>

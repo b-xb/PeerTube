@@ -36,7 +36,7 @@ input {
   }
 
   &:checked + label {
-    background: pvar(--primary);
+    background: pvar(--border-primary);
 
     &::after {
       left: calc(100% - 3px);

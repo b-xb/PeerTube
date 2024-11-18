@@ -1,5 +1,6 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
 
 .video-actions {
   height: 40px; // Align with the title
@@ -9,60 +10,31 @@
   margin: 0 auto;
   max-width: initial;
 
-  .action-button:not(:first-child),
-  .action-dropdown,
-  my-video-actions-dropdown {
-    @include margin-left(5px);
-  }
-
   ::ng-deep.action-button {
     font-size: 100%;
-    font-weight: $font-semibold;
     display: inline-block;
-    padding: 4px 10px;
     white-space: nowrap;
-    background-color: transparent !important;
-    color: pvar(--fg-300);
     text-transform: uppercase;
 
     @include peertube-button;
     @include button-with-icon(21px, 0, -1px);
+
+    & { // Override some peertube-button properties
+      padding: 4px 13px;
+      background-color: transparent !important;
+      color: pvar(--fg-300);
+    }
 
     &::after {
       display: none;
     }
 
     &:hover {
-      opacity: 0.9;
-    }
-
-    &.action-button-support {
-      color: pvar(--support-btn-fg);
-      background-color: pvar(--support-btn-bg);
-
-      my-global-icon {
-        @include apply-svg-color(pvar(--support-btn-fg));
-      }
-    }
-
-    &.action-button-support {
-      my-global-icon {
-        ::ng-deep path:first-child {
-          fill: pvar(--support-btn-heart-bg) !important;
-        }
-      }
-    }
-
-    &.action-button-save,
-    &.action-button-download {
-      my-global-icon {
-        top: 0 !important;
-        right: -1px;
-      }
+      opacity: 0.7;
     }
 
     .icon-text {
-      @include margin-left(3px);
+      @include margin-right(0 !important);
     }
   }
 }

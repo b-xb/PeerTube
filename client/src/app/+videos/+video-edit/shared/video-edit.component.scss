@@ -1,5 +1,6 @@
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_form-mixins' as *;
 
 .peertube-select-container {
   @include peertube-select-container(auto);
@@ -11,7 +12,7 @@ my-peertube-checkbox {
 }
 
 my-timestamp-input {
-  width: 85px;
+  width: 100px;
 }
 
 .nav-tabs {
@@ -97,11 +98,6 @@ p-calendar {
   grid-gap: 30px;
 }
 
-.button-file {
-  @include peertube-button-file(max-content);
-  @include primary-button;
-}
-
 .hide-chapter-label {
   height: 0;
   opacity: 0;
@@ -114,7 +110,7 @@ p-calendar {
   column-gap: 1rem;
 
   .position {
-    height: 31px;
+    height: 38px;
     min-width: 16px;
     display: flex;
     align-items: center;

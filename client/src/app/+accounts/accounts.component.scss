@@ -8,24 +8,17 @@
   --co-secondary-font-size: 1rem;
 }
 
-.section-label {
-  @include section-label-responsive;
+my-horizontal-menu {
+  flex-grow: 1;
+
+  @include margin-right(3rem);
 }
 
-.links {
+.horizontal-menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  @include grid-videos-miniature-margins;
-
-  &.on-channel-page {
-    max-width: $max-channels-width;
-  }
-
-  simple-search-input {
-    @include margin-left(auto);
-  }
+  flex-wrap: wrap;
 }
 
 my-copy-button {
@@ -36,9 +29,6 @@ my-copy-button {
   grid-template-columns: 1fr min-content;
   grid-template-rows: auto auto;
 
-  @include grid-videos-miniature-margins(false, 15px);
-  @include padding-top(3.75rem);
-  @include padding-bottom(3.75rem);
   @include margin-bottom(3rem);
   @include font-size(1rem);
 }
