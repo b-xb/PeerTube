@@ -77,7 +77,7 @@ export class MyFollowersComponent implements OnInit {
 
   getTotalTitle () {
     return formatICU(
-      $localize`You have ${this.pagination.totalItems} {total, plural, =1 {follower} other {followers}}`,
+      $localize`${this.pagination.totalItems} {total, plural, =1 {follower} other {followers}}`,
       { total: this.pagination.totalItems }
     )
   }

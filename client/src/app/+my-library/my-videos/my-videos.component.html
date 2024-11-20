@@ -1,25 +1,7 @@
-<div class="sub-title-container">
-  <div class="sub-title">
-    <my-global-icon iconName="videos" aria-hidden="true"></my-global-icon>
-    <h1 i18n>My videos</h1>
-    <span *ngIf="pagination.totalItems" [title]="getTotalTitle()" class="pt-badge badge-secondary"> {{ pagination.totalItems }}</span>
-  </div>
-
-  <div>
-    <a routerLink="/my-library/video-imports" class="peertube-button-link secondary-button peertube-button-icon me-2">
-      <my-global-icon iconName="cloud-download" aria-hidden="true"></my-global-icon>
-      <ng-container i18n>My imports</ng-container>
-    </a>
-
-    <a routerLink="/my-library/ownership" class="peertube-button-link secondary-button peertube-button-icon">
-      <my-global-icon iconName="users" aria-hidden="true"></my-global-icon>
-      <ng-container i18n>Ownership changes</ng-container>
-    </a>
-  </div>
-</div>
-
-<div class="videos-header d-flex justify-content-between gap-2">
+<div class="videos-header d-flex justify-content-between align-items-end gap-2">
   <my-advanced-input-filter [emitOnInit]="false" [filters]="inputFilters" (search)="onSearch($event)"></my-advanced-input-filter>
+
+  <span class="total-items" *ngIf="pagination.totalItems"> {{ getTotalTitle() }}</span>
 
   <div class="peertube-select-container">
     <select [(ngModel)]="sort" (ngModelChange)="onChangeSortColumn()" class="form-control" i18n-ariaLabel aria-label="Sort by">

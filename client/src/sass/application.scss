@@ -166,9 +166,12 @@ button {
   @include disable-outline;
 }
 
-label {
+label,
+.label {
   font-weight: $font-bold;
   margin-bottom: 0.5rem;
+  font-size: 18px;
+  color: pvar(--fg-350);
 }
 
 code {
@@ -207,12 +210,6 @@ code {
     height: $sub-menu-height;
     margin-bottom: $sub-menu-margin-bottom;
     overflow-x: auto;
-
-    &.sub-menu-fixed {
-      position: fixed;
-      z-index: #{z('sub-menu') - 1};
-      max-width: pvar(--main-col-width);
-    }
   }
 
   .skip-to-content-sub-menu {
@@ -222,15 +219,6 @@ code {
     background: pvar(--bg);
     text-align: center;
     text-decoration: underline;
-  }
-
-  // Use an appropriate offset top when sub-menu fixed
-  .sub-menu-offset-content {
-    padding-top: $sub-menu-height + $sub-menu-margin-bottom;
-  }
-
-  .sub-menu.mb-0 + .sub-menu-offset-content {
-    padding-top: $sub-menu-height;
   }
 
   // Override some properties if the main content is expanded (no menu on the left)
@@ -296,11 +284,6 @@ my-global-icon[iconName=external-link] {
       padding: 0 15px;
       margin-bottom: $sub-menu-margin-bottom-small-view;
       overflow-x: auto;
-    }
-
-    // Use an appropriate offset top when sub-menu fixed
-    .sub-menu-offset-content {
-      padding-top: $sub-menu-height + $sub-menu-margin-bottom-small-view;
     }
 
     my-markdown-textarea {

@@ -84,14 +84,6 @@
   top: #{- ($header-height + 20px)};
 }
 
-.sub-menu-offset-content {
-
-  // if sub-menu fixed
-  .anchor {
-    top: #{- ($header-height + $sub-menu-height + 20px)};
-  }
-}
-
 // ---------------------------------------------------------------------------
 
 .alert {

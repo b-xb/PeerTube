@@ -12,14 +12,13 @@
 
 @mixin section-label {
   color: pvar(--fg-300);
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 15px;
   font-weight: $font-bold;
-  letter-spacing: 2.5px;
+  letter-spacing: 1px;
 
   @media screen and (max-width: $mobile-view) {
-    font-size: 10px;
-    letter-spacing: 2.1px;
+    font-size: 12px;
     margin-bottom: 5px;
   }
 }
@@ -107,6 +106,13 @@
   height: $size;
   vertical-align: middle;
   cursor: pointer;
+}
+
+@mixin global-icon-size ($size) {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  line-height: $size;
 }
 
 @mixin responsive-width ($width) {
@@ -215,57 +221,6 @@
     top: 0;
 
     @content;
-  }
-}
-
-@mixin sub-menu-h1 {
-  ::ng-deep .sub-title-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-
-    border-bottom: 2px solid $separator-border-color;
-    padding-bottom: 15px;
-    margin-bottom: $sub-menu-margin-bottom;
-
-    > * {
-      gap: 0.5rem;
-      display: flex;
-      align-items: center;
-    }
-
-    .sub-title {
-      &,
-      h1 {
-        font-size: 1.3rem;
-      }
-
-      h1 {
-        margin: 0;
-      }
-
-      > my-global-icon {
-        width: 24px;
-        height: 24px;
-
-        svg {
-          vertical-align: initial;
-        }
-      }
-
-      my-feed {
-        display: inline-block;
-        width: 15px;
-
-        my-global-icon svg {
-          vertical-align: initial;
-          position: relative;
-          top: 1px;
-        }
-      }
-    }
   }
 }
 

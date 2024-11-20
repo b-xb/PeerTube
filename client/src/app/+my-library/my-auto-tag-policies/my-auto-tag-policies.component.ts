@@ -8,7 +8,7 @@ import { forkJoin } from 'rxjs'
 import { AutomaticTagService } from './automatic-tag.service'
 
 @Component({
-  templateUrl: './my-account-auto-tag-policies.component.html',
+  templateUrl: './my-auto-tag-policies.component.html',
   standalone: true,
   imports: [
     GlobalIconComponent,
@@ -16,7 +16,7 @@ import { AutomaticTagService } from './automatic-tag.service'
     PeertubeCheckboxComponent
   ]
 })
-export class MyAccountAutoTagPoliciesComponent implements OnInit {
+export class MyAutoTagPoliciesComponent implements OnInit {
   tags: { name: string, review: boolean, type: AutomaticTagAvailableType }[] = []
 
   constructor (

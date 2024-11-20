@@ -1,9 +1,13 @@
 <div #itemsParent class="list-overflow-parent" [ngClass]="{ 'opacity-0': !initialized }">
 
   <ul class="ul-unstyle d-flex">
-    <li class="d-inline-block" *ngFor="let item of items; index as id" [id]="getId(id)" #itemsRendered>
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {item: item}"></ng-container>
-    </li>
+    @for (item of items; track item.label; let id = $index) {
+      @if (!item.isDisplayed || item.isDisplayed()) {
+        <li class="d-inline-block" [id]="getId(id)" #itemsRendered>
+          <ng-container *ngTemplateOutlet="itemTemplate; context: {item: item}"></ng-container>
+        </li>
+      }
+    }
   </ul>
 
   @if (isMenuDisplayed()) {
@@ -18,11 +22,15 @@
         </button>
 
         <ul class="ul-unstyle" ngbDropdownMenu>
-          <li *ngFor="let item of items | slice:showItemsUntilIndexExcluded:items.length">
-            <a [routerLink]="item.routerLink" routerLinkActive="active" class="dropdown-item">
-              {{ item.label }}
-            </a>
-          </li>
+          @for (item of items | slice:showItemsUntilIndexExcluded:items.length; track item.label) {
+            @if (!item.isDisplayed || item.isDisplayed()) {
+              <li>
+                <a [routerLink]="item.routerLink" routerLinkActive="active" class="dropdown-item">
+                  {{ item.label }}
+                </a>
+              </li>
+            }
+          }
         </ul>
       </div>
     }
@@ -32,11 +40,15 @@
 <ng-template #modal let-close="close" let-dismiss="dismiss">
   <div class="modal-body">
     <ul class="ul-unstyle">
-      <li *ngFor="let item of items | slice:showItemsUntilIndexExcluded:items.length">
-        <a [routerLink]="item.routerLink" routerLinkActive="active" (click)="dismissOtherModals()">
-          {{ item.label }}
-        </a>
-      </li>
+      @for (item of items | slice:showItemsUntilIndexExcluded:items.length; track item.label) {
+        @if (!item.isDisplayed || item.isDisplayed()) {
+          <li>
+            <a [routerLink]="item.routerLink" routerLinkActive="active" (click)="dismissOtherModals()">
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      }
     </ul>
   </div>
 </ng-template>

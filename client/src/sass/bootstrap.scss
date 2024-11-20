@@ -318,34 +318,6 @@ body {
   }
 }
 
-.btn-group.select-button {
-  font-weight: $font-semibold;
-
-  .active {
-    @include primary-button;
-  }
-
-  :not(.active) {
-    @include secondary-button;
-  }
-
-  > * {
-    box-shadow: none !important;
-
-    @include peertube-button-link;
-
-    &:not(:first-child) {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
-    }
-
-    &:not(:last-child) {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-    }
-  }
-}
-
 .form-control {
   color: pvar(--fg);
   background-color: pvar(--input-bg);

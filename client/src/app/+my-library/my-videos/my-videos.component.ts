@@ -249,7 +249,7 @@ export class MyVideosComponent implements OnInit, DisableForReuseHook {
 
   getTotalTitle () {
     return formatICU(
-      $localize`You have ${this.pagination.totalItems} {total, plural, =1 {video} other {videos}}`,
+      $localize`${this.pagination.totalItems} {total, plural, =1 {video} other {videos}}`,
       { total: this.pagination.totalItems }
     )
   }

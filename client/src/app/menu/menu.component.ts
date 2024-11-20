@@ -112,13 +112,27 @@ export class MenuComponent implements OnInit, OnDestroy {
   private async buildMenuSections () {
     this.menuSections = []
 
-    for (const section of [ this.buildLibraryLinks(), this.buildVideoMakerLinks(), this.buildAdminLinks() ]) {
+    for (const section of [ this.buildQuickLinks(), this.buildLibraryLinks(), this.buildVideoMakerLinks(), this.buildAdminLinks() ]) {
       if (section.links.length !== 0) {
         this.menuSections.push(section)
       }
     }
 
     this.menuSections = await this.hooks.wrapObject(this.menuSections, 'common', 'filter:left-menu.links.create.result')
+  }
+
+  private buildQuickLinks (): MenuSection {
+    return {
+      key: 'quick-access',
+      title: $localize`Quick access`,
+      links: [
+        {
+          path: '/home',
+          icon: 'home' as GlobalIconName,
+          label: $localize`Home`
+        }
+      ]
+    }
   }
 
   private buildLibraryLinks (): MenuSection {
@@ -191,7 +205,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     if (this.isLoggedIn) {
       if (this.user.hasRight(UserRight.SEE_ALL_VIDEOS)) {
         links.push({
-          path: '/admin/videos/list',
+          path: '/admin/overview',
           icon: 'overview' as GlobalIconName,
           label: $localize`Overview`
         })
@@ -199,7 +213,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
       if (this.user.hasRight(UserRight.MANAGE_ABUSES)) {
         links.push({
-          path: '/admin/moderation/abuses/list',
+          path: '/admin/moderation',
           icon: 'moderation' as GlobalIconName,
           label: $localize`Moderation`
         })
@@ -207,7 +221,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
       if (this.user.hasRight(UserRight.MANAGE_CONFIGURATION)) {
         links.push({
-          path: '/admin/config/edit-custom',
+          path: '/admin/settings',
           icon: 'config' as GlobalIconName,
           label: $localize`Settings`
         })

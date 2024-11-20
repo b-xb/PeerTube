@@ -60,7 +60,7 @@ export class MySubscriptionsComponent {
 
   getTotalTitle () {
     return formatICU(
-      $localize`You have ${this.pagination.totalItems} {total, plural, =1 {subscription} other {subscriptions}}`,
+      $localize`${this.pagination.totalItems} {total, plural, =1 {subscription} other {subscriptions}}`,
       { total: this.pagination.totalItems }
     )
   }

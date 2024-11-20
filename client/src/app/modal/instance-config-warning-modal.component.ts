@@ -50,7 +50,7 @@ export class InstanceConfigWarningModalComponent {
   }
 
   show (about: About) {
-    if (this.location.path().startsWith('/admin/config/edit-custom')) return
+    if (this.location.path().startsWith('/admin/settings/config/edit-custom')) return
 
     this.about = about
 

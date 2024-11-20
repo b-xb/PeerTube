@@ -1,7 +1,25 @@
 <div class="root">
-  <ng-template #linkTemplate let-item="item">
-    <a [routerLink]="item.routerLink" routerLinkActive="active" class="x-menu-entry">{{ item.label }}</a>
+  <h1 *ngIf="h1">
+    <my-global-icon *ngIf="h1Icon" [iconName]="h1Icon"></my-global-icon>
+
+    {{ h1 }}
+
+  </h1>
+
+  <ng-template #entryTemplate let-item="item">
+    <a
+      myPluginSelector [pluginSelectorId]="item.pluginSelectorId"
+      [routerLink]="item.routerLink" [queryParams]="item.queryParams" routerLinkActive="active" class="entry"
+      [ngClass]="{ 'child-active': activeParent === item }">{{ item.label }}</a>
   </ng-template>
 
-  <my-list-overflow [items]="menuEntries" [itemTemplate]="linkTemplate"></my-list-overflow>
+  <div class="parent-container">
+    <my-list-overflow [items]="menuEntries" [itemTemplate]="entryTemplate"></my-list-overflow>
+  </div>
+
+  @if (children) {
+    <div class="children-container">
+      <my-list-overflow [items]="children" [itemTemplate]="entryTemplate"></my-list-overflow>
+    </div>
+  }
 </div>

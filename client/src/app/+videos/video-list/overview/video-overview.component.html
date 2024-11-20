@@ -4,12 +4,12 @@
   @if (notResults) {
     <div class="no-results" i18n>No results.</div>
   } @else {
-    <div class="quick-access text-secondary mt-3">
+    <div class="quick-access mt-3">
       <div #quickAccessContent class="quick-access-links" [ngClass]="{ 'see-all-quick-links': seeAllQuickLinks }">
-        <span class="me-2">Quick access:</span>
+        <span class="me-2 fg-100">Quick access:</span>
 
         @for (quickAccess of quickAccessLinks; track quickAccess.label) {
-          <a class="text-secondary text-decoration-underline me-2" [routerLink]="quickAccess.routerLink" [queryParams]="quickAccess.queryParams">{{ quickAccess.label }}</a>
+          <a class="fg-300 text-decoration-underline me-2" [routerLink]="quickAccess.routerLink" [queryParams]="quickAccess.queryParams">{{ quickAccess.label }}</a>
         }
       </div>
 
@@ -28,8 +28,8 @@
 
             <a class="text-fg border-highlight text-decoration-none" routerLink="/search" [queryParams]="object.queryParams">{{ object.label }}</a>
 
-            <span class="text-secondary fs-7 mx-2">·</span>
-            <span i18n class="text-secondary fs-7">{{ object.type }}</span>
+            <span class="fg-100 fs-7 mx-2">·</span>
+            <span i18n class="fg-100 fs-7">{{ object.type }}</span>
           </h1>
 
           <my-button theme="secondary" [routerLink]="object.routerLink" [queryParams]="object.queryParams">{{ object.buttonLabel }}</my-button>

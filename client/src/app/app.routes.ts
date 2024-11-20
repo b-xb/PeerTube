@@ -48,11 +48,19 @@ const routes: Routes = [
     loadChildren: () => import('./+video-channels/routes'),
     canActivateChild: [ MetaGuard ]
   },
+
   {
-    path: 'manage',
-    loadChildren: () => import('./+manage/routes'),
-    canActivateChild: [ MetaGuard ]
+    path: 'manage/create',
+    redirectTo: '/my-library/video-channels/create',
+    pathMatch: 'full'
   },
+
+  {
+    path: 'manage/update',
+    pathMatch: 'prefix',
+    redirectTo: '/my-library/video-channels/update'
+  },
+
   {
     path: 'p',
     loadChildren: () => import('./shared/shared-plugin-pages/routes'),

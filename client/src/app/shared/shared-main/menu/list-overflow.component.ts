@@ -23,6 +23,7 @@ const debugLogger = debug('peertube:main:ListOverflowItem')
 export interface ListOverflowItem {
   label: string
   routerLink: string | any[]
+  isDisplayed?: () => boolean
 }
 
 @Component({
@@ -32,9 +33,7 @@ export interface ListOverflowItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgFor,
     NgTemplateOutlet,
-    NgIf,
     NgbDropdown,
     NgbDropdownToggle,
     NgClass,

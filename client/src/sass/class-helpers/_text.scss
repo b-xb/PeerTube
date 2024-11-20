@@ -16,6 +16,55 @@
   color: pvar(--fg)
 }
 
+.fg-100 {
+  color: pvar(--fg-100)
+}
+
+// ---------------------------------------------------------------------------
+
+.fg-100 {
+  color: pvar(--fg-100)
+}
+
+.fg-150 {
+  color: pvar(--fg-150)
+}
+
+.fg-200 {
+  color: pvar(--fg-200)
+}
+
+.fg-250 {
+  color: pvar(--fg-250)
+}
+
+.fg-300 {
+  color: pvar(--fg-300)
+}
+
+.fg-350 {
+  color: pvar(--fg-350)
+}
+
+.fg-400 {
+  color: pvar(--fg-400)
+}
+
+.fg-450 {
+  color: pvar(--fg-450)
+}
+
+.fg-500 {
+  color: pvar(--fg-500)
+}
+
+// ---------------------------------------------------------------------------
+
+.total-items {
+  color: pvar(--fg-300);
+  font-weight: $font-semibold;
+}
+
 .link-orange {
   color: pvar(--fg);
   font-weight: $font-semibold;

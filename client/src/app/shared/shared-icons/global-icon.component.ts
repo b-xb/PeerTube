@@ -3,7 +3,6 @@ import { HooksService } from '@app/core/plugins/hooks.service'
 
 const icons = {
   // misc icons
-  'npm': require('../../../assets/images/misc/npm.svg'),
   'markdown': require('../../../assets/images/misc/markdown.svg'),
   'language': require('../../../assets/images/misc/language.svg'),
   'video-lang': require('../../../assets/images/misc/video-lang.svg'),
@@ -18,6 +17,7 @@ const icons = {
 
   // feather/lucide icons
   'history': require('../../../assets/images/feather/history.svg'),
+  'registry': require('../../../assets/images/feather/registry.svg'),
   'subscriptions': require('../../../assets/images/feather/subscriptions.svg'),
   'videos': require('../../../assets/images/feather/videos.svg'),
   'add': require('../../../assets/images/feather/plus.svg'),

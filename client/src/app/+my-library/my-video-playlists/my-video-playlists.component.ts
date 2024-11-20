@@ -92,7 +92,7 @@ export class MyVideoPlaylistsComponent {
 
   getTotalTitle () {
     return formatICU(
-      $localize`You have ${this.pagination.totalItems} {total, plural, =1 {playlist} other {playlists}}`,
+      $localize`${this.pagination.totalItems} {total, plural, =1 {playlist} other {playlists}}`,
       { total: this.pagination.totalItems }
     )
   }

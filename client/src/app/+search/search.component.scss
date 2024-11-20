@@ -38,20 +38,12 @@
         font-weight: $font-semibold;
       }
     }
-
-    .results-filter-button {
-      cursor: pointer;
-
-      .icon.icon-filter {
-        position: relative;
-        top: -1px;
-        background-image: url('../../assets/images/feather/filter.svg');
-
-        @include icon(20px);
-        @include margin-right(5px);
-      }
-    }
   }
+}
+
+.filter-button my-global-icon {
+  @include global-icon-size(20px);
+  @include margin-right(0.5rem);
 }
 
 .entry {
