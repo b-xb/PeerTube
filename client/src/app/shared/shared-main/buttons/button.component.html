@@ -2,7 +2,7 @@
   <a
     class="action-button"
     [ngClass]="classes" [ngbTooltip]="title"
-    [routerLink]="ptRouterLink" [queryParams]="ptQueryParams" [queryParamsHandling]="ptQueryParamsHandling"
+    [routerLink]="ptRouterLink" [queryParams]="ptQueryParams" [queryParamsHandling]="ptQueryParamsHandling" [routerLinkActive]="ptRouterLinkActive"
   >
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </a>

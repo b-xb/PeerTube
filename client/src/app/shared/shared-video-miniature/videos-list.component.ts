@@ -1,6 +1,6 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, booleanAttribute } from '@angular/core'
-import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import {
   AuthService,
   ComponentPaginationLight,
@@ -11,7 +11,6 @@ import {
   UserService
 } from '@app/core'
 import { GlobalIconComponent, GlobalIconName } from '@app/shared/shared-icons/global-icon.component'
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap'
 import { isLastMonth, isLastWeek, isThisMonth, isToday, isYesterday } from '@peertube/peertube-core-utils'
 import { ResultList, UserRight, VideoSortField } from '@peertube/peertube-models'
 import { logger } from '@root-helpers/logger'
@@ -20,7 +19,6 @@ import { Observable, Subject, Subscription, forkJoin, fromEvent, of } from 'rxjs
 import { concatMap, debounceTime, map, switchMap } from 'rxjs/operators'
 import { ButtonComponent } from '../shared-main/buttons/button.component'
 import { InfiniteScrollerDirective } from '../shared-main/common/infinite-scroller.directive'
-import { FeedComponent } from '../shared-main/feeds/feed.component'
 import { Syndication } from '../shared-main/feeds/syndication.model'
 import { Video } from '../shared-main/video/video.model'
 import { VideoFiltersHeaderComponent } from './video-filters-header.component'
@@ -52,14 +50,9 @@ enum GroupDate {
   standalone: true,
   imports: [
     NgIf,
-    NgbTooltip,
     NgClass,
-    FeedComponent,
     NgFor,
-    RouterLinkActive,
-    RouterLink,
     ButtonComponent,
-    NgTemplateOutlet,
     ButtonComponent,
     VideoFiltersHeaderComponent,
     InfiniteScrollerDirective,

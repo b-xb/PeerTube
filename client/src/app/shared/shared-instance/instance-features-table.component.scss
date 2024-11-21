@@ -6,13 +6,13 @@ table {
   color: pvar(--fg);
   width: 100%;
 
-  .label,
-  .sub-label {
-    &.label {
+  .t-label,
+  .t-sub-label {
+    &.t-label {
       font-weight: $font-semibold;
     }
 
-    &.sub-label {
+    &.t-sub-label {
       font-weight: $font-regular;
 
       @include padding-left(30px);

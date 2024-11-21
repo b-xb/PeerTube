@@ -17,16 +17,12 @@ export class MenuService {
     // Do not display menu on small or touch screens
     if (this.screenService.isInSmallView() || this.screenService.isInTouchScreen()) {
       this.setMenuCollapsed(true)
+    } else {
+      this.setMenuCollapsed(this.localStorageService.getItem(MenuService.LS_MENU_COLLAPSED) === 'true')
+      this.menuChangedByUser = this.menuCollapsed
     }
 
     this.handleWindowResize()
-
-    this.menuCollapsed = this.localStorageService.getItem(MenuService.LS_MENU_COLLAPSED) === 'true'
-    this.menuChangedByUser = this.menuCollapsed
-  }
-
-  isMenuCollapsed () {
-    return this.menuCollapsed
   }
 
   toggleMenu () {
@@ -43,21 +39,16 @@ export class MenuService {
   setMenuCollapsed (collapsed: boolean) {
     this.menuCollapsed = collapsed
 
-    if (!this.screenService.isInTouchScreen()) return
-
-    // On touch screens, lock body scroll and display content overlay when memu is opened
-    if (!this.menuCollapsed) {
+    if (this.menuCollapsed) {
+      document.body.classList.remove('menu-open')
+    } else {
       document.body.classList.add('menu-open')
-      this.screenService.onFingerSwipe('left', () => this.setMenuCollapsed(true))
-      return
     }
-
-    document.body.classList.remove('menu-open')
   }
 
   onResize () {
     if (this.screenService.isInSmallView() && !this.menuChangedByUser) {
-      this.menuCollapsed = true
+      this.setMenuCollapsed(true)
     }
   }
 

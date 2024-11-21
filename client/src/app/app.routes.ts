@@ -56,9 +56,9 @@ const routes: Routes = [
   },
 
   {
-    path: 'manage/update',
-    pathMatch: 'prefix',
-    redirectTo: '/my-library/video-channels/update'
+    path: 'manage/update/:channel',
+    pathMatch: 'full',
+    redirectTo: '/my-library/video-channels/update/:channel'
   },
 
   {

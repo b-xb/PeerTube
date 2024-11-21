@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core'
-import { NavigationEnd, Router, RouterModule } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router'
 import { GlobalIconComponent, GlobalIconName } from '@app/shared/shared-icons/global-icon.component'
 import { logger } from '@root-helpers/logger'
 import { filter, Subscription } from 'rxjs'
@@ -51,7 +51,7 @@ export class HorizontalMenuComponent implements OnInit, OnChanges, OnDestroy {
 
   private routerSub: Subscription
 
-  constructor (private router: Router) {
+  constructor (private router: Router, private route: ActivatedRoute) {
 
   }
 
@@ -74,8 +74,15 @@ export class HorizontalMenuComponent implements OnInit, OnChanges, OnDestroy {
     this.activeParent = undefined
 
     const currentUrl = window.location.pathname
+    const currentComponentPath = this.route.snapshot.pathFromRoot.reduce((a, c) => {
+      if (c.url.length === 0) return a
+
+      return a + '/' + c.url[0].path
+    }, '')
+
     const entry = this.menuEntries.find(parent => {
       if (currentUrl.startsWith(parent.routerLink)) return true
+      if (!parent.routerLink.startsWith('/') && `${currentComponentPath}/${parent.routerLink}` === currentUrl) return true
 
       if (parent.children) return parent.children.some(child => currentUrl.startsWith(child.routerLink))
 
@@ -84,7 +91,7 @@ export class HorizontalMenuComponent implements OnInit, OnChanges, OnDestroy {
 
     if (!entry) {
       if (this.menuEntries.length !== 0) {
-        logger.info(`Unable to find entry for ${currentUrl}`, { menuEntries: this.menuEntries })
+        logger.info(`Unable to find entry for ${currentUrl} or ${currentComponentPath}`, { menuEntries: this.menuEntries })
       }
 
       return

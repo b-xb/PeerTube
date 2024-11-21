@@ -80,7 +80,7 @@ body .p-paginator .p-paginator-next:focus,
 body .p-paginator .p-paginator-last:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 body .p-paginator .p-paginator-current {
   color: pvar(--fg);
@@ -134,7 +134,7 @@ body .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
 body .p-paginator .p-paginator-pages .p-paginator-page:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 body .p-paginator .p-dropdown {
   @include margin-left(0.5em);
@@ -157,7 +157,7 @@ body .p-dropdown:not(.p-disabled):hover {
 body .p-dropdown:not(.p-disabled).p-focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
   border-color: pvar(--input-border-color);
 }
 body .p-dropdown.p-dropdown-clearable .p-dropdown-label {
@@ -281,7 +281,7 @@ body .p-datepicker:not(.p-disabled) .p-datepicker-header .p-datepicker-prev:focu
 body .p-datepicker:not(.p-disabled) .p-datepicker-header .p-datepicker-next:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 body .p-datepicker .p-datepicker-header {
   padding: 0.429em 0.857em 0.429em 0.857em;
@@ -311,7 +311,7 @@ body .p-datepicker .p-datepicker-header .p-datepicker-title select {
 body .p-datepicker .p-datepicker-header .p-datepicker-title select:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 body .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
   @include margin-right(0.5rem);
@@ -349,7 +349,7 @@ body .p-datepicker table td > a {
 body .p-datepicker table td > a:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2em pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 body .p-datepicker table td.p-datepicker-today > a,
 body .p-datepicker table td.p-datepicker-today > span {
@@ -478,7 +478,7 @@ body p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
 .p-chips:not(.p-disabled).p-focus .p-chips-multiple-container {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.25rem pvar(--primary-300);
+  box-shadow: $focus-box-shadow-form;
 }
 .p-chips .p-chips-multiple-container {
   padding: pvar(--input-y-padding) pvar(--input-x-padding);
@@ -534,7 +534,7 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
 .p-multiselect:not(.p-disabled).p-focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.25rem pvar(--primary-300);
+  box-shadow: $focus-box-shadow-form;
 }
 .p-multiselect .p-multiselect-label {
   padding: pvar(--input-y-padding) pvar(--input-x-padding);
@@ -620,14 +620,14 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:hover {
-  color: pvar(--primary);
+  color: pvar(--fg-400);
   border-color: transparent;
   background: transparent;
 }
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close:focus-visible {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.2rem pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 .p-multiselect-panel .p-multiselect-items {
   padding: 0;
@@ -708,7 +708,7 @@ p-multiselect.ng-dirty.ng-invalid > .p-multiselect {
 .p-inputtext:enabled:focus {
   outline: 0 none;
   outline-offset: 0;
-  box-shadow: 0 0 0 0.25rem pvar(--primary-300);
+  box-shadow: $focus-box-shadow-form;
 }
 .p-inputtext.ng-dirty.ng-invalid {
   border-color: pvar(--red);
@@ -924,7 +924,7 @@ p-table {
         }
 
         &.p-focus {
-          box-shadow: #{$focus-box-shadow-form} pvar(--primary-100);
+          box-shadow: $focus-box-shadow-form;
         }
 
         .p-label {
@@ -962,7 +962,7 @@ p-table {
 
         &.focus-within,
         &:focus {
-          box-shadow: #{$focus-box-shadow-form} pvar(--primary-100);
+          box-shadow: $focus-box-shadow-form;
         }
 
         &.p-disabled:hover {
@@ -998,7 +998,7 @@ p-table {
 
           &.focus-within,
           &:focus {
-            box-shadow: #{$focus-box-shadow-form} pvar(--primary-100) !important;
+            box-shadow: #{$focus-box-shadow-form} !important;
           }
 
           &.p-highlight {

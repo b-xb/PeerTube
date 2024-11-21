@@ -81,6 +81,7 @@
 .notification-inbox-link {
   cursor: pointer;
   position: relative;
+  display: inline-block;
 
   .unread-notifications {
     @include margin-left(20px);
@@ -91,24 +92,14 @@
     top: 6px;
     left: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     background-color: pvar(--primary);
     color: pvar(--on-primary);
     font-weight: $font-bold;
     font-size: 10px;
 
     border-radius: 16px;
-    width: 16px;
-    height: 16px;
 
-    line-height: 1;
-
-    @media screen and (max-width: $mobile-view) {
-      top: -4px;
-      left: -2px;
-    }
+    line-height: 16px;
+    padding: 0 3px;
   }
 }

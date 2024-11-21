@@ -12,21 +12,23 @@
 </ng-template>
 
 @if (isInMobileView) {
-  <div i18n-title title="View your notifications" class="peertube-button tertiary-button rounded-icon-button">
+  <a
+    i18n-title title="View your notifications"
+    class="peertube-button tertiary-button rounded-icon-button notification-inbox-link"
+    routerLink="/my-account/notifications" routerLinkActive="active" #link (click)="onNavigate(link)"
+  >
     <ng-container *ngTemplateOutlet="notificationNumber"></ng-container>
 
-    <a routerLink="/my-account/notifications" routerLinkActive="active" #link (click)="onNavigate(link)">
-      <ng-container *ngTemplateOutlet="notificationIcon"></ng-container>
-    </a>
-  </div>
+    <ng-container *ngTemplateOutlet="notificationIcon"></ng-container>
+  </a>
 } @else {
   <div
     ngbDropdown autoClose="outside" placement="bottom" container="body" dropdownClass="dropdown-notifications"
     #dropdown="ngbDropdown" (shown)="onDropdownShown()" (hidden)="onDropdownHidden()"
   >
     <button
-      i18n-title title="View your notifications" class="peertube-button tertiary-button rounded-icon-button disable-dropdown-caret"
-      [ngClass]="{ 'notification-inbox-dropdown': true, 'shown': opened, 'hidden': isInMobileView }"
+      i18n-title title="View your notifications" class="peertube-button tertiary-button rounded-icon-button disable-dropdown-caret notification-inbox-dropdown"
+      [ngClass]="{ 'shown': opened, 'hidden': isInMobileView }"
       ngbDropdownToggle
     >
       <ng-container *ngTemplateOutlet="notificationNumber"></ng-container>

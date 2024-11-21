@@ -9,9 +9,9 @@
   z-index: z(menu);
   width: calc(#{$menu-width} - 2rem);
   position: fixed;
-  height: calc(100vh - #{$header-height});
+  height: calc(100vh - #{pvar(--header-height)});
 
-  @include margin-left(2rem);
+  @include margin-left(pvar(--menu-margin-left));
 
   &.collapsed {
     --co-menu-x-padding: 0.25rem;
@@ -19,14 +19,6 @@
     width: auto;
 
     @include margin-left(0);
-  }
-
-  @media screen and (max-width: $mobile-view) {
-    width: 100% !important;
-
-    .main-menu {
-      overflow-y: auto !important;
-    }
   }
 }
 
@@ -102,8 +94,10 @@
   @include padding-right(var(--co-menu-x-padding));
 }
 
-.menu-block,
-.collapsed .toggle-menu-container {
+.menu-block:not(:last-child),
+.logged-in .menu-block,
+.collapsed .toggle-menu-container,
+.about-top {
   &::after {
     content: '';
     display: block;
@@ -113,11 +107,14 @@
   }
 }
 
-.collapsed .menu-block,
-.collapsed .toggle-menu-container {
-  &::after {
-    width: 28px;
-    margin: 1rem auto;
+.collapsed {
+  .menu-block,
+  .toggle-menu-container,
+  .about {
+    &::after {
+      width: 28px;
+      margin: 1rem auto;
+    }
   }
 }
 
@@ -148,6 +145,9 @@
   color: pvar-fallback(--menu-fg, --fg-350);
   font-size: 14px;
   margin-bottom: 0.5rem;
+  max-width: 180px;
+
+  @include ellipsis;
 }
 
 .menu-link {
@@ -200,4 +200,88 @@
 
 my-button[theme=secondary] ::ng-deep my-global-icon {
   color: pvar(--secondary-icon-color) !important;
+}
+
+.menu-overlay {
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.75;
+  content: '';
+  display: none;
+  position: fixed;
+  z-index: z(overlay);
+}
+
+.mobile-controls {
+  display: none;
+  padding: 0 calc(var(--co-menu-x-padding) - 1rem) 2rem var(--co-menu-x-padding);
+  align-items: center;
+  justify-content: space-between;
+
+  .icon-logo {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    max-width: 48px;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+@media screen and (max-width: $menu-overlay-view) {
+  // On small screen use a menu overlay
+
+  .menu-container {
+    &:not(.collapsed) {
+      --menu-margin-left: 0;
+
+      border-radius: 0;
+      background-color: pvar-fallback(--menu-bg, --bg-secondary-400);
+      overflow: auto;
+
+      .main-menu-wrapper {
+        height: auto;
+        max-height: unset;
+      }
+    }
+  }
+
+  .menu-overlay:not(.menu-collapsed) {
+    display: block;
+  }
+}
+
+@media screen and (max-width: $mobile-view) {
+  .menu-container {
+    height: 100vh;
+    margin-top: calc(#{pvar(--header-height)} * -1);
+    z-index: z(root-header) + 1;
+
+    &.collapsed {
+      display: none;
+    }
+
+    &:not(.collapsed) {
+      width: 100vw !important;
+    }
+  }
+
+  .main-menu {
+    padding-top: 0.75rem;
+  }
+
+  .menu-overlay {
+    display: none !important;
+  }
+
+  .mobile-controls {
+    display: flex;
+  }
+
+  .toggle-menu-container {
+    display: none;
+  }
 }

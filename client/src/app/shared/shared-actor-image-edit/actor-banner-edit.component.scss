@@ -35,7 +35,7 @@
 }
 
 .button-focus-within:focus-within {
-  box-shadow: #{$focus-box-shadow-form} pvar(--primary-100);
+  box-shadow: $focus-box-shadow-form;
 }
 
 .dropdown-item {

@@ -5,7 +5,7 @@
 @use '_miniature' as *;
 
 $video-default-height: 66vh;
-$video-max-height: calc(100vh - #{$header-height} - #{$theater-bottom-space});
+$video-max-height: calc(100vh - #{pvar(--header-height)} - #{$theater-bottom-space});
 
 @mixin player-widget-below-player {
   width: 100% !important;
@@ -53,6 +53,7 @@ $video-max-height: calc(100vh - #{$header-height} - #{$theater-bottom-space});
   background-color: #000;
   display: flex;
   justify-content: center;
+  border-radius:5px;
 
   #videojs-wrapper {
     display: flex;
@@ -256,7 +257,7 @@ my-video-comments {
       --co-player-portrait-mode: 1;
       --co-player-height: calc(100vw / var(--co-player-ratio)) !important;
 
-      max-height: calc(100vh - #{$header-height} - #{$player-portrait-bottom-space});
+      max-height: calc(100vh - #{pvar(--header-height)} - #{$player-portrait-bottom-space});
     }
   }
 
@@ -275,7 +276,11 @@ my-video-comments {
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: $mobile-view) {
+  .margin-content.player-margin-content {
+    margin: 0 !important;
+  }
+
   .video-info-name {
     font-size: 18px;
   }

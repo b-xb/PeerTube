@@ -69,7 +69,7 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: $small-view) {
   .action-button .icon-text {
     display: none !important;
   }

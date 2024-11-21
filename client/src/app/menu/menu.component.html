@@ -1,19 +1,41 @@
-<div class="menu-container" [ngClass]="{ collapsed: collapsed }">
+<ng-template #moreInfoButton>
+  <my-button i18n class="mt-2 d-block" theme="secondary" icon="help" i18n-ariaLabel aria-label="More info" i18n ptRouterLink="/about" ptRouterLinkActive="active">
+    @if (!collapsed) {
+      More info
+    }
+  </my-button>
+</ng-template>
+
+<div class="menu-container" [ngClass]="{ collapsed: collapsed, 'logged-in': loggedIn }">
 
   <div class="main-menu-wrapper">
     <div class="main-menu-scrollbar">
 
       <div class="main-menu">
+        <div class="mobile-controls">
+          <span class="icon-logo"></span>
+
+          <my-button rounded="true" icon="cross" theme="tertiary" (click)="toggleMenu()"></my-button>
+        </div>
+
         <div class="toggle-menu-container">
           @if (collapsed) {
             <button type="button" class="button-unstyle toggle-menu" i18n-title title="Display the lateral bar" (click)="toggleMenu()">
               <my-global-icon class="transform-rotate-180" iconName="chevron-left"></my-global-icon>
             </button>
           } @else {
-            <button type="button" class="button-unstyle toggle-menu" i18n-title title="Hide the lateral bar" (click)="toggleMenu()">
+            <button type="button" class="button-unstyle toggle-menu" i18n-title title= "Hide the lateral bar" (click)="toggleMenu()">
               <my-global-icon iconName="chevron-left"></my-global-icon>
             </button>
           }
+        </div>
+
+        <div *ngIf="!loggedIn" class="about about-top">
+          <div i18n [ngClass]="{ 'visually-hidden': collapsed }" class="block-title me-2">{{ instanceName }}</div>
+
+          <div [ngClass]="{ 'visually-hidden': collapsed }" class="description">{{ shortDescription }}</div>
+
+          <ng-container *ngTemplateOutlet="moreInfoButton"></ng-container>
         </div>
 
         <nav>
@@ -43,16 +65,10 @@
           </ng-container>
         </nav>
 
-        <div class="about">
-          <div [ngClass]="{ 'visually-hidden': collapsed }" class="block-title">About {{ instanceName }}</div>
+        <div *ngIf="loggedIn" class="about">
+          <div [ngClass]="{ 'visually-hidden': collapsed }" class="block-title">{{ instanceName }}</div>
 
-          <div [ngClass]="{ 'visually-hidden': collapsed }" class="description">{{ shortDescription }}</div>
-
-          <my-button class="mt-2 d-block" theme="secondary" icon="help" i18n-ariaLabel aria-label="More info" i18n ptRouterLink="/about">
-            @if (!collapsed) {
-              More info
-            }
-          </my-button>
+          <ng-container *ngTemplateOutlet="moreInfoButton"></ng-container>
         </div>
       </div>
     </div>
@@ -66,3 +82,6 @@
     <a class="d-block fs-8" href="https://joinpeertube.org/instances" target="_blank" rel="noopener noreferrer" i18n>Discover more platforms</a>
   </div>
 </div>
+
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events,@angular-eslint/template/interactive-supports-focus -->
+<div class="menu-overlay" [ngClass]="{ 'menu-collapsed': collapsed }" (click)="toggleMenu()"></div>

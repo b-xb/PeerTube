@@ -21,9 +21,12 @@ $white: #fff;
 $button-font-size: 1rem;
 
 $header-height: 94px;
+$header-height-mobile-view: 144px;
 
 $menu-width: 248px;
-$collapsed-menu-width: 48px;
+$menu-collapsed-width: 50px;
+$menu-margin-left: 2rem;
+$menu-overlay-view: 1200px;
 
 $sub-menu-height: 81px;
 
@@ -53,7 +56,8 @@ $player-portrait-bottom-space: 50px;
 $sub-menu-margin-bottom: 30px;
 $sub-menu-margin-bottom-small-view: 10px;
 
-$focus-box-shadow-form: 0 0 0 .2rem;
+$focus-box-shadow-dimensions: 0 0 0 .2rem;
+
 $form-input-font-size: 16px;
 
 $video-watch-info-margin-left: 44px;
@@ -71,6 +75,7 @@ $variables: (
   --x-margin-content: var(--x-margin-content),
   --x-videos-margin-content: var(--x-videos-margin-content),
   --main-col-width: var(--main-col-width),
+  --header-height: var(--header-height),
 
   --fg: var(--fg),
   --bg: var(--bg),
@@ -121,6 +126,8 @@ $variables: (
   --on-primary: var(--on-primary),
 
   --primary: var(--primary),
+  --primary-700: var(--primary-700),
+  --primary-650: var(--primary-650),
   --primary-600: var(--primary-600),
   --primary-550: var(--primary-550),
   --primary-500: var(--primary-500),
@@ -139,6 +146,8 @@ $variables: (
   --alert-primary-fg: var(--alert-primary-fg),
   --alert-primary-bg: var(--alert-primary-bg),
   --alert-primary-border-color: var(--alert-primary-border-color),
+
+  --menu-margin-left: var(--menu-margin-left),
 
   // Optional variables
   --menu-fg: var(--menu-fg),
@@ -168,7 +177,6 @@ $variables: (
 
 $zindex: (
   miniature       :    10,
-  sub-menu        : 12500,
   overlay         : 12550,
   menu            : 12600,
   search-typeahead: 12650,
@@ -193,3 +201,4 @@ $zindex: (
 // ---------------------------------------------------------------------------
 
 $separator-border-color: pvar(--bg-secondary-400);
+$focus-box-shadow-form: #{$focus-box-shadow-dimensions} #{pvar(--fg-100)};

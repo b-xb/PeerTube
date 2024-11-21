@@ -16,6 +16,7 @@ const icons = {
   'flame': require('../../../assets/images/misc/flame.svg'),
 
   // feather/lucide icons
+  'menu': require('../../../assets/images/feather/menu.svg'),
   'history': require('../../../assets/images/feather/history.svg'),
   'registry': require('../../../assets/images/feather/registry.svg'),
   'subscriptions': require('../../../assets/images/feather/subscriptions.svg'),

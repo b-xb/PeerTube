@@ -17,6 +17,7 @@ import { GlobalIconComponent, GlobalIconName } from '../shared-icons/global-icon
 import { ButtonComponent } from '../shared-main/buttons/button.component'
 import { PeertubeModalService } from '../shared-main/peertube-modal/peertube-modal.service'
 import { VideoFilterActive, VideoFilters } from './video-filters.model'
+import { InstanceFollowService } from '../shared-instance/instance-follow.service'
 
 const debugLogger = debug('peertube:videos:VideoFiltersHeaderComponent')
 
@@ -45,7 +46,8 @@ type QuickFilter = {
     PeertubeCheckboxComponent,
     SelectOptionsComponent,
     ButtonComponent
-  ]
+  ],
+  providers: [ InstanceFollowService ]
 })
 export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
   @Input() filters: VideoFilters
@@ -63,6 +65,9 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
 
   quickFilters: QuickFilter[] = []
 
+  instanceName: string
+  totalFollowing: number
+
   private videoCategories: VideoConstant<number>[] = []
   private videoLanguages: VideoConstant<string>[] = []
 
@@ -74,11 +79,15 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private modalService: PeertubeModalService,
     private redirectService: RedirectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private followService: InstanceFollowService
   ) {
   }
 
   ngOnInit () {
+    this.instanceName = this.server.getHTMLConfig().instance.name
+
     this.form = this.fb.group({
       sort: [ '' ],
       nsfw: [ '' ],
@@ -113,9 +122,12 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     this.serverService.getVideoLanguages()
       .subscribe(languages => this.videoLanguages = languages)
 
+    this.followService.getFollowing({ pagination: { count: 1, start: 0 }, state: 'accepted' })
+      .subscribe(({ total }) => this.totalFollowing = total)
+
     this.availableScopes = [
-      { id: 'local', label: $localize`This platform only` },
-      { id: 'federated', label: $localize`All platforms` }
+      { id: 'local', label: $localize`Only videos from this platform` },
+      { id: 'federated', label: $localize`Videos from all platforms` }
     ]
 
     this.buildSortItems()

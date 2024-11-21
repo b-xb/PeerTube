@@ -5,7 +5,7 @@
 @use '_button-mixins' as *;
 
 .root {
-  --co-global-top-padding: 60px;
+  --co-global-top-padding: 2rem;
   --co-channel-img-margin: 30px;
   --co-font-size: 16px;
   --co-channel-handle-font-size: 16px;
@@ -15,6 +15,7 @@
 .actor-info {
   min-width: 1px;
   width: 100%;
+  align-items: flex-start;
 
   > h4,
   > .actor-handle {
@@ -89,6 +90,7 @@
   padding: 30px;
   width: 300px;
   font-size: var(--co-font-size);
+  border-radius: 5px;
 
   .avatar-row {
     display: flex;
@@ -222,7 +224,7 @@ my-copy-button {
 
 @media screen and (max-width: $mobile-view) {
   .root {
-    --co-global-top-padding: 15px;
+    --co-global-top-padding: 1rem;
     --co-font-size: 14px;
     --co-channel-handle-font-size: 13px;
     --co-owner-handle-font-size: 13px;

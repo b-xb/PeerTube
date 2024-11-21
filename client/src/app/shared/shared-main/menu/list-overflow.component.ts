@@ -1,6 +1,7 @@
-import { NgClass, NgFor, NgIf, NgTemplateOutlet, SlicePipe } from '@angular/common'
+import { NgClass, NgTemplateOutlet, SlicePipe } from '@angular/common'
 import {
   AfterViewInit,
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -46,6 +47,7 @@ export interface ListOverflowItem {
 export class ListOverflowComponent<T extends ListOverflowItem> implements AfterViewInit {
   @Input() items: T[]
   @Input() itemTemplate: TemplateRef<{ item: T }>
+  @Input({ transform: booleanAttribute }) hasBorder = false
 
   @ViewChild('modal', { static: true }) modal: ElementRef
   @ViewChild('itemsParent', { static: true }) parent: ElementRef<HTMLDivElement>

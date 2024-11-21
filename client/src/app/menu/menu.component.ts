@@ -7,6 +7,7 @@ import {
   AuthUser,
   HooksService,
   MenuService,
+  RedirectService,
   ServerService,
   UserService
 } from '@app/core'
@@ -53,8 +54,8 @@ const debugLogger = debug('peertube:menu:MenuComponent')
 })
 export class MenuComponent implements OnInit, OnDestroy {
   menuSections: MenuSection[] = []
+  loggedIn: boolean
 
-  private isLoggedIn: boolean
   private user: AuthUser
   private canSeeVideoMakerBlock: boolean
 
@@ -67,7 +68,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private serverService: ServerService,
     private hooks: HooksService,
-    private menu: MenuService
+    private menu: MenuService,
+    private redirectService: RedirectService
   ) { }
 
   get shortDescription () {
@@ -82,13 +84,17 @@ export class MenuComponent implements OnInit, OnDestroy {
     return this.menu.isCollapsed()
   }
 
+  get isOverlay () {
+    return this.menu.isCollapsed()
+  }
+
   ngOnInit () {
-    this.isLoggedIn = this.authService.isLoggedIn()
+    this.loggedIn = this.authService.isLoggedIn()
     this.onUserStateChange()
 
     this.authSub = this.authService.loginChangedSource.subscribe(status => {
-      if (status === AuthStatus.LoggedIn) this.isLoggedIn = true
-      else if (status === AuthStatus.LoggedOut) this.isLoggedIn = false
+      if (status === AuthStatus.LoggedIn) this.loggedIn = true
+      else if (status === AuthStatus.LoggedOut) this.loggedIn = false
 
       this.onUserStateChange()
     })
@@ -127,9 +133,14 @@ export class MenuComponent implements OnInit, OnDestroy {
       title: $localize`Quick access`,
       links: [
         {
-          path: '/home',
+          path: this.redirectService.getDefaultRoute(),
           icon: 'home' as GlobalIconName,
           label: $localize`Home`
+        },
+        {
+          path: '/videos/subscriptions',
+          icon: 'subscriptions' as GlobalIconName,
+          label: $localize`Subscriptions`
         }
       ]
     }
@@ -138,17 +149,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   private buildLibraryLinks (): MenuSection {
     let links: MenuLink[] = []
 
-    if (this.isLoggedIn) {
+    if (this.loggedIn) {
       links = links.concat([
         {
           path: '/my-library/video-playlists',
           icon: 'playlists' as GlobalIconName,
           label: $localize`Playlists`
-        },
-        {
-          path: '/videos/subscriptions',
-          icon: 'subscriptions' as GlobalIconName,
-          label: $localize`Subscriptions`
         },
         {
           path: '/my-library/history/videos',
@@ -168,7 +174,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private buildVideoMakerLinks (): MenuSection {
     let links: MenuLink[] = []
 
-    if (this.isLoggedIn && this.canSeeVideoMakerBlock) {
+    if (this.loggedIn && this.canSeeVideoMakerBlock) {
       links = links.concat([
         {
           path: '/my-library/video-channels',
@@ -202,7 +208,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private buildAdminLinks (): MenuSection {
     const links: MenuLink[] = []
 
-    if (this.isLoggedIn) {
+    if (this.loggedIn) {
       if (this.user.hasRight(UserRight.SEE_ALL_VIDEOS)) {
         links.push({
           path: '/admin/overview',
@@ -238,7 +244,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   // ---------------------------------------------------------------------------
 
   private computeCanSeeVideoMakerBlock () {
-    if (!this.isLoggedIn) return of(false)
+    if (!this.loggedIn) return of(false)
     if (!this.user.hasUploadDisabled()) return of(true)
 
     return this.authService.userInformationLoaded
@@ -256,7 +262,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   private onUserStateChange () {
-    this.user = this.isLoggedIn
+    this.user = this.loggedIn
       ? this.authService.getUser()
       : undefined
 

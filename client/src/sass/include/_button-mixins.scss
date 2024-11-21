@@ -3,11 +3,16 @@
 @use '_variables' as *;
 @use '_mixins' as *;
 
-@mixin secondary-button ($fg: pvar(--fg), $active-bg: pvar(--bg-secondary-400), $hover-bg: pvar(--bg-secondary-450)) {
+@mixin secondary-button (
+  $fg: pvar(--fg),
+  $active-bg: pvar(--bg-secondary-500),
+  $hover-bg: pvar(--bg-secondary-450),
+  $border-color: pvar(--bg-secondary-500)
+) {
   & {
     color: $fg;
     background-color: transparent;
-    border: 1px solid pvar(--bg-secondary-500) !important;
+    border: 1px solid $border-color !important;
   }
 
   &:active,
@@ -16,7 +21,7 @@
   &:focus-visible {
     color: $fg;
     background-color: $active-bg;
-    border-color: pvar(--bg-secondary-500);
+    border-color: $border-color;
   }
 
   // Override bootstrap
@@ -25,7 +30,7 @@
   &.btn.show {
     color: $fg !important;
     background-color: $active-bg !important;
-    border-color: pvar(--bg-secondary-500) !important;
+    border-color: $border-color !important;
   }
 
   &:hover {
@@ -215,7 +220,7 @@
 @mixin button-focus($color) {
   &:focus,
   &:focus-visible {
-    box-shadow: #{$focus-box-shadow-form} $color;
+    box-shadow: #{$focus-box-shadow-dimensions} $color;
   }
 }
 

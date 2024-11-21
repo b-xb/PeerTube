@@ -20,8 +20,6 @@ h1 {
 }
 
 .parent-container {
-  border-bottom: 1px solid pvar(--fg-200);
-
   .entry {
     color: pvar(--fg-100);
     display: inline-block;
@@ -62,16 +60,20 @@ h1 {
 
   @include rfs(margin-bottom, 2.5rem);
 
-  ::ng-deep li:not(:last-child)::after {
-    content: '•';
+  ::ng-deep li:not(:last-child) {
+    white-space: nowrap;
 
-    color: pvar(--secondary-icon-color);
+    &::after {
+      content: '•';
 
-    display: inline-block;
-    margin: 0 0.5rem;
+      color: pvar(--secondary-icon-color);
 
-    position: relative;
-    top: -1px;
+      display: inline-block;
+      margin: 0 0.5rem;
+
+      position: relative;
+      top: -1px;
+    }
   }
 
   .entry {

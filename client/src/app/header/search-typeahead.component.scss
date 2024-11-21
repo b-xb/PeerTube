@@ -5,7 +5,7 @@
 #search-video {
   text-overflow: ellipsis;
 
-  @include peertube-input-text(270px);
+  @include peertube-input-text(100%);
 
   & {
     padding-inline-start: 42px; // For the search icon
@@ -14,14 +14,6 @@
 
   &::placeholder {
     color: pvar(--input-placeholder);
-  }
-
-  @media screen and (max-width: $small-view) {
-    width: 200px;
-  }
-
-  @media screen and (max-width: $mobile-view) {
-    width: 150px;
   }
 }
 

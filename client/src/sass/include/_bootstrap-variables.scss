@@ -42,7 +42,7 @@ $input-focus-bg: pvar(--input-bg);
 $input-btn-focus-width: 0;
 $input-btn-focus-color: inherit;
 $input-focus-border-color: pvar(--input-border-color);
-$input-focus-box-shadow: 0 0 0 0.25rem pvar(--primary-100);
+$input-focus-box-shadow: #{$focus-box-shadow-form};
 
 $input-group-addon-color: pvar(--fg);
 $input-group-addon-bg: pvar(--bg-secondary-500);
@@ -64,7 +64,7 @@ $dropdown-bg: pvar(--bg);
 $accordion-button-active-bg: pvar(--primary-50);
 $accordion-button-active-color: pvar(--fg);
 $accordion-button-focus-border-color: pvar(--primary-100);
-$accordion-button-focus-box-shadow: 0 0 0 .15rem pvar(--primary-100);
+$accordion-button-focus-box-shadow: #{$focus-box-shadow-form};
 $accordion-border-color: pvar(--input-border-color);
 
 $card-color: pvar(--fg);

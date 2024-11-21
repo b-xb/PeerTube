@@ -1,4 +1,4 @@
-import { CommonModule, ViewportScroller } from '@angular/common'
+import { CommonModule } from '@angular/common'
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import {
@@ -9,11 +9,9 @@ import {
   MenuService,
   RedirectService,
   ScreenService,
-  ServerService,
-  UserService
+  ServerService
 } from '@app/core'
 import { NotificationDropdownComponent } from '@app/header/notification-dropdown.component'
-import { scrollToTop } from '@app/helpers'
 import { LanguageChooserComponent } from '@app/menu/language-chooser.component'
 import { QuickSettingsModalComponent } from '@app/menu/quick-settings-modal.component'
 import { ActorAvatarComponent } from '@app/shared/shared-actor-image/actor-avatar.component'
@@ -73,21 +71,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authSub: Subscription
 
   constructor (
-    private viewportScroller: ViewportScroller,
     private authService: AuthService,
-    private userService: UserService,
     private serverService: ServerService,
     private redirectService: RedirectService,
     private hotkeysService: HotkeysService,
     private screenService: ScreenService,
-    private menuService: MenuService,
     private modalService: PeertubeModalService,
-    private router: Router
+    private router: Router,
+    private menu: MenuService
   ) { }
-
-  get isInMobileView () {
-    return this.screenService.isInMobileView()
-  }
 
   get language () {
     return this.languageChooserModal.getCurrentLanguage()
@@ -99,6 +91,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   get instanceName () {
     return this.serverConfig.instance.name
+  }
+
+  isInMobileView () {
+    return this.screenService.isInMobileView()
+  }
+
+  isInSmallView () {
+    return this.screenService.isInSmallView()
   }
 
   ngOnInit () {
@@ -170,55 +170,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.quickSettingsModal.show()
   }
 
-  // FIXME: needed?
-  onDropdownOpenChange (opened: boolean) {
-    if (this.screenService.isInMobileView()) return
-
-    // Close dropdown when window scroll to avoid dropdown quick jump for re-position
-    const onWindowScroll = () => {
-      this.dropdown?.close()
-      window.removeEventListener('scroll', onWindowScroll)
-    }
-
-    if (opened) {
-      window.addEventListener('scroll', onWindowScroll)
-      document.querySelector('nav').scrollTo(0, 0) // Reset menu scroll to easy lock
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      document.querySelector('nav').addEventListener('scroll', this.onMenuScrollEvent)
-    } else {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      document.querySelector('nav').removeEventListener('scroll', this.onMenuScrollEvent)
-    }
-  }
-
-  // Lock menu scroll when menu scroll to avoid fleeing / detached dropdown
-  // FIXME: needed?
-  onMenuScrollEvent () {
-    document.querySelector('nav').scrollTo(0, 0)
-  }
-
-  // FIXME: needed?
-  onActiveLinkScrollToAnchor (link: HTMLAnchorElement) {
-    const linkURL = link.getAttribute('href')
-    const linkHash = link.getAttribute('fragment')
-
-    // On same url without fragment restore top scroll position
-    if (!linkHash && this.router.url.includes(linkURL)) {
-      scrollToTop('smooth')
-    }
-
-    // On same url with fragment restore anchor scroll position
-    if (linkHash && this.router.url === linkURL) {
-      this.viewportScroller.scrollToAnchor(linkHash)
-    }
-
-    if (this.screenService.isInSmallView()) {
-      this.menuService.toggleMenu()
-    }
-  }
-
   openHotkeysCheatSheet () {
     this.hotkeysService.cheatSheetToggle.next(!this.hotkeysHelpVisible)
+  }
+
+  toggleMenu () {
+    this.menu.toggleMenu()
   }
 
   private updateUserState () {

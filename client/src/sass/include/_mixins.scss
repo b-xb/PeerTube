@@ -240,30 +240,14 @@
 }
 
 @mixin on-small-main-col () {
-  :host-context(.main-col:not(.expanded)) {
-    @media screen and (max-width: #{$small-view + $menu-width}) {
-      @content;
-    }
-  }
-
-  :host-context(.main-col.expanded) {
-    @media screen and (max-width: $small-view) {
-      @content;
-    }
+  @media screen and (max-width: $small-view) {
+    @content;
   }
 }
 
 @mixin on-mobile-main-col () {
-  :host-context(.main-col:not(.expanded)) {
-    @media screen and (max-width: #{$mobile-view + $menu-width}) {
-      @content;
-    }
-  }
-
-  :host-context(.main-col.expanded) {
-    @media screen and (max-width: $mobile-view) {
-      @content;
-    }
+  @media screen and (max-width: $mobile-view) {
+    @content;
   }
 }
 

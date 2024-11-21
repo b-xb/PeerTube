@@ -1,6 +1,8 @@
 <div class="root" *ngIf="videoChannel">
-  <div class="margin-content banner" *ngIf="videoChannel.bannerUrl">
-    <img [src]="videoChannel.bannerUrl" alt="Channel banner">
+  <div class="margin-content">
+    <div class="banner" *ngIf="videoChannel.bannerUrl">
+      <img [src]="videoChannel.bannerUrl" alt="Channel banner">
+    </div>
   </div>
 
   <div class="margin-content channel-info">

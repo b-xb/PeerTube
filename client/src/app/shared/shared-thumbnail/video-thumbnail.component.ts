@@ -47,7 +47,11 @@ export class VideoThumbnailComponent {
   }
 
   isLiveStreaming () {
-    return this.video.isLive && this.video.state?.id === VideoState.PUBLISHED
+    // In non moderator mode we only display published live
+    // If in moderator mode, the server adds the state info to the object
+    if (!this.video.isLive) return false
+
+    return !this.video.state || this.video.state?.id === VideoState.PUBLISHED
   }
 
   isEndedLive () {

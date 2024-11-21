@@ -123,9 +123,7 @@ my-edit-button {
 }
 
 @media screen and (min-width: $small-view) {
-  :host-context(.expanded) {
-    .video-channel-buttons {
-      float: right;
-    }
+  .video-channel-buttons {
+    float: right;
   }
 }

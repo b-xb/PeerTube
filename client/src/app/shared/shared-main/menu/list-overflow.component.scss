@@ -10,13 +10,22 @@ li {
   padding-top: 2px;
 }
 
+.root {
+  overflow: hidden;
+  max-width: calc(100vw - 30px);
+  padding-bottom: 3px;
+}
+
 .list-overflow-parent {
   display: flex;
   align-items: center;
 
   // For the menu icon
   position: relative;
-  max-width: calc(100vw - 30px);
+
+  &.has-border {
+    border-bottom: 1px solid pvar(--fg-200);
+  }
 }
 
 .list-overflow-menu {

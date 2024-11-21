@@ -11,6 +11,13 @@
 @use './z-index';
 @use './class-helpers/index.scss';
 
+@mixin main-col-expanded {
+  --main-col-width: 100vw;
+
+  width: calc(100% - #{$menu-collapsed-width});
+  margin-inline-start: $menu-collapsed-width;
+}
+
 /* clears the ‘X’ from Chrome */
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
@@ -67,6 +74,14 @@ body {
   --alert-primary-bg: #{pvar(--primary-200)};
   --alert-primary-border-color: #{pvar(--primary-300)};
 
+  --menu-margin-left: #{$menu-margin-left};
+
+  --header-height: #{$header-height};
+
+  @media screen and (max-width: $mobile-view) {
+    --header-height: #{$header-height-mobile-view};
+  }
+
   // Light theme
   &[data-pt-theme=peertube-core-light],
   &[data-pt-theme=default] {
@@ -104,8 +119,8 @@ body {
     --bg: hsl(0 14% 7%);
     --bg-secondary: hsl(0 14% 22%);
 
-    --alert-primary-fg: #{pvar(--on-primary)};
-    --alert-primary-bg: #{pvar(--primary-200)};
+    --alert-primary-fg: #{pvar(--primary-650)};
+    --alert-primary-bg: #{pvar(--primary-100)};
     --alert-primary-border-color: #{pvar(--primary-300)};
   }
 
@@ -126,7 +141,7 @@ body {
 }
 
 ::selection {
-  color: pvar(--bg);
+  color: pvar(--on-primary);
   background-color: pvar(--primary-450);
 }
 
@@ -201,17 +216,6 @@ code {
     margin: 0 calc(#{pvar(--x-margin-content)} * -1);
   }
 
-  .sub-menu {
-    background-color: pvar(--bg-secondary-400);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 pvar(--x-margin-content);
-    height: $sub-menu-height;
-    margin-bottom: $sub-menu-margin-bottom;
-    overflow-x: auto;
-  }
-
   .skip-to-content-sub-menu {
     display: block;
     z-index: z(modal);
@@ -223,22 +227,19 @@ code {
 
   // Override some properties if the main content is expanded (no menu on the left)
   &.expanded {
-    --main-col-width: 100vw;
-
-    width: calc(100% - #{$collapsed-menu-width});
-
-    @include margin-left($collapsed-menu-width);
+    @include main-col-expanded();
   }
 
   &.lock-scroll .main-row > router-outlet + * {  /* stylelint-disable-line selector-max-compound-selectors */
     // Lock and hide body scrollbars
     position: fixed;
-
-    // Lock and hide sub-menu scrollbars
-    .sub-menu { /* stylelint-disable-line */
-      overflow-x: hidden;
-    }
   }
+}
+
+.modal-open,
+.main-col.expanded,
+.menu-open {
+  overflow: hidden !important;
 }
 
 my-global-icon[iconName=external-link] {
@@ -256,54 +257,49 @@ my-global-icon[iconName=external-link] {
   /* the following applies from 500px to 900px and is partially overridden from 500px to 800px by changes below to $small-view */
   .main-col,
   .main-col.expanded {
-    .sub-menu {
-      padding: 0 50px;
-
-      .title-page {
-        font-size: 17px;
-      }
+    .title-page {
+      font-size: 17px;
     }
   }
 }
 
-@media screen and (min-width: $mobile-view) and (max-width: $small-view) {
+@media screen and (max-width: $menu-overlay-view) {
   .main-col {
-    width: 100%;
+    @include main-col-expanded();
   }
 }
 
 @media screen and (max-width: $small-view) {
+  .main-col {
+    --x-margin-content: 1rem;
+  }
+
+  my-markdown-textarea {
+    .root {
+      max-width: 100% !important;
+    }
+  }
+
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  textarea,
+  .peertube-select-container {
+    flex-grow: 1;
+  }
+
+  .caption input[type=text] {
+    width: unset !important;
+    flex-grow: 1;
+  }
+}
+
+@media screen and (max-width: $mobile-view) {
   .main-col,
   .main-col.expanded {
-    --x-margin-content: 15px;
+    width: 100%;
 
     @include margin-left(0);
-
-    .sub-menu {
-      width: 100vw;
-      padding: 0 15px;
-      margin-bottom: $sub-menu-margin-bottom-small-view;
-      overflow-x: auto;
-    }
-
-    my-markdown-textarea {
-      .root {
-        max-width: 100% !important;
-      }
-    }
-
-    input[type=text],
-    input[type=password],
-    input[type=email],
-    textarea,
-    .peertube-select-container {
-      flex-grow: 1;
-    }
-
-    .caption input[type=text] {
-      width: unset !important;
-      flex-grow: 1;
-    }
   }
 }
 

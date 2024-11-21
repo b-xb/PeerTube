@@ -34,7 +34,8 @@ const debugLogger = debug('peertube:button')
     RouterLink,
     LoaderComponent,
     GlobalIconComponent,
-    ObserversModule
+    ObserversModule,
+    RouterLinkActive
   ]
 })
 
@@ -46,6 +47,7 @@ export class ButtonComponent implements OnChanges, AfterViewInit {
   @Input() ptRouterLink: string[] | string
   @Input() ptQueryParams: Params
   @Input() ptQueryParamsHandling: QueryParamsHandling
+  @Input() ptRouterLinkActive = ''
 
   @Input() title: string
   @Input({ transform: booleanAttribute }) active = false

@@ -14,10 +14,10 @@
   </ng-template>
 
   <div class="parent-container">
-    <my-list-overflow [items]="menuEntries" [itemTemplate]="entryTemplate"></my-list-overflow>
+    <my-list-overflow [items]="menuEntries" [itemTemplate]="entryTemplate" hasBorder="true"></my-list-overflow>
   </div>
 
-  @if (children) {
+  @if (children && children.length !== 0) {
     <div class="children-container">
       <my-list-overflow [items]="children" [itemTemplate]="entryTemplate"></my-list-overflow>
     </div>

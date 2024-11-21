@@ -81,13 +81,13 @@ $input-border-radius: 3px;
   &.maximized {
     z-index: #{z(root-header) - 1};
     position: fixed;
-    top: $header-height;
+    top: pvar(--header-height);
     left: $menu-width;
 
     max-height: none !important;
     max-width: none !important;
     width: calc(100% - #{$menu-width});
-    height: calc(100vh - #{$header-height});
+    height: calc(100vh - #{pvar(--header-height)});
 
     display: grid;
     grid-template-rows: auto 1fr;

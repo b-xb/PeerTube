@@ -1,34 +1,35 @@
-<div class="root py-4 px-4 w-100 d-flex justify-content-between">
-  <a class="peertube-title me-3" [routerLink]="getDefaultRoute()" [queryParams]="getDefaultRouteQuery()">
+<div class="root" [hidden]="!loaded || (loggedIn && !user.account)">
+  <a class="peertube-title" [routerLink]="getDefaultRoute()" [queryParams]="getDefaultRouteQuery()">
 
     <span class="icon-logo"></span>
     <span class="instance-name">{{ instanceName }}</span>
   </a>
 
-  <div class="d-flex align-items-center" [hidden]="!loaded || (loggedIn && !user.account)">
-    <my-search-typeahead class="w-100 me-5"></my-search-typeahead>
+  <my-search-typeahead></my-search-typeahead>
 
+  <div class="d-flex align-items-center">
     @if (!loggedIn) {
-      <my-button theme="tertiary" rounded="true" class="me-3" icon="cog" (click)="openQuickSettings()"></my-button>
+      <my-button theme="tertiary" rounded="true" class="margin-button" icon="cog" (click)="openQuickSettings()"></my-button>
 
-      <a *ngIf="isRegistrationAllowed()" routerLink="/signup" class="peertube-button-link secondary-button w-100 text-truncate me-3">
+      <a *ngIf="isRegistrationAllowed()" routerLink="/signup" class="peertube-button-link secondary-button w-100 ellipsis margin-button">
         <my-signup-label [requiresApproval]="requiresApproval"></my-signup-label>
       </a>
 
-      <my-login-link className="peertube-button-link primary-button w-100 text-truncate"></my-login-link>
+      <my-login-link class="login-label" className="peertube-button-link primary-button w-100 ellipsis"></my-login-link>
+      <my-login-link class="login-icon" className="peertube-button-link primary-button icon-only w-100 ellipsis" icon="true" label=""></my-login-link>
     } @else {
-      <my-notification-dropdown class="me-3" (navigate)="onActiveLinkScrollToAnchor($event)"></my-notification-dropdown>
+      <my-notification-dropdown class="margin-button"></my-notification-dropdown>
 
-      <my-button theme="tertiary" rounded="true" class="me-3" icon="cog" ptRouterLink="/my-account"></my-button>
+      <my-button theme="tertiary" rounded="true" class="margin-button" icon="cog" ptRouterLink="/my-account"></my-button>
 
       <div
         class="logged-in-container" ngbDropdown #dropdown="ngbDropdown" placement="bottom-left auto"
-        container="body" (openChange)="onDropdownOpenChange($event)"
+        container="body"
       >
         <button class="tertiary-button" ngbDropdownToggle>
-          <my-actor-avatar [actor]="user.account" actorType="account" size="34" class="me-2"></my-actor-avatar>
+          <my-actor-avatar [actor]="user.account" actorType="account" size="34" responseSize="true"></my-actor-avatar>
 
-          <div class="logged-in-info text-start">
+          <div class="logged-in-info text-start ms-2">
             <div class="display-name ellipsis">{{ user.account?.displayName }}</div>
 
             <div class="username ellipsis fs-8">&#64;{{ user.username }}</div>
@@ -37,8 +38,8 @@
 
         <div ngbDropdownMenu>
           <a
-            *ngIf="user.account" ngbDropdownItem ngbDropdownToggle class="dropdown-item" [routerLink]="[ '/a', user.account.nameWithHost ]"
-            #profile (click)="onActiveLinkScrollToAnchor(profile)"
+            *ngIf="user.account" ngbDropdownItem class="dropdown-item" [routerLink]="[ '/a', user.account.nameWithHost ]"
+            #profile
           >
             <my-global-icon iconName="user" aria-hidden="true"></my-global-icon> <ng-container i18n>Public profile</ng-container>
           </a>
@@ -46,8 +47,8 @@
           <div class="dropdown-divider"></div>
 
           <a
-            *ngIf="user.account" ngbDropdownItem ngbDropdownToggle class="dropdown-item" routerLink="/my-account"
-            #manageAccount (click)="onActiveLinkScrollToAnchor(manageAccount)"
+            *ngIf="user.account" ngbDropdownItem class="dropdown-item" routerLink="/my-account"
+            #manageAccount
           >
             <my-global-icon iconName="cog" aria-hidden="true"></my-global-icon> <ng-container i18n>Manage my account</ng-container>
           </a>
@@ -76,6 +77,8 @@
       </div>
     }
   </div>
+
+  <my-button theme="tertiary" rounded="true" class="menu-button margin-button" icon="menu" (click)="toggleMenu()"></my-button>
 </div>
 
 <my-language-chooser #languageChooserModal></my-language-chooser>

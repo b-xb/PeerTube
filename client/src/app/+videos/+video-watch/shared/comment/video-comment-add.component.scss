@@ -28,7 +28,6 @@ form {
     min-height: calc(#{$peertube-textarea-height} - 15px * 2);
 
     @include peertube-textarea(100%, $peertube-textarea-height);
-    @include button-focus(pvar(--primary-100));
     @include padding-right($markdown-icon-width + 15px !important);
 
     @media screen and (max-width: 600px) {

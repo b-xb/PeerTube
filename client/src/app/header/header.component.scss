@@ -1,48 +1,72 @@
 @use 'sass:math';
 @use '_variables' as *;
 @use '_mixins' as *;
+@use '_button-mixins' as *;
 
 .root {
+  --co-logo-size: 34px;
+
   background-color: pvar(--bg);
+
+  padding: 1.5rem;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
 }
 
 .peertube-title {
+  flex-shrink: 1;
+  min-width: var(--co-logo-size);
+  flex-grow: 1;
   font-size: 24px;
   font-weight: $font-bold;
   color: inherit !important;
   display: flex;
   align-items: center;
-  overflow: hidden;
 
   @include padding-left(18px);
+  @include margin-right(0.5rem);
   @include disable-default-a-behaviour;
+}
 
-  .instance-name {
-    width: 100%;
+.instance-name {
+  width: 100%;
 
-    @include ellipsis;
+  @include ellipsis;
+}
 
-    @media screen and (max-width: $mobile-view) {
-      display: none;
-    }
-  }
+.icon-logo {
+  display: inline-block;
+  width: var(--co-logo-size);
+  height: var(--co-logo-size);
+  min-width: var(--co-logo-size);
+  max-width: var(--co-logo-size);
 
-  .icon-logo {
-    display: inline-block;
-    width: 34px;
-    height: 34px;
-    min-width: 34px;
-    max-width: 34px;
+  background-repeat: no-repeat;
+  background-size: contain;
 
-    background-repeat: no-repeat;
+  @include margin-left(18px);
+  @include margin-right(10px);
+}
 
-    @include margin-left(18px);
-    @include margin-right(10px);
-  }
+my-search-typeahead {
+  max-width: 270px;
+
+  @include margin-right(1.5rem);
+}
+
+.margin-button {
+  @include margin-right(0.75rem);
+}
+
+.menu-button {
+  display: none;
+  justify-self: end;
 }
 
 .dropdown {
-  z-index: #{z('menu') + 1} !important;
+  z-index: #{z('header') + 1} !important;
 }
 
 .dropdown-item {
@@ -64,11 +88,11 @@
 }
 
 .logged-in-container {
-  flex: 1;
   border-radius: 25px;
   transition: all .1s ease-in-out;
   cursor: pointer;
   max-width: 250px;
+  height: 100%;
 
   .display-name {
     font-weight: $font-bold;
@@ -88,5 +112,97 @@
       // Disable bootstrap toggle
       border: 0;
     }
+  }
+}
+
+my-actor-avatar {
+  width: 34px;
+  height: 34px;
+}
+
+.login-icon {
+  display: none;
+}
+
+@media screen and (max-width: $menu-overlay-view) {
+  .peertube-title {
+    @include padding-left(0);
+  }
+
+  .icon-logo {
+    @include margin-left(0);
+  }
+}
+
+@media screen and (max-width: $small-view) {
+  .root {
+    padding: 1rem;
+  }
+
+  my-search-typeahead {
+    @include margin-right(0.5rem);
+  }
+
+  .margin-button.tertiary-button {
+    @include margin-right(0);
+  }
+
+  my-actor-avatar {
+    width: 24px;
+    height: 24px;
+  }
+
+  .dropdown-toggle {
+    @include peertube-button;
+    @include rounded-icon-button;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .logged-in-info {
+    display: none;
+  }
+
+  .login-icon {
+    display: inline-block;
+  }
+
+  .login-label {
+    display: none;
+  }
+}
+
+@media screen and (max-width: $mobile-view) {
+  .root {
+    --co-logo-size: 48px;
+
+    padding: 1rem;
+    display: grid;
+    row-gap: 0.5rem;
+    justify-content: space-between;
+
+    > * {
+      grid-row: 1;
+    }
+  }
+
+  .menu-button {
+    display: block;
+    position: relative;
+    right: -10px;
+  }
+
+  my-search-typeahead {
+    grid-row: 2 !important;
+    grid-column: 1 / 4;
+    max-width: none;
+
+    @include margin-right(0);
+  }
+
+  .instance-name {
+    display: none;
   }
 }
