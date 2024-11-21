@@ -3,12 +3,20 @@
   <div *ngIf="unreadNotifications >= 100" class="unread-notifications">99+</div>
 </ng-template>
 
+<ng-template #notificationIcon>
+  @if (unreadNotifications) {
+    <my-global-icon iconName="opened-bell"></my-global-icon>
+  } @else {
+    <my-global-icon iconName="bell"></my-global-icon>
+  }
+</ng-template>
+
 @if (isInMobileView) {
   <div i18n-title title="View your notifications" class="peertube-button tertiary-button rounded-icon-button">
     <ng-container *ngTemplateOutlet="notificationNumber"></ng-container>
 
     <a routerLink="/my-account/notifications" routerLinkActive="active" #link (click)="onNavigate(link)">
-      <my-global-icon iconName="bell"></my-global-icon>
+      <ng-container *ngTemplateOutlet="notificationIcon"></ng-container>
     </a>
   </div>
 } @else {
@@ -22,8 +30,7 @@
       ngbDropdownToggle
     >
       <ng-container *ngTemplateOutlet="notificationNumber"></ng-container>
-
-      <my-global-icon iconName="bell"></my-global-icon>
+      <ng-container *ngTemplateOutlet="notificationIcon"></ng-container>
     </button>
 
     <div ngbDropdownMenu>

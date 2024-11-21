@@ -1,8 +1,8 @@
-import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
+import { NgClass, NgIf } from '@angular/common'
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { RouterLink } from '@angular/router'
-import { AuthService } from '@app/core'
+import { ActivatedRoute, Params, RouterLink } from '@angular/router'
+import { AuthService, RedirectService } from '@app/core'
 import { ServerService } from '@app/core/server/server.service'
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap'
 import { UserRight, VideoConstant } from '@peertube/peertube-models'
@@ -13,13 +13,19 @@ import { PeertubeCheckboxComponent } from '../shared-forms/peertube-checkbox.com
 import { SelectCategoriesComponent } from '../shared-forms/select/select-categories.component'
 import { SelectLanguagesComponent } from '../shared-forms/select/select-languages.component'
 import { SelectOptionsComponent } from '../shared-forms/select/select-options.component'
-import { GlobalIconComponent } from '../shared-icons/global-icon.component'
+import { GlobalIconComponent, GlobalIconName } from '../shared-icons/global-icon.component'
 import { ButtonComponent } from '../shared-main/buttons/button.component'
-import { PeerTubeTemplateDirective } from '../shared-main/common/peertube-template.directive'
 import { PeertubeModalService } from '../shared-main/peertube-modal/peertube-modal.service'
 import { VideoFilterActive, VideoFilters } from './video-filters.model'
 
 const debugLogger = debug('peertube:videos:VideoFiltersHeaderComponent')
+
+type QuickFilter = {
+  iconName: GlobalIconName
+  label: string
+  isActive: () => boolean
+  queryParams: Params
+}
 
 @Component({
   selector: 'my-video-filters-header',
@@ -34,12 +40,10 @@ const debugLogger = debug('peertube:videos:VideoFiltersHeaderComponent')
     NgIf,
     GlobalIconComponent,
     NgbCollapse,
-    NgTemplateOutlet,
     SelectLanguagesComponent,
     SelectCategoriesComponent,
     PeertubeCheckboxComponent,
     SelectOptionsComponent,
-    PeerTubeTemplateDirective,
     ButtonComponent
   ]
 })
@@ -57,6 +61,8 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
   sortItems: SelectOptionsItem[] = []
   availableScopes: SelectOptionsItem[] = []
 
+  quickFilters: QuickFilter[] = []
+
   private videoCategories: VideoConstant<number>[] = []
   private videoLanguages: VideoConstant<string>[] = []
 
@@ -66,7 +72,9 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private serverService: ServerService,
     private fb: FormBuilder,
-    private modalService: PeertubeModalService
+    private modalService: PeertubeModalService,
+    private redirectService: RedirectService,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -82,6 +90,11 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     })
 
     this.patchForm(false)
+
+    this.routeSub = this.route.queryParams.subscribe(query => {
+      this.filters.load(query)
+      this.filtersChanged.emit()
+    })
 
     this.filters.onChange(() => {
       this.patchForm(false)
@@ -100,12 +113,13 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     this.serverService.getVideoLanguages()
       .subscribe(languages => this.videoLanguages = languages)
 
-    this.buildSortItems()
-
     this.availableScopes = [
       { id: 'local', label: $localize`This platform only` },
       { id: 'federated', label: $localize`All platforms` }
     ]
+
+    this.buildSortItems()
+    this.buildQuickFilters()
   }
 
   ngOnDestroy () {
@@ -118,6 +132,30 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
 
     return this.auth.getUser().hasRight(UserRight.SEE_ALL_VIDEOS)
   }
+
+  // ---------------------------------------------------------------------------
+
+  private buildQuickFilters () {
+    const trendingSort = this.redirectService.getDefaultTrendingSort()
+
+    this.quickFilters = [
+      {
+        label: $localize`Recently added`,
+        iconName: 'add',
+        isActive: () => this.filters.sort === '-publishedAt',
+        queryParams: { sort: '-publishedAt' }
+      },
+
+      {
+        label: $localize`Trending`,
+        iconName: 'trending',
+        isActive: () => this.filters.sort === trendingSort,
+        queryParams: { sort: trendingSort }
+      }
+    ]
+  }
+
+  // ---------------------------------------------------------------------------
 
   private buildSortItems () {
     this.sortItems = [
@@ -147,29 +185,7 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     return serverConfig.trending.videos.algorithms.enabled.includes(sort)
   }
 
-  getActiveFilters () {
-    const store: string[] = []
-
-    for (const activeFilter of this.filters.getActiveFilters()) {
-      if (activeFilter.value) {
-        store.push($localize`${activeFilter.label}\: ${this.getFilterValue(activeFilter)}`)
-      } else {
-        store.push(activeFilter.label)
-      }
-    }
-
-    const output = store.reduce((p, c) => {
-      if (!p) return c
-
-      return $localize`${p}, ${c}`
-    }, '')
-
-    if (output) return `${output}.`
-
-    return output
-  }
-
-  private getFilterValue (filter: VideoFilterActive) {
+  getFilterValue (filter: VideoFilterActive) {
     if ((filter.key === 'categoryOneOf' || filter.key === 'languageOneOf') && Array.isArray(filter.rawValue)) {
       if (filter.rawValue.length > 2) {
         return filter.rawValue.length

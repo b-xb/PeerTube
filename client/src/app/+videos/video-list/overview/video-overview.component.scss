@@ -29,9 +29,21 @@
   white-space: nowrap;
 }
 
-.quick-access-links:not(.see-all-quick-links) {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.quick-access-links {
+
+  a {
+    color: pvar(--fg-300);
+    text-decoration: underline;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &:not(.see-all-quick-links) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .see-all-quick-links {

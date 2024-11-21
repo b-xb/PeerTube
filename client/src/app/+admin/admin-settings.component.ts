@@ -26,8 +26,8 @@ export class AdminSettingsComponent implements OnInit {
   private buildMenu () {
     this.menuEntries = []
 
-    this.buildFederationItems()
     this.buildConfigurationItems()
+    this.buildFederationItems()
     this.buildPluginItems()
     this.buildRunnerItems()
     this.buildSystemItems()

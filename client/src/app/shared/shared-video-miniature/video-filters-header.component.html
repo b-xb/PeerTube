@@ -2,12 +2,24 @@
 
   <div class="first-row">
     <div>
-      <my-button theme="secondary" icon="add" i18n class="me-2">Recently added</my-button>
+      <div class="d-flex flex-wrap me-2">
+        @for (quickFilter of quickFilters; track quickFilter) {
+          <my-button
+            theme="secondary" [icon]="quickFilter.iconName" class="me-2 mb-2"
+            ptRouterLink="." [ptQueryParams]="quickFilter.queryParams" [active]="quickFilter.isActive()" ptQueryParamsHandling="merge"
+            >{{ quickFilter.label }} </my-button>
+        }
+      </div>
 
-      <my-button theme="secondary" icon="trending" i18n class="me-2">Trending</my-button>
-
-      <div class="filters-summary d-inline-block ms-4">
-        <div class="d-inline-block active-filters">{{ getActiveFilters() }}</div>
+      <div class="filters-summary d-inline-block">
+        <div class="d-inline-block active-filters">
+          @for (filter of filters.getActiveFilters(); track filter.key + (filter.value || '')) {
+            <div class="d-inline-block">
+              <span i18n *ngIf="filter.value">{{ filter.label }}: </span>
+              <strong>{{ getFilterValue(filter) || filter.label }}</strong>
+            </div>
+          }
+        </div>
 
         <button
           class="filters-toggle peertube-button-like-link" (click)="areFiltersCollapsed = !areFiltersCollapsed"
@@ -25,8 +37,8 @@
       </div>
     </div>
 
-    <div class="d-flex flex-wrap align-items-center" *ngIf="!hideScope">
-      <label for="scope" i18n class="select-label">Display videos of</label>
+    <div class="d-flex flex-wrap align-items-center ms-3" *ngIf="!hideScope">
+      <label for="scope" i18n class="select-label">Display videos of:</label>
 
       <my-select-options inputId="scope" class="scope-select" formControlName="scope" [items]="availableScopes"></my-select-options>
     </div>

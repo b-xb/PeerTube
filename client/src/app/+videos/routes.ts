@@ -48,7 +48,7 @@ export default [
         redirectTo: () => {
           const redirectService = inject(RedirectService)
 
-          return 'browse?scope=federated&sort=-' + redirectService.getDefaultTrendingAlgorithm()
+          return 'browse?scope=federated&sort=-' + redirectService.getDefaultTrendingSort()
         }
       },
       {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { AuthService, ServerService } from '@app/core'
-import { HorizontalMenuComponent } from '@app/shared/shared-main/menu/horizontal-menu.component'
-import { ListOverflowItem } from '@app/shared/shared-main/menu/list-overflow.component'
+import { HorizontalMenuComponent, HorizontalMenuEntry } from '@app/shared/shared-main/menu/horizontal-menu.component'
 
 @Component({
   selector: 'my-home-menu',
@@ -10,7 +9,7 @@ import { ListOverflowItem } from '@app/shared/shared-main/menu/list-overflow.com
   imports: [ HorizontalMenuComponent ]
 })
 export class HomeMenuComponent implements OnInit {
-  menuEntries: ListOverflowItem[] = []
+  menuEntries: HorizontalMenuEntry[] = []
 
   constructor (
     private server: ServerService,

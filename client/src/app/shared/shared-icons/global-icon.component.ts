@@ -27,6 +27,7 @@ const icons = {
   'config': require('../../../assets/images/feather/config.svg'),
   'award': require('../../../assets/images/feather/award.svg'),
   'bell': require('../../../assets/images/feather/bell.svg'),
+  'opened-bell': require('../../../assets/images/feather/opened-bell.svg'),
   'channel': require('../../../assets/images/feather/channel.svg'),
   'chevrons-up': require('../../../assets/images/feather/chevrons-up.svg'),
   'chevron-left': require('../../../assets/images/feather/chevron-left.svg'),

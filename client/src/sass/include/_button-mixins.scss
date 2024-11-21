@@ -11,6 +11,7 @@
   }
 
   &:active,
+  &.active,
   &:focus,
   &:focus-visible {
     color: $fg;
@@ -48,6 +49,7 @@
 
   &,
   &:active,
+  &.active,
   &:focus {
     color: pvar(--on-primary);
     background-color: pvar(--primary);
@@ -127,6 +129,7 @@
 
   &:hover,
   &:active,
+  &.active,
   &:focus:not(:focus-visible) {
     opacity: 0.8;
   }

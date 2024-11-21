@@ -1,5 +1,9 @@
-@if (ptRouterLink) {
-  <a class="action-button" [ngClass]="classes" [ngbTooltip]="title" [routerLink]="ptRouterLink">
+@if (ptRouterLink || ptQueryParams) {
+  <a
+    class="action-button"
+    [ngClass]="classes" [ngbTooltip]="title"
+    [routerLink]="ptRouterLink" [queryParams]="ptQueryParams" [queryParamsHandling]="ptQueryParamsHandling"
+  >
     <ng-container *ngTemplateOutlet="content"></ng-container>
   </a>
 } @else {

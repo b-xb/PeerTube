@@ -1,12 +1,22 @@
+import { ObserversModule } from '@angular/cdk/observers'
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common'
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild, booleanAttribute } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  ViewChild,
+  booleanAttribute
+} from '@angular/core'
+import { Params, QueryParamsHandling, RouterLink, RouterLinkActive } from '@angular/router'
 import { GlobalIconName } from '@app/shared/shared-icons/global-icon.component'
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap'
+import debug from 'debug'
 import { GlobalIconComponent } from '../../shared-icons/global-icon.component'
 import { LoaderComponent } from '../common/loader.component'
-import debug from 'debug'
-import { ObserversModule } from '@angular/cdk/observers'
 
 const debugLogger = debug('peertube:button')
 
@@ -16,15 +26,29 @@ const debugLogger = debug('peertube:button')
   templateUrl: './button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ NgIf, NgClass, NgbTooltip, NgTemplateOutlet, RouterLink, LoaderComponent, GlobalIconComponent, ObserversModule ]
+  imports: [
+    NgIf,
+    NgClass,
+    NgbTooltip,
+    NgTemplateOutlet,
+    RouterLink,
+    LoaderComponent,
+    GlobalIconComponent,
+    ObserversModule
+  ]
 })
 
 export class ButtonComponent implements OnChanges, AfterViewInit {
   @Input() label = ''
   @Input() theme: 'primary' | 'secondary' | 'tertiary' = 'secondary'
   @Input() icon: GlobalIconName
+
   @Input() ptRouterLink: string[] | string
+  @Input() ptQueryParams: Params
+  @Input() ptQueryParamsHandling: QueryParamsHandling
+
   @Input() title: string
+  @Input({ transform: booleanAttribute }) active = false
 
   @Input({ transform: booleanAttribute }) loading = false
   @Input({ transform: booleanAttribute }) disabled = false
@@ -46,9 +70,12 @@ export class ButtonComponent implements OnChanges, AfterViewInit {
   }
 
   private buildClasses () {
+    const isButtonLink = !!this.ptRouterLink
+
     this.classes = {
-      'peertube-button': !this.ptRouterLink,
-      'peertube-button-link': !!this.ptRouterLink,
+      'active': this.active,
+      'peertube-button': !isButtonLink,
+      'peertube-button-link': isButtonLink,
       'primary-button': this.theme === 'primary',
       'secondary-button': this.theme === 'secondary',
       'tertiary-button': this.theme === 'tertiary',

@@ -192,13 +192,13 @@ export class VideoFilters {
       this.activeFilters.push({
         key: 'live',
         canRemove: true,
-        label: $localize`Live videos`
+        label: $localize`Only lives`
       })
     } else if (this.live === 'false') {
       this.activeFilters.push({
         key: 'live',
         canRemove: true,
-        label: $localize`VOD videos`
+        label: $localize`Only VOD`
       })
     }
 

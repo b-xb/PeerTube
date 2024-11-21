@@ -9,7 +9,7 @@
         <span class="me-2 fg-100">Quick access:</span>
 
         @for (quickAccess of quickAccessLinks; track quickAccess.label) {
-          <a class="fg-300 text-decoration-underline me-2" [routerLink]="quickAccess.routerLink" [queryParams]="quickAccess.queryParams">{{ quickAccess.label }}</a>
+          <a class="me-2" [routerLink]="quickAccess.routerLink" [queryParams]="quickAccess.queryParams">{{ quickAccess.label }}</a>
         }
       </div>
 
@@ -22,7 +22,7 @@
     >
       <div class="section videos" *ngFor="let object of objects">
 
-        <div class="section-header d-flex justify-content-between">
+        <div class="section-header d-flex justify-content-between align-items-start">
           <h1 class="section-title">
             <my-actor-avatar *ngIf="object.channel" size="40px" actorType="channel" [actor]="object.channel"></my-actor-avatar>
 
@@ -32,7 +32,7 @@
             <span i18n class="fg-100 fs-7">{{ object.type }}</span>
           </h1>
 
-          <my-button theme="secondary" [routerLink]="object.routerLink" [queryParams]="object.queryParams">{{ object.buttonLabel }}</my-button>
+          <my-button theme="primary" [routerLink]="object.routerLink" [queryParams]="object.queryParams">{{ object.buttonLabel }}</my-button>
         </div>
 
         <div class="video-wrapper" *ngFor="let video of object.videos">

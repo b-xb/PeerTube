@@ -20,6 +20,7 @@ $filters-background: pvar(--bg-secondary-400);
   font-weight: normal;
   margin-bottom: 0;
   color: pvar(--fg-200);
+  font-size: 1rem;
 
   @include margin-right(0.5rem);
 }
@@ -66,12 +67,21 @@ $filters-background: pvar(--bg-secondary-400);
   }
 }
 
+.active-filters {
+  > div:not(:last-child)::after {
+    content: '•';
+    font-weight: normal;
+    display: inline-block;
+    margin: 0 5px;
+  }
+}
+
 .filters-summary {
   color: pvar(--fg-200);
 }
 
 .filters-toggle {
-  padding: pvar(--input-y-padding) 0.25rem calc(#{pvar(--input-y-padding)} + 0.75rem) 0.5rem;
+  padding: pvar(--input-y-padding) 0.5rem calc(#{pvar(--input-y-padding)} + 0.75rem) 0.75rem;
 
   @include margin-left(0.25rem);
 
