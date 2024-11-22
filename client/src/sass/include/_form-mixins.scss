@@ -224,8 +224,7 @@
   }
 
   &:checked + span {
-    border-color: pvar(--fg);
-    background: pvar(--fg);
+    background: pvar(--fg-400);
     animation: jelly 0.6s ease;
 
     &::before {
@@ -235,7 +234,7 @@
       background: pvar(--primary);
       position: absolute;
       transition: all 0.2s ease;
-      border: 2px solid pvar(--on-primary);
+      border: 2px solid transparent;
       border-radius: 2px;
     }
 

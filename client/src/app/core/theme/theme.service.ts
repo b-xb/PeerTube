@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HTMLServerConfig, ServerConfigTheme } from '@peertube/peertube-models'
+import { HTMLServerConfig, ServerConfig, ServerConfigTheme } from '@peertube/peertube-models'
 import { logger } from '@root-helpers/logger'
 import { capitalizeFirstLetter } from '@root-helpers/string'
 import { UserLocalStorageKeys } from '@root-helpers/users'
@@ -11,6 +11,8 @@ import { PluginService } from '../plugins/plugin.service'
 import { ServerService } from '../server'
 import { UserService } from '../users/user.service'
 import { LocalStorageService } from '../wrappers/storage.service'
+import { sortBy } from '@peertube/peertube-core-utils'
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util'
 
 const debugLogger = debug('peertube:theme')
 
@@ -50,29 +52,29 @@ export class ThemeService {
     this.listenUserTheme()
   }
 
-  getDefaultThemeLabel () {
-    if (this.hasDarkTheme()) {
-      return $localize`Light (Orange) or Dark (Brown)`
+  getDefaultThemeItem () {
+    return {
+      label: $localize`Light (Beige) or Dark (Brown)`,
+      id: 'default',
+      description: $localize`PeerTube selects the appropriate theme depending on web browser preferences`
     }
-
-    return $localize`Light (Orange)`
   }
 
   buildAvailableThemes () {
     return [
-      ...this.serverConfig.theme.registered.map(t => ({ id: t.name, label: capitalizeFirstLetter(t.name) })),
-
       ...this.serverConfig.theme.builtIn.map(t => {
-        if (t.name === 'peertube-core-dark') {
+        if (t.name === 'peertube-core-dark-brown') {
           return { id: t.name, label: $localize`Dark (Brown)` }
         }
 
-        if (t.name === 'peertube-core-light') {
-          return { id: t.name, label: $localize`Light (Orange)` }
+        if (t.name === 'peertube-core-light-beige') {
+          return { id: t.name, label: $localize`Light (Beige)` }
         }
 
         return { id: t.name, label: capitalizeFirstLetter(t.name) }
-      })
+      }),
+
+      ...this.serverConfig.theme.registered.map(t => ({ id: t.name, label: capitalizeFirstLetter(t.name) }))
     ]
   }
 
@@ -117,8 +119,8 @@ export class ThemeService {
     if (instanceTheme !== 'default') return instanceTheme
 
     // Default to dark theme if available and wanted by the user
-    if (this.hasDarkTheme() && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark'
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'peertube-core-dark-brown' satisfies ServerConfig['theme']['builtIn'][0]['name']
     }
 
     return instanceTheme
@@ -164,7 +166,7 @@ export class ThemeService {
       this.localStorageService.removeItem(UserLocalStorageKeys.LAST_ACTIVE_THEME, false)
     }
 
-    this.injectColorPalette()
+    setTimeout(() => this.injectColorPalette(), 0)
 
     this.oldThemeName = currentTheme
   }
@@ -187,6 +189,9 @@ export class ThemeService {
     ]
 
     const darkTheme = this.isDarkTheme(computedStyle)
+    if (darkTheme) {
+      debugLogger('Detected dark theme')
+    }
 
     for (const { prefix, invertIfDark, fallbacks = {} } of toProcess) {
       const mainColor = computedStyle.getPropertyValue('--' + prefix)
@@ -200,33 +205,59 @@ export class ThemeService {
         continue
       }
 
-      const mainColorParsed = parse(mainColor)
-      const mainColorHSL = toHSLA(mainColorParsed)
+      const mainColorHSL = toHSLA(parse(mainColor))
 
-      for (let i = -9; i <= 9; i++) {
-        const suffix = 500 + (50 * i)
-        const key = `--${prefix}-${suffix}`
+      let lastColorHSL = { ...mainColorHSL }
 
-        const existingValue = computedStyle.getPropertyValue(key)
-        if (!existingValue || existingValue === '0') {
-          const newLuminance = Math.max(Math.min(100, Math.round(mainColorHSL.l + (i * 5 * -1 * darkInverter))), 0)
-          const newColor = `hsl(${Math.round(mainColorHSL.h)} ${Math.round(mainColorHSL.s)}% ${newLuminance}% / ${mainColorHSL.a})`
+      // Inject in alphabetical order for easy debug
+      const toInject: { id: number, key: string, value: string }[] = [
+        { id: 500, key: `--${prefix}-500`, value: this.toHSLStr(mainColorHSL) }
+      ]
 
-          const value = fallbacks[key]
-            ? `var(${fallbacks[key]}, ${newColor})`
-            : newColor
+      for (const j of [ -1, 1 ]) {
+        for (let i = 1; i <= 9; i++) {
+          const suffix = 500 + (50 * i * j)
+          const key = `--${prefix}-${suffix}`
 
-          rootStyle.setProperty(key, value)
-          this.oldInjectedProperties.push(key)
+          const existingValue = computedStyle.getPropertyValue(key)
+          if (!existingValue || existingValue === '0') {
+            const newLuminance = this.buildNewLuminance(lastColorHSL, j, darkInverter)
+            const newColorHSL = { ...lastColorHSL, l: newLuminance }
 
-          debugLogger(`Injected theme palette ${key} -> ${value}`)
+            const newColorStr = this.toHSLStr(newColorHSL)
+
+            const value = fallbacks[key]
+              ? `var(${fallbacks[key]}, ${newColorStr})`
+              : newColorStr
+
+            toInject.push({ id: suffix, key, value })
+
+            lastColorHSL = newColorHSL
+
+            debugLogger(`Injected theme palette ${key} -> ${value}`)
+          } else {
+            lastColorHSL = toHSLA(parse(existingValue))
+          }
         }
+      }
+
+      for (const { key, value } of sortBy(toInject, 'id')) {
+        rootStyle.setProperty(key, value)
+        this.oldInjectedProperties.push(key)
       }
     }
 
     document.body.dataset.bsTheme = darkTheme
       ? 'dark'
       : ''
+  }
+
+  private buildNewLuminance (base: { l: number }, factor: number, darkInverter: number) {
+    return Math.max(Math.min(100, Math.round(base.l + (factor * 5 * -1 * darkInverter))), 0)
+  }
+
+  private toHSLStr (c: { h: number, s: number, l: number, a: number }) {
+    return `hsl(${Math.round(c.h)} ${Math.round(c.s)}% ${Math.round(c.l)}% / ${Math.round(c.a)})`
   }
 
   private isDarkTheme (computedStyle: CSSStyleDeclaration) {
@@ -317,9 +348,5 @@ export class ThemeService {
 
   private getTheme (name: string) {
     return this.themes.find(t => t.name === name)
-  }
-
-  private hasDarkTheme () {
-    return this.serverConfig.theme.registered.some(t => t.name === 'dark')
   }
 }

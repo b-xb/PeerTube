@@ -124,7 +124,7 @@ export interface ServerConfig {
   theme: {
     registered: ServerConfigTheme[]
 
-    builtIn: { name: 'peertube-core-light' | 'peertube-core-dark' }[]
+    builtIn: { name: 'peertube-core-light-beige' | 'peertube-core-dark-brown' }[]
 
     default: string
   }

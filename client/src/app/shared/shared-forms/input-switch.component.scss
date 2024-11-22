@@ -25,7 +25,7 @@ input {
       left: 3px;
       width: 14px;
       height: 14px;
-      background: pvar(--bg);
+      background: pvar(--on-primary);
       border-radius: 50%;
       transition: 0.3s ease-out;
     }
@@ -36,7 +36,7 @@ input {
   }
 
   &:checked + label {
-    background: pvar(--border-primary);
+    background: pvar(--primary);
 
     &::after {
       left: calc(100% - 3px);
@@ -45,6 +45,6 @@ input {
   }
 
   &:focus-visible + label {
-    outline: 2px solid;
+    box-shadow: $focus-box-shadow-form;
   }
 }

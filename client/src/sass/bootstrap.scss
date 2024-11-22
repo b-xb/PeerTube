@@ -25,7 +25,22 @@
 @import 'bootstrap/scss/tooltip';
 @import 'bootstrap/scss/popover';
 @import 'bootstrap/scss/spinners';
-@import 'bootstrap/scss/helpers';
+
+/* stylelint-disable-next-line at-rule-empty-line-before */
+@import 'bootstrap/scss/helpers/clearfix';
+@import 'bootstrap/scss/helpers/color-bg';
+// @import 'bootstrap/scss/helpers/colored-links';
+@import 'bootstrap/scss/helpers/focus-ring';
+@import 'bootstrap/scss/helpers/icon-link';
+@import 'bootstrap/scss/helpers/ratio';
+@import 'bootstrap/scss/helpers/position';
+@import 'bootstrap/scss/helpers/stacks';
+@import 'bootstrap/scss/helpers/visually-hidden';
+@import 'bootstrap/scss/helpers/stretched-link';
+@import 'bootstrap/scss/helpers/text-truncation';
+@import 'bootstrap/scss/helpers/vr';
+
+/* stylelint-disable-next-line at-rule-empty-line-before */
 @import 'bootstrap/scss/utilities/api';
 
 body {

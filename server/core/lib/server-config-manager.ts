@@ -374,10 +374,10 @@ class ServerConfigManager {
   getBuiltInThemes () {
     return [
       {
-        name: 'peertube-core-dark' as 'peertube-core-dark'
+        name: 'peertube-core-dark-brown' as 'peertube-core-dark-brown'
       },
       {
-        name: 'peertube-core-light' as 'peertube-core-light'
+        name: 'peertube-core-light-beige' as 'peertube-core-light-beige'
       }
     ]
   }

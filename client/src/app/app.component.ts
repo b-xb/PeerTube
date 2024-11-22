@@ -39,6 +39,7 @@ import { MenuComponent } from './menu/menu.component'
 import { ConfirmComponent } from './modal/confirm.component'
 import { GlobalIconComponent, GlobalIconName } from './shared/shared-icons/global-icon.component'
 import { InstanceService } from './shared/shared-main/instance/instance.service'
+import { ButtonComponent } from './shared/shared-main/buttons/button.component'
 
 @Component({
   selector: 'my-app',
@@ -61,11 +62,12 @@ import { InstanceService } from './shared/shared-main/instance/instance.service'
     AccountSetupWarningModalComponent,
     AdminWelcomeModalComponent,
     InstanceConfigWarningModalComponent,
-    CustomModalComponent
+    CustomModalComponent,
+    ButtonComponent
   ]
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  private static BROADCAST_MESSAGE_KEY = 'app-broadcast-message-dismissed'
+  private static LS_BROADCAST_MESSAGE = 'app-broadcast-message-dismissed'
 
   @ViewChild('accountSetupWarningModal') accountSetupWarningModal: AccountSetupWarningModalComponent
   @ViewChild('adminWelcomeModal') adminWelcomeModal: AdminWelcomeModalComponent
@@ -159,7 +161,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   hideBroadcastMessage () {
-    peertubeLocalStorage.setItem(AppComponent.BROADCAST_MESSAGE_KEY, this.serverConfig.broadcastMessage.message)
+    peertubeLocalStorage.setItem(AppComponent.LS_BROADCAST_MESSAGE, this.serverConfig.broadcastMessage.message)
 
     this.broadcastMessage = null
     this.screenService.isBroadcastMessageDisplayed = false
@@ -214,7 +216,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     if (messageConfig.enabled) {
       // Already dismissed this message?
-      if (messageConfig.dismissable && localStorage.getItem(AppComponent.BROADCAST_MESSAGE_KEY) === messageConfig.message) {
+      if (messageConfig.dismissable && localStorage.getItem(AppComponent.LS_BROADCAST_MESSAGE) === messageConfig.message) {
         return
       }
 

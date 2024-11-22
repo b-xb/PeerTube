@@ -18,6 +18,7 @@ import { ButtonComponent } from '../shared-main/buttons/button.component'
 import { PeertubeModalService } from '../shared-main/peertube-modal/peertube-modal.service'
 import { VideoFilterActive, VideoFilters } from './video-filters.model'
 import { InstanceFollowService } from '../shared-instance/instance-follow.service'
+import { AttributesOnly } from '@peertube/peertube-typescript-utils'
 
 const debugLogger = debug('peertube:videos:VideoFiltersHeaderComponent')
 
@@ -25,7 +26,7 @@ type QuickFilter = {
   iconName: GlobalIconName
   label: string
   isActive: () => boolean
-  queryParams: Params
+  filters: Partial<AttributesOnly<VideoFilters>>
 }
 
 @Component({
@@ -49,7 +50,7 @@ type QuickFilter = {
   ],
   providers: [ InstanceFollowService ]
 })
-export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
+export class VideoFiltersHeaderComponent implements OnInit {
   @Input() filters: VideoFilters
   @Input() displayModerationBlock = false
   @Input() hideScope = false
@@ -71,15 +72,12 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
   private videoCategories: VideoConstant<number>[] = []
   private videoLanguages: VideoConstant<string>[] = []
 
-  private routeSub: Subscription
-
   constructor (
     private auth: AuthService,
     private serverService: ServerService,
     private fb: FormBuilder,
     private modalService: PeertubeModalService,
     private redirectService: RedirectService,
-    private route: ActivatedRoute,
     private server: ServerService,
     private followService: InstanceFollowService
   ) {
@@ -99,11 +97,6 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     })
 
     this.patchForm(false)
-
-    this.routeSub = this.route.queryParams.subscribe(query => {
-      this.filters.load(query)
-      this.filtersChanged.emit()
-    })
 
     this.filters.onChange(() => {
       this.patchForm(false)
@@ -134,10 +127,6 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
     this.buildQuickFilters()
   }
 
-  ngOnDestroy () {
-    if (this.routeSub) this.routeSub.unsubscribe()
-  }
-
   canSeeAllVideos () {
     if (!this.auth.isLoggedIn()) return false
     if (!this.displayModerationBlock) return false
@@ -147,6 +136,13 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
 
   // ---------------------------------------------------------------------------
 
+  onQuickFilter (e: Event, quickFilter: QuickFilter) {
+    e.preventDefault()
+
+    this.filters.load(quickFilter.filters)
+    this.filtersChanged.emit()
+  }
+
   private buildQuickFilters () {
     const trendingSort = this.redirectService.getDefaultTrendingSort()
 
@@ -155,14 +151,14 @@ export class VideoFiltersHeaderComponent implements OnInit, OnDestroy {
         label: $localize`Recently added`,
         iconName: 'add',
         isActive: () => this.filters.sort === '-publishedAt',
-        queryParams: { sort: '-publishedAt' }
+        filters: { sort: '-publishedAt' }
       },
 
       {
         label: $localize`Trending`,
         iconName: 'trending',
         isActive: () => this.filters.sort === trendingSort,
-        queryParams: { sort: trendingSort }
+        filters: { sort: trendingSort }
       }
     ]
   }

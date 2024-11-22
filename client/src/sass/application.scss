@@ -83,7 +83,7 @@ body {
   }
 
   // Light theme
-  &[data-pt-theme=peertube-core-light],
+  &[data-pt-theme=peertube-core-light-beige],
   &[data-pt-theme=default] {
     --is-dark: 0;
 
@@ -92,11 +92,15 @@ body {
 
     --fg: hsl(0 14% 2%);
 
-    --bg: hsl(0 10% 96%);
-    --bg-secondary: hsl(0 10% 76%);
+    --bg: hsl(250 5% 96%);
+    --bg-secondary: hsl(0 12% 72%);
+    --bg-secondary-500: hsl(0 12% 72%);
+    --bg-secondary-450: hsl(0 13% 81%);
+    --bg-secondary-400: hsl(0 19% 89%);
+    --bg-secondary-350: hsl(0 13% 92%);
 
-    --secondary-icon-color: #8F7676;
-    --input-placeholder: #8F7676;
+    --secondary-icon-color: hsl(0, 9%, 51%);
+    --input-placeholder: hsl(0, 9%, 51%);
 
     --alert-primary-fg: #{pvar(--on-primary)};
     --alert-primary-bg: #{pvar(--primary-200)};
@@ -104,7 +108,7 @@ body {
   }
 
   // Brown
-  &[data-pt-theme=peertube-core-dark] {
+  &[data-pt-theme=peertube-core-dark-brown] {
     --is-dark: 1;
 
     --primary: #FD9C50;
@@ -237,8 +241,7 @@ code {
 }
 
 .modal-open,
-.main-col.expanded,
-.menu-open {
+.main-col.expanded {
   overflow: hidden !important;
 }
 
@@ -264,6 +267,10 @@ my-global-icon[iconName=external-link] {
 }
 
 @media screen and (max-width: $menu-overlay-view) {
+  .menu-open {
+    overflow: hidden !important;
+  }
+
   .main-col {
     @include main-col-expanded();
   }
