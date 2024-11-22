@@ -98,7 +98,7 @@
   display: flex;
 
   .miniature-name {
-    font-size: $video-miniature-row-name-font-size;
+    font-size: $miniature-fs-row-big;
   }
 
   .miniature-thumbnail {
@@ -121,5 +121,9 @@
   .miniature.display-as-row {
     --co-row-thumbnail-width: #{$video-thumbnail-small-width};
     --co-row-thumbnail-height: #{$video-thumbnail-small-height};
+
+    .miniature-name {
+      font-size: $miniature-fs-mobile-big;
+    }
   }
 }

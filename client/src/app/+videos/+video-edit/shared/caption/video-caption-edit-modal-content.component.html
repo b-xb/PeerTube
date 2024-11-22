@@ -52,7 +52,7 @@
 
                     <my-timestamp-input
                       class="me-1"
-                      inputName="segmentStart" [disableBorder]="false" [maxTimestamp]="publishedVideo.duration * 1000" mask="99:99:99.999"
+                      inputName="segmentStart" enableBorder="true" [maxTimestamp]="publishedVideo.duration * 1000" mask="99:99:99.999"
                       [(ngModel)]="segment.startMs" [parser]="timestampParser" [formatter]="timestampFormatter"
                     ></my-timestamp-input>
 
@@ -67,7 +67,7 @@
 
                     <my-timestamp-input
                       class="me-1"
-                      inputName="segmentEnd" [disableBorder]="false" [maxTimestamp]="publishedVideo.duration * 1000" mask="99:99:99.999"
+                      inputName="segmentEnd" enableBorder="true" [maxTimestamp]="publishedVideo.duration * 1000" mask="99:99:99.999"
                       [(ngModel)]="segment.endMs" [parser]="timestampParser" [formatter]="timestampFormatter"
                     ></my-timestamp-input>
 

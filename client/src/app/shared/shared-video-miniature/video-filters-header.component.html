@@ -1,33 +1,34 @@
 <div class="root" [formGroup]="form">
 
-  <div class="scope-row" *ngIf="totalFollowing && !hideScope">
-    @if (filters.scope === 'local') {
-      <ng-container i18n>Videos on {{ instanceName }}</ng-container>
-    } @else {
-      <ng-container i18n>Videos on {{ instanceName }} and {{ totalFollowing }} other platforms</ng-container>
+  <div class="d-flex flex-wrap mb-3">
+    @for (quickFilter of quickFilters; track quickFilter) {
+      <my-button
+        theme="secondary" [icon]="quickFilter.iconName" class="me-2 mb-2"
+        ptRouterLink="." [ptQueryParams]="quickFilter.filters" [active]="quickFilter.isActive()" ptQueryParamsHandling="merge"
+        (click)="onQuickFilter($event, quickFilter)"
+        >{{ quickFilter.label }} </my-button>
     }
   </div>
 
-
-  <div class="filters-row">
-    <div class="d-flex flex-wrap">
-      <div class="d-flex flex-wrap me-2">
-        @for (quickFilter of quickFilters; track quickFilter) {
-          <my-button
-            theme="secondary" [icon]="quickFilter.iconName" class="me-2 mb-2"
-            ptRouterLink="." [ptQueryParams]="quickFilter.filters" [active]="quickFilter.isActive()" ptQueryParamsHandling="merge"
-            (click)="onQuickFilter($event, quickFilter)"
-            >{{ quickFilter.label }} </my-button>
+  <div class="d-flex flex-wrap-reverse align-items-start justify-content-between">
+    <div class="me-3">
+      <div class="scope-info" *ngIf="totalFollowing && !hideScope">
+        @if (filters.scope === 'local') {
+          <ng-container i18n>Videos on <strong>{{ instanceName }}</strong></ng-container>
+        } @else {
+          <ng-container i18n>Videos on <strong>{{ instanceName }}</strong> and <strong>{{ totalFollowing }}</strong> other platforms</ng-container>
         }
       </div>
 
       <div class="filters-summary d-inline-block">
         <div class="d-inline-block active-filters">
           @for (filter of filters.getActiveFilters(); track filter.key + (filter.value || '')) {
-            <div class="d-inline-block">
-              <span i18n *ngIf="filter.value">{{ filter.label }}: </span>
-              <strong>{{ getFilterValue(filter) || filter.label }}</strong>
-            </div>
+            @if (filter.key !== 'scope') {
+              <div class="d-inline-block">
+                <span i18n *ngIf="filter.value">{{ filter.label }}: </span>
+                <strong>{{ getFilterValue(filter) || filter.label }}</strong>
+              </div>
+            }
           }
         </div>
 
@@ -47,7 +48,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-wrap align-items-center ms-3" >
+    <div class="d-flex flex-wrap align-items-center mb-2">
       <label for="sort-videos" i18n class="select-label">Sort by:</label>
 
       <my-select-options inputId="sort-videos" class="d-inline-block me-2" formControlName="sort" [items]="sortItems"></my-select-options>

@@ -9,6 +9,8 @@
   font-weight: $font-semibold;
   line-height: 1.1;
   max-width: 100%;
+  white-space: normal;
+  word-break: normal;
 
   &.badge-fs-normal {
     font-size: 100%;

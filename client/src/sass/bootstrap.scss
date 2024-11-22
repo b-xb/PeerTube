@@ -218,6 +218,14 @@ body {
 // Nav
 // ---------------------------------------------------------------------------
 
+.nav:not(.nav-pills) {
+  --bs-nav-link-padding-x: 0;
+
+  .nav-link {
+    @include margin-right(2rem);
+  }
+}
+
 .nav .nav-link {
   display: flex !important;
   align-items: center;
@@ -281,11 +289,15 @@ body {
 .accordion-button {
   font-size: 18px;
 
+  my-global-icon {
+    color: pvar(--secondary-icon-color);
+  }
+
   &:not(.collapsed) {
     font-weight: $font-bold;
 
     my-global-icon {
-      color: pvar(--primary-400);
+      color: pvar(--fg);
     }
   }
 }

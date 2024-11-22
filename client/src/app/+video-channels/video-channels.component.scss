@@ -4,8 +4,9 @@
 @use '_miniature' as *;
 @use '_button-mixins' as *;
 
+$owner-block-bg: pvar(--bg-secondary-350);
+
 .root {
-  --co-global-top-padding: 2rem;
   --co-channel-img-margin: 30px;
   --co-font-size: 16px;
   --co-channel-handle-font-size: 16px;
@@ -28,7 +29,6 @@
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto;
 
-  padding-top: var(--co-global-top-padding);
   font-size: var(--co-font-size);
 
   @include margin-bottom(3rem);
@@ -41,7 +41,6 @@
 .channel-description {
   grid-column: 1;
   word-break: break-word;
-  padding-bottom: var(--co-global-top-padding);
 }
 
 .show-more {
@@ -84,8 +83,6 @@
 }
 
 .owner-block {
-  $owner-block-bg: pvar(--bg-secondary-350);
-
   background-color: $owner-block-bg;
   padding: 30px;
   width: 300px;
@@ -146,7 +143,6 @@ my-copy-button {
 
 @media screen and (max-width: 1100px) {
   .root {
-    --co-global-top-padding: 45px;
     --co-channel-img-margin: 15px;
   }
 
@@ -159,7 +155,7 @@ my-copy-button {
   .channel-description:not(.expanded) {
     max-height: 70px;
 
-    @include fade-text(30px, pvar(--bg-secondary-350));
+    @include fade-text(30px, pvar(--bg));
   }
 
   .show-more {
@@ -182,16 +178,14 @@ my-copy-button {
 
   .bottom-owner {
     display: block;
-    width: 100%;
     border-bottom: 2px solid $separator-border-color;
-    padding: var(--co-global-top-padding) 45px;
     margin-bottom: 60px;
   }
 
   .owner-block {
     display: grid;
     width: 100%;
-    padding: 0;
+    padding: 1rem;
 
     .avatar-row {
       grid-column: 1;
@@ -203,7 +197,7 @@ my-copy-button {
       grid-column: 2;
       max-height: 70px;
 
-      @include fade-text(30px, pvar(--bg));
+      @include fade-text(30px, $owner-block-bg);
     }
 
     .view-account {
@@ -224,7 +218,6 @@ my-copy-button {
 
 @media screen and (max-width: $mobile-view) {
   .root {
-    --co-global-top-padding: 1rem;
     --co-font-size: 14px;
     --co-channel-handle-font-size: 13px;
     --co-owner-handle-font-size: 13px;

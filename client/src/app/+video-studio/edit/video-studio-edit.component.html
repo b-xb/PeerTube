@@ -1,5 +1,9 @@
 <div class="margin-content">
-  <h1 class="title-page" i18n>Studio for {{ video.name }}</h1>
+  <h1 class="title-page">
+    <my-global-icon iconName="film"></my-global-icon>
+
+    <ng-container i18n>Studio for {{ video.name }}</ng-container>
+  </h1>
 
   <div class="grid-container">
     <form [formGroup]="form">
@@ -11,12 +15,12 @@
 
         <div class="form-group">
           <label i18n for="cutStart">New start</label>
-          <my-timestamp-input inputName="cutStart" [disableBorder]="false" [maxTimestamp]="video.duration" formControlName="start"></my-timestamp-input>
+          <my-timestamp-input inputName="cutStart" enableBorder="true" [maxTimestamp]="video.duration" formControlName="start"></my-timestamp-input>
         </div>
 
         <div class="form-group">
           <label i18n for="cutEnd">New end</label>
-          <my-timestamp-input inputName="cutEnd" [disableBorder]="false" [maxTimestamp]="video.duration" formControlName="end"></my-timestamp-input>
+          <my-timestamp-input inputName="cutEnd" enableBorder="true" [maxTimestamp]="video.duration" formControlName="end"></my-timestamp-input>
         </div>
       </div>
 

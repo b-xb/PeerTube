@@ -51,6 +51,9 @@ body {
   --input-border-color: var(--inputBorderColor, #{pvar(--input-bg)});
   --input-bg-in-secondary: #{pvar(--bg-secondary-450)};
 
+  --input-check-active-fg: #{pvar(--on-primary)};
+  --input-check-active-bg: #{pvar(--primary)};
+
   --input-y-padding: 5px;
   --input-x-padding: 20px;
 
@@ -78,6 +81,10 @@ body {
 
   --header-height: #{$header-height};
 
+  @media screen and (max-width: $small-view) {
+    --header-height: #{$header-height-small-view};
+  }
+
   @media screen and (max-width: $mobile-view) {
     --header-height: #{$header-height-mobile-view};
   }
@@ -101,6 +108,9 @@ body {
 
     --secondary-icon-color: hsl(0, 9%, 51%);
     --input-placeholder: hsl(0, 9%, 51%);
+
+    --input-check-active-fg: #{pvar(--bg)};
+    --input-check-active-bg: #{pvar(--fg-250)};
 
     --alert-primary-fg: #{pvar(--on-primary)};
     --alert-primary-bg: #{pvar(--primary-200)};
@@ -204,6 +214,14 @@ code {
   vertical-align: middle;
 }
 
+a {
+  color: inherit;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .main-col {
   // Don't use rfs to get exact pixels
   margin-inline-start: $menu-width;
@@ -254,16 +272,6 @@ my-global-icon[iconName=external-link] {
   color: pvar(--secondary-icon-color);
   position: relative;
   top: -0.1em;
-}
-
-@media screen and (max-width: #{breakpoint(xl)}) {
-  /* the following applies from 500px to 900px and is partially overridden from 500px to 800px by changes below to $small-view */
-  .main-col,
-  .main-col.expanded {
-    .title-page {
-      font-size: 17px;
-    }
-  }
 }
 
 @media screen and (max-width: $menu-overlay-view) {

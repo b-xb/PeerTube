@@ -262,7 +262,7 @@
                 <div class="position">{{ i + 1 }}</div>
 
                 <my-timestamp-input
-                  class="d-block" [disableBorder]="false" [inputName]="'timecode[' + i + ']'"
+                  class="d-block" enableBorder="true" [inputName]="'timecode[' + i + ']'"
                   [maxTimestamp]="publishedVideo?.duration" formControlName="timecode"
                 ></my-timestamp-input>
 

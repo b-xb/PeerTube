@@ -16,8 +16,11 @@
 }
 
 .title-block {
-  .title-page {
-    @include margin-right(0);
+  > h2 {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+
+    @include font-size(1.25rem);
   }
 
   my-feed {

@@ -5,10 +5,12 @@
 $index-block-height: 40px;
 
 header {
-  margin-bottom: 30px;
-  padding-bottom: 25px;
   width: 100%;
-  background-color: pvar(--primary-50);
+  background-color: pvar(--primary-150);
+  border-radius: 5px;
+
+  @include rfs(2rem, margin-bottom);
+  @include rfs(2rem, padding);
 }
 
 .header-steps {

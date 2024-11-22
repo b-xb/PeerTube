@@ -38,36 +38,15 @@
   }
 }
 
-.title-page-v2 {
-  font-weight: normal;
-  font-size: 15px;
-  padding: 35px 25px;
-}
-
 .title-page {
-  margin-top: 30px;
-  margin-bottom: 25px;
+  margin-bottom: 1.5rem;
+  color: pvar(--fg-400);
 
-  color: pvar(--fg);
-  display: inline-block;
-  font-weight: $font-semibold;
-  font-size: 1.25rem;
+  @include font-size(2rem);
 
-  @include margin-right(55px);
-
-  a {
-    color: inherit;
-
-    @include disable-default-a-behaviour;
-
-    &:hover {
-      color: inherit;
-      opacity: 0.8;
-    }
-  }
-
-  @media screen and (max-width: $mobile-view) {
-    @include margin-left(15px);
+  my-global-icon {
+    @include global-icon-size(28px);
+    @include margin-right(0.5rem);
   }
 }
 

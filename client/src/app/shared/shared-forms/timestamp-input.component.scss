@@ -3,9 +3,15 @@
 @use '_form-mixins' as *;
 
 p-inputmask {
+  &.with-border {
+    --input-border-color: #{pvar(--bg-secondary-500)};
+  }
+
   ::ng-deep input {
     width: 100%;
     text-align: center;
+
+    @include peertube-input-text(100%);
 
     &:focus-within,
     &:focus {
@@ -15,18 +21,6 @@ p-inputmask {
     &:disabled {
       background: pvar(--bg);
       opacity: 0.5;
-    }
-  }
-
-  &.border-disabled {
-    ::ng-deep input {
-      border: 0;
-    }
-  }
-
-  &:not(.border-disabled) {
-    ::ng-deep input {
-      @include peertube-input-text(100%);
     }
   }
 }

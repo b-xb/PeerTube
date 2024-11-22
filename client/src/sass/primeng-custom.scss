@@ -2,6 +2,8 @@
 @use '_mixins' as *;
 @use '_icons' as *;
 
+$hover-bg: pvar(--bg-secondary-350);
+
 /* stylelint-disable */
 @import 'primeng/resources/primeng.css';
 
@@ -71,7 +73,7 @@ body .p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
 body .p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
 body .p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
 body .p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
-  background-color: pvar(--bg-secondary-400);
+  background-color: $hover-bg;
   color: pvar(--fg);
 }
 body .p-paginator .p-paginator-first:focus,
@@ -128,7 +130,7 @@ body .p-paginator .p-paginator-pages .p-paginator-page {
   border-radius: 0;
 }
 body .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
-  background-color: pvar(--bg-secondary-400);
+  background-color: $hover-bg;
   color: pvar(--fg);
 }
 body .p-paginator .p-paginator-pages .p-paginator-page:focus {
@@ -243,7 +245,7 @@ body .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
   color: pvar(--fg);
-  background: pvar(--bg-secondary-400);
+  background: $hover-bg;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item-group {
   margin: 0;
@@ -565,7 +567,7 @@ p-chips.p-chips-clearable .p-chips-clear-icon {
   background: pvar(--bg-secondary-500);
 }
 .p-multiselect.p-variant-filled:not(.p-disabled):hover {
-  background-color: pvar(--bg-secondary-400);
+  background-color: $hover-bg;
 }
 .p-multiselect.p-variant-filled:not(.p-disabled).p-focus {
   background-color: pvar(--bg-secondary-500);
@@ -816,7 +818,7 @@ p-table {
   .p-datatable-tbody {
     tr {
       &:hover {
-        background-color: pvar(--bg-secondary-400) !important;
+        background-color: $hover-bg !important;
       }
 
       td {
@@ -860,7 +862,7 @@ p-table {
     color: pvar(--fg) !important;
 
     &.p-sortable-column:hover {
-      background-color: pvar(--bg-secondary-400) !important;
+      background-color: $hover-bg !important;
     }
 
     &.p-sortable-column:focus-visible {

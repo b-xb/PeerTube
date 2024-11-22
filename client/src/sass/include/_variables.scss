@@ -21,7 +21,8 @@ $white: #fff;
 $button-font-size: 1rem;
 
 $header-height: 94px;
-$header-height-mobile-view: 144px;
+$header-height-small-view: 74px;
+$header-height-mobile-view: 124px;
 
 $menu-width: 248px;
 $menu-collapsed-width: 50px;
@@ -37,11 +38,19 @@ $max-channels-width: 1200px;
 $footer-height: 30px;
 $footer-margin: 30px;
 
-$video-miniature-row-name-font-size: 1.3em;
-$video-miniature-row-mobile-name-font-size: 14px;
+// ---------------------------------------------------------------------------
 
-$video-miniature-row-info-font-size: 14px;
-$video-miniature-row-mobile-info-font-size: 12px;
+$miniature-fs-small: 0.75rem;
+$miniature-fs-medium: 0.875rem;
+$miniature-fs-big: 1rem;
+
+$miniature-fs-row-small: 0.875rem;
+$miniature-fs-row-medium: 1rem;
+$miniature-fs-row-big: 1.25rem;
+
+$miniature-fs-mobile-small: 0.875rem;
+$miniature-fs-mobile-medium: 0.875rem;
+$miniature-fs-mobile-big: 1rem;
 
 $video-thumbnail-height: 153px;
 $video-thumbnail-width: 280px;
@@ -87,9 +96,14 @@ $variables: (
 
   --input-fg: var(--input-fg),
   --input-bg: var(--input-bg),
+
   --input-placeholder: var(--input-placeholder),
   --input-border-color: var(--input-border-color),
   --input-bg-in-secondary: var(--input-bg-in-secondary),
+
+  --input-check-active-fg: var(--input-check-active-fg),
+  --input-check-active-bg: var(--input-check-active-bg),
+
   --input-x-padding: var(--input-x-padding),
   --input-y-padding: var(--input-y-padding),
 
@@ -201,4 +215,5 @@ $zindex: (
 // ---------------------------------------------------------------------------
 
 $separator-border-color: pvar(--bg-secondary-400);
+$separator-border-color-on-secondary: pvar(--bg-secondary-450);
 $focus-box-shadow-form: #{$focus-box-shadow-dimensions} #{pvar(--fg-100)};

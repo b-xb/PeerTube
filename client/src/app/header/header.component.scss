@@ -5,10 +5,11 @@
 
 .root {
   --co-logo-size: 34px;
+  --co-root-padding: 1.5rem;
 
   background-color: pvar(--bg);
 
-  padding: 1.5rem;
+  padding: var(--co-root-padding);
   width: 100%;
 
   display: flex;
@@ -34,6 +35,7 @@
   width: 100%;
 
   @include ellipsis;
+  @include margin-left(10px);
 }
 
 .icon-logo {
@@ -45,8 +47,6 @@
 
   background-repeat: no-repeat;
   background-size: contain;
-
-  @include margin-right(10px);
 }
 
 my-search-typeahead {
@@ -135,15 +135,15 @@ my-actor-avatar {
 
 @media screen and (max-width: $small-view) {
   .root {
-    padding: 1rem;
+    --co-root-padding: 1rem;
   }
 
   my-search-typeahead {
     @include margin-right(0.5rem);
   }
 
-  .margin-button.tertiary-button {
-    @include margin-right(0);
+  .margin-button[theme=tertiary] {
+    @include margin-right(5px);
   }
 
   my-actor-avatar {
@@ -177,8 +177,8 @@ my-actor-avatar {
   .root {
     --co-logo-size: 48px;
 
-    padding: 1rem;
     display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     row-gap: 0.5rem;
     justify-content: space-between;
 
@@ -196,9 +196,13 @@ my-actor-avatar {
   my-search-typeahead {
     grid-row: 2 !important;
     grid-column: 1 / 4;
-    max-width: none;
+    max-width: 100%;
 
     @include margin-right(0);
+  }
+
+  .peertube-title {
+    @include margin-right(5px)
   }
 
   .instance-name {

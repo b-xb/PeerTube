@@ -53,24 +53,17 @@ form {
 
   ::ng-deep .help-tooltip-button {
     my-global-icon {
+      color: pvar(--input-placeholder);
       height: $markdown-icon-height;
       width: $markdown-icon-width;
 
       svg {
-        color: pvar(--input-border-color);
-        fill: pvar(--input-border-color);
         border-radius: 3px;
       }
     }
 
-    &:focus,
-    &:active,
-    &:hover {
-      my-global-icon svg {
-        background-color: pvar(--input-border-color);
-        color: pvar(--bg);
-        fill: pvar(--bg);
-      }
+    &:focus my-global-icon {
+      color: pvar(--input-fg);
     }
   }
 }

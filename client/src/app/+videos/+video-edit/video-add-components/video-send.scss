@@ -13,6 +13,8 @@ $width-size: 275px;
 }
 
 .first-step-block {
+  --input-bg: #{pvar(--bg-secondary-500)};
+
   display: flex;
   flex-direction: column;
   align-items: center;

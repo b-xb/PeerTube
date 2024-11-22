@@ -37,10 +37,6 @@ $nav-link-height: 40px;
   }
 }
 
-.margin-content {
-  padding-top: 20px;
-}
-
 :host ::ng-deep .video-add-nav {
   @include peertube-nav-tabs($border-width, $border-type, $border-color, $nav-link-height);
 

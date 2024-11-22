@@ -3,7 +3,7 @@
 @use '_variables' as *;
 @import '_bootstrap-mixins';
 
-@mixin underline-orange {
+@mixin underline-primary {
   text-decoration: underline !important;
   text-decoration-color: pvar(--border-primary) !important;
   text-underline-offset: 0.25em !important;
@@ -133,15 +133,6 @@
     margin: 0 $separator-margin;
     color: pvar(--primary);
   }
-}
-
-@mixin in-content-small-title {
-  text-transform: uppercase;
-  color: pvar(--fg);
-  font-weight: $font-bold;
-  font-size: 13px;
-
-  @include underline-orange();
 }
 
 @mixin row-blocks ($column-responsive: true, $min-height: 130px, $separator: true) {

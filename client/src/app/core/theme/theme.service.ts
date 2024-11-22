@@ -207,14 +207,14 @@ export class ThemeService {
 
       const mainColorHSL = toHSLA(parse(mainColor))
 
-      let lastColorHSL = { ...mainColorHSL }
-
       // Inject in alphabetical order for easy debug
       const toInject: { id: number, key: string, value: string }[] = [
         { id: 500, key: `--${prefix}-500`, value: this.toHSLStr(mainColorHSL) }
       ]
 
       for (const j of [ -1, 1 ]) {
+        let lastColorHSL = { ...mainColorHSL }
+
         for (let i = 1; i <= 9; i++) {
           const suffix = 500 + (50 * i * j)
           const key = `--${prefix}-${suffix}`

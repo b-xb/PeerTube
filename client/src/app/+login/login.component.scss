@@ -18,7 +18,6 @@ input[type=email] {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: auto;
 
   > div {
     flex: 1 1;
@@ -32,8 +31,7 @@ my-alert {
 
 my-alert {
   display: block;
-
-  @include margin(0, auto, 2rem);
+  margin-bottom: 2rem;
 }
 
 .login-form-and-externals {

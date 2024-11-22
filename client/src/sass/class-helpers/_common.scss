@@ -49,7 +49,7 @@
 
 .callout {
   padding: 1.25rem;
-  border: 1px solid #eee;
+  border: 1px solid pvar(--bg-secondary-400);
   border-radius: 0.25rem;
   position: relative;
 
@@ -57,7 +57,7 @@
     position: relative;
     top: -5px;
     left: -10px;
-    color: #6c757d !important;
+    color: pvar(--fg-400) !important;
     font-size: 1rem;
     font-weight: $font-bold;
     margin-bottom: 0.5rem;
@@ -69,7 +69,7 @@
   }
 
   &.callout-primary {
-    border-color: pvar(--primary-100);
+    border-color: pvar(--primary-350);
 
     &:not(.callout-light) {
       border-left-color: pvar(--primary);
@@ -94,6 +94,10 @@
 
     .alert-link {
       color: pvar(--alert-primary-fg) !important;
+    }
+
+    .link-primary {
+      color: inherit !important;
     }
 
     .secondary-button {

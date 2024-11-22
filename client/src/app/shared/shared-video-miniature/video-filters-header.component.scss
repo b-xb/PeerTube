@@ -7,19 +7,15 @@ $filters-background: pvar(--bg-secondary-400);
   --input-bg: #{pvar(--input-bg-in-secondary)};
   --input-border-color: #{pvar(--input-bg-in-secondary)};
 
-  margin-bottom: 45px;
+  margin-bottom: 1rem;
+
+  // Prevent layout shift
+  min-height: 140px;
 }
 
-.scope-row {
+.scope-info {
   font-size: 20px;
   color: pvar(--fg-350);
-  margin-bottom: 0.5rem;
-}
-
-.filters-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .select-label {
@@ -92,6 +88,8 @@ $filters-background: pvar(--bg-secondary-400);
   @include margin-left(0.25rem);
 
   my-global-icon {
+    color: pvar(--secondary-icon-color);
+
     @include margin-left(5px);
   }
 

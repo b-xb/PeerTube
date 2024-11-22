@@ -4,15 +4,9 @@
   </div>
 </ng-template>
 
-<h1 class="title-page-v2">
-  <strong class="underline-orange">{{ instanceName }}</strong>
-
-  >
-
-  <ng-container i18n>Login</ng-container>
-</h1>
-
 <div class="margin-content">
+  <h1 class="title-page" i18n>Login on {{ instanceName }}</h1>
+
   <ng-container *ngIf="!externalAuthError && !isAuthenticatedWithExternalAuth">
 
     <my-alert type="primary">

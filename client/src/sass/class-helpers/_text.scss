@@ -70,13 +70,13 @@
   font-weight: $font-semibold;
   line-height: 1.1;
 
-  @include underline-orange;
+  @include underline-primary;
 
   &:hover {
     color: pvar(--fg);
     opacity: 0.8;
 
-    @include underline-orange;
+    @include underline-primary;
   }
 }
 
@@ -90,10 +90,6 @@
     position: absolute;
     width: 20px;
   }
-}
-
-.underline-orange {
-  @include underline-orange;
 }
 
 .section-label {
