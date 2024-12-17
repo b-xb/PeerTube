@@ -4,6 +4,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import checker from 'vite-plugin-checker'
+import { viteSingleFile } from "vite-plugin-singlefile"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -64,9 +65,12 @@ export default defineConfig(({ mode }) => {
 
       rollupOptions: {
         input: {
-          embed: resolve(root, 'src', 'standalone', 'videos', 'embed.html'),
-          'test-embed': resolve(root, 'src', 'standalone', 'videos', 'test-embed.html')
+          embed: resolve(root, 'src', 'standalone', 'videos', 'embed.html') //,
+          //'test-embed': resolve(root, 'src', 'standalone', 'videos', 'test-embed.html')
         },
+        // output: {
+        //   inlineDynamicImports: true
+        // },
       },
     },
 
@@ -77,7 +81,8 @@ export default defineConfig(({ mode }) => {
         }
       }),
 
-      nodePolyfills()
+      nodePolyfills(),
+      viteSingleFile()
     ]
   }
 })
